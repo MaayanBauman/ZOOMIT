@@ -5,7 +5,6 @@ import useStyles from './LandingPageStyles';
 
 const LandingPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
-    const aboutUsMessage = 'בZoomit מרכזים לך את כל אירועי הזום הכי חמים בתחומי עניין מגוונים.';
 
     return (
         <div className={classes.backgroundIamge + ' ' + classes.container}>
@@ -13,7 +12,13 @@ const LandingPage: React.FC = (): JSX.Element => {
                 <img src={logo} alt='logo'  className={classes.logo}/>
             </div>
             <Typography className={classes.aboutUsMessage}>
-                {aboutUsMessage}
+                . מרכזים לך את כל אירועי הזום הכי חמים בתחומי עניין מגוונים Zoomit-ב
+            </Typography>
+            <Typography className={classes.aboutUsMessage}>
+            !יש לך שעה פנויה? רק צריך להיכנס ולמצוא את מה שבא לך לראות
+            </Typography>
+            <Typography className={classes.aboutUsMessage}>
+                (:מה שנשאר לך לעשות זה להירשם ולהינות
             </Typography>
         </div>
     );
