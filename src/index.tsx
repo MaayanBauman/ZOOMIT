@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 
-import App from './App';
+import App from 'components/App';
 
 ReactDOM.render(
     <StylesProvider>
