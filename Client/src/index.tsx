@@ -2,16 +2,20 @@ import React from 'react';
 import rtl from 'jss-rtl';
 import ReactDOM from 'react-dom'; 
 import { BrowserRouter } from 'react-router-dom';
-import { StylesProvider } from '@material-ui/core/styles';
+import { StylesProvider, MuiThemeProvider } from '@material-ui/core/styles';
 
 import App from 'components/App';
+import theme from './assets/styles/theme';
+import './assets/styles/fonts.css';
 
 ReactDOM.render(
-    <StylesProvider>
-    <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StylesProvider>
+  <MuiThemeProvider theme={theme}>
+      <StylesProvider>
+        <BrowserRouter>
+            <App />
+          </BrowserRouter>
+      </StylesProvider>
+    </MuiThemeProvider>
   ,
   document.getElementById('root')
 );

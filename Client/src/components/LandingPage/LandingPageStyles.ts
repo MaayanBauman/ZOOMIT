@@ -29,7 +29,8 @@ const useStyles = makeStyles(() => ({
     },
     aboutUsMessage: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        fontFamily: 'Assistant',
     }
 }));
 
