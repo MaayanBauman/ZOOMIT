@@ -1,11 +1,12 @@
-import { Typography, Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+
 import logo from 'assets/images/Zoomit.png';
 import useStyles from './LandingPageStyles';
+import Login from './Login/Login';
 
 
 const LandingPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
-
     return (
         <div className={classes.backgroundIamge + ' ' + classes.container}>
             <div className={classes.logoContainer}>
@@ -20,9 +21,7 @@ const LandingPage: React.FC = (): JSX.Element => {
             <Typography className={classes.aboutUsMessage}>
                 (:מה שנשאר לך לעשות זה להירשם ולהינות
             </Typography>
-            <Button variant="contained" color="primary" className={classes.signInGoogle}>
-                התחברות עם חשבון גוגל
-            </Button>
+            <Login />
             <Typography className={classes.aboutUsMessage}>
                 אנחנו משתמשים בחיבור עם גוגל כדי שנוכל
             </Typography>
