@@ -5,10 +5,18 @@ export const primaryBackgroundColor = '#F3F6FB';
 const theme = createMuiTheme({
     direction: 'rtl',
     typography: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: 'Assistant',
-        fontWeightRegular: 400,
-        fontWeightMedium: 500,
+        fontWeightRegular: 500,
+        fontWeightMedium: 600,
+    },
+    palette: {
+        primary: {
+            light: '#f69d69',
+            main: '#F26D21',
+            dark: '#d4550c',
+            contrastText: '#fff',
+        }
     }
 });
 

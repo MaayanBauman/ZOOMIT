@@ -24,13 +24,22 @@ const useStyles = makeStyles(() => ({
     }, 
     logo: {
         width: 'auto',
-        height: '50%',
+        height: '40%',
         marginTop: '9vh',
     },
     aboutUsMessage: {
         display: 'flex',
         justifyContent: 'center',
         fontFamily: 'Assistant',
+    },
+    signInGoogle: {
+        width: '18vw',
+        height: '8vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: '9vh',
+        marginBottom: '2vh'
     }
 }));
 
