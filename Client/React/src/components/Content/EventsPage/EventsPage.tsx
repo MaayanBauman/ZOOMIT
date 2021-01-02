@@ -8,7 +8,6 @@ const EventsPage: React.FC = (): JSX.Element => {
             <Typography>
               אירועים
             </Typography>
-           
         </div>
     );
 }
