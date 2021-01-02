@@ -7,7 +7,7 @@ import ZoomerPage from './ZoomerPage/ZoomerPage';
 import {eventsPageRoute, zoomerPageRoute} from 'utils/Routes/Routes';
 
 const Content: React.FC = (): JSX.Element => {
-    let { path, url } = useRouteMatch();
+    const { path } = useRouteMatch();
 
     return (
         <div >
@@ -16,7 +16,7 @@ const Content: React.FC = (): JSX.Element => {
                 <Switch>
                     <Route path={`${path}${zoomerPageRoute}`} component={ZoomerPage} />
                     <Route path={`${path}${eventsPageRoute}`} component={EventsPage} />
-                    <Route path={`${path}`} exact component={EventsPage} />
+                    <Route path={path} exact component={EventsPage} />
                 </Switch>
             </>
         </div>
