@@ -1,3 +1,6 @@
-export const eventsPageRoute : string = '/events';
+export const contentRoute : string = '/content';
 export const landingPageRoute: string = '/landing';
+
+export const eventsPageRoute : string = '/events';
+export const zoomerPageRoute : string = '/zoomer';
 

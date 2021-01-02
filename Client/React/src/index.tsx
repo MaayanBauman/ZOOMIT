@@ -1,5 +1,4 @@
 import React from 'react';
-import rtl from 'jss-rtl';
 import ReactDOM from 'react-dom'; 
 import { BrowserRouter } from 'react-router-dom';
 import { StylesProvider, MuiThemeProvider } from '@material-ui/core/styles';
