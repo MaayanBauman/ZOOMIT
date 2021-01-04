@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
+import { IOperationBuilder } from './operations/types'
+import operationBuilder from './operations';
+import { IUser } from '../models/types/user';
+import config from '../config';
 
-export const getAllUsers = (req:Request, res: Response) => {
-    res.send('GET all users');
-};
+const collectionName = config.collections.users.name;
+const usersOperationBuilder: IOperationBuilder<IUser> = operationBuilder<IUser>();
+
+export const getAllUsers = () => usersOperationBuilder.getAllObjects(collectionName);
 
 export const getUserById = (req:Request, res: Response) => {
     res.send('GET user by ID ' + req.params.id);

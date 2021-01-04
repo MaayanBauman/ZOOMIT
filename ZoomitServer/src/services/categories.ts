@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
+import { IOperationBuilder } from './operations/types'
+import operationBuilder from './operations';
+import { ICategory } from '../models/types/category';
+import config from '../config';
 
-export const getAllCategories = (req:Request, res: Response) => {
-    res.send('GET all categories');
-};
+const collectionName = config.collections.categories.name;
+const categoriesOperationBuilder: IOperationBuilder<ICategory> = operationBuilder<ICategory>();
+
+export const getAllCategories = () => categoriesOperationBuilder.getAllObjects(collectionName);
 
 export const getCategoryById = (req:Request, res: Response) => {
     res.send('GET categorie by ID ' + req.params.id);

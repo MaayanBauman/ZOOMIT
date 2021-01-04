@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { events } from '../services';
 
-export const getAllEvents = (req: Request, res: Response, next: NextFunction) => {
+export const getAllEvents = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.getAllEvents(req, res);
+        res.json(await events.getAllEvents());
     } catch (err) {
         next(err);
     }

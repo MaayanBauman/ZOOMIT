@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Handler } from 'express';
 import { categories } from '../services';
 
-export const getAllCategories = (req: Request, res: Response, next: NextFunction) => {
+export const getAllCategories: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        categories.getAllCategories(req, res);
+        res.json(await categories.getAllCategories());
     } catch (err) {
         next(err);
     }

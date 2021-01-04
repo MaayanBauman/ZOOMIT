@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { sources } from '../services';
 
-export const getAllSources = (req: Request, res: Response, next: NextFunction) => {
+export const getAllSources = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.getAllSources(req, res);
+        res.json(await sources.getAllSources());
     } catch (err) {
         next(err);
     }

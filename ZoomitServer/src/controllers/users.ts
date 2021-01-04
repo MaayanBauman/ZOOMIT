@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { users } from '../services';
 
-export const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
+export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        users.getAllUsers(req, res);
+        res.json(await users.getAllUsers());
     } catch (err) {
         next(err);
     }

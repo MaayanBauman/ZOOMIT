@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
+import { IOperationBuilder } from './operations/types'
+import operationBuilder from './operations';
+import { ISource } from '../models/types/source';
+import config from '../config';
 
-export const getAllSources = (req:Request, res: Response) => {
-    res.send('GET all sources');
-};
+const collectionName = config.collections.sources.name;
+const sourcesOperationBuilder: IOperationBuilder<ISource> = operationBuilder<ISource>();
+
+export const getAllSources = () => sourcesOperationBuilder.getAllObjects(collectionName);
 
 export const getSourceById = (req:Request, res: Response) => {
     res.send('GET source by ID ' + req.params.id);
