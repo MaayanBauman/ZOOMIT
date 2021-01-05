@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
+import EventCard  from './EventCard/EventCard';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
@@ -41,6 +42,7 @@ const EventsPage: React.FC = (): JSX.Element => {
             <Typography>
               אירועים
             </Typography>
+            <EventCard />
         </div>
     );
 }
