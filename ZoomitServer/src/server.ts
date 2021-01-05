@@ -31,12 +31,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500).send('Internal server error');
 });
 
-var corsOptions = {
-  origin: 'http://example.com',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-
 app.listen(config.port, () => {
   console.log( `server started on port ${config.port}`);
 });
