@@ -1,23 +1,9 @@
-import { Typography, Card, CardContent, CardActions, makeStyles, Button } from '@material-ui/core';
-const useStyles = makeStyles({
-    root: {
-      width: '20vw',
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    title: {
-      fontSize: 14,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
-  
+import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
 
-const EventCard: React.FC = (): JSX.Element => {
+import Event from 'models/Event/Event';
+import useStyles from './EventCardStyles';
+  
+const EventCard: React.FC<Props> = ({event}: Props): JSX.Element => {
     const classes = useStyles();
     
     return (
@@ -25,18 +11,10 @@ const EventCard: React.FC = (): JSX.Element => {
            <Card className={classes.root}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Word of the Day
+                        {event.title}
                     </Typography>
                     <Typography variant="h5" component="h2">
-                        tnts
-                    </Typography>
-                    <Typography className={classes.pos} color="textSecondary">
-                    adjective
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
+                        {event.description}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -45,6 +23,9 @@ const EventCard: React.FC = (): JSX.Element => {
         </Card>
         </div>
     );
+}
+interface Props {
+    event: Event;
 }
 
 export default EventCard;

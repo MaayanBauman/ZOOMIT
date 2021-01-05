@@ -1,48 +1,24 @@
 import React, {  useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 
-import axios from 'utils/axios';
 import Event from 'models/Event/Event';
 import EventCard  from './EventCard/EventCard';
+import useEventPage from './useEventPage';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
-    const [events, setEvents] = React.useState<Event[]>();
+    const {events} = useEventPage();
 
-    useEffect(()=>{
-        axios.get('/events')
-        .then((result : any)=> {
-            const eventsResult = result.data.map((event: any)=> {
-                return {
-                    id: event._id,
-                    title: event.title,
-                    description: event.description,
-                    zoomer_id: event.zoomer_id,
-                    zoom_link: event.zoom_link,
-                    password: event.password,
-                    start_time: new Date(event.start_time),
-                    end_time: new Date(event.end_time),
-                    max_registers: event.max_registers,
-                    registered_users: event.registered_users,
-                    category: event.string,
-                    price: +event.price.$numberDecimal,
-                    source_id: event.source_id
-                }
-            });
-           setEvents(events);
-           console.log(eventsResult);
-         })
-        .catch((error: any)=> (
-            console.log(error)
-        ))
-    }, [])
+    useEffect((()=>{
+
+    }), [events]);
 
     return (
         <div >
             <Typography>
               אירועים
             </Typography>
-            <EventCard />
+            { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
         </div>
     );
 }
