@@ -1,16 +1,14 @@
 import { Typography } from '@material-ui/core';
 
-
-const EventsPage: React.FC = (): JSX.Element => {
+const ProfilePage: React.FC = (): JSX.Element => {
    
     return (
         <div >
             <Typography>
-              אירועים
+             פרופיל
             </Typography>
-           
         </div>
     );
 }
 
-export default EventsPage;
+export default ProfilePage;

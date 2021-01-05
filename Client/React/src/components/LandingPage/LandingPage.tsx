@@ -1,9 +1,8 @@
 import { Typography } from '@material-ui/core';
 
+import Login from './Login/Login';
 import logo from 'assets/images/Zoomit.png';
 import useStyles from './LandingPageStyles';
-import Login from './Login/Login';
-
 
 const LandingPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
