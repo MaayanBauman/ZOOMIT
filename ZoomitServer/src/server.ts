@@ -22,10 +22,10 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.log(err);
 
   if (err.status) {
-    res.status(err.status).send(err.message);
+    res.sendStatus(err.status).send(err.message);
   }
 
-  res.send(500).send('Internal server error');
+  res.sendStatus(500).send('Internal server error');
 });
 
 app.listen(config.port, () => {

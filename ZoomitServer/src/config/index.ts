@@ -1,7 +1,7 @@
 export default {
     port: 3001,
     mongoConfig: {
-        connectionString: 'mongodb://localhost:27017',
+        connectionString: 'mongodb+srv://admin:a123456@cluster0.cn1mp.mongodb.net/zoomit?retryWrites=true&w=majority',
         dbName: 'zoomit'
     },
     collections: {

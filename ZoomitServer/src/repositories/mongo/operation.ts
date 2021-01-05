@@ -1,4 +1,4 @@
-import { Collection, Db, MongoClient } from 'mongodb';
+import { Collection, Db, MongoClient, MongoError } from 'mongodb';
 import { IOperation } from './types';
 import config from '../../config';
 
@@ -11,9 +11,10 @@ const doOperation = async (collectionName: string, operation: IOperation, logMes
         const collection: Collection = dbClient.collection(collectionName);
         return await operation(collection);
     } catch (err) {
-        throw Error(logMessage);
+        throw Error(logMessage + ': ' + err);
     } finally {
-        await client.close();
+        if (client)
+            await client.close();
     }
 }
 
