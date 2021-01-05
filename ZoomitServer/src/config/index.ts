@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 export default {
-    port: 3001,
+    port: process.env.PORT,
     mongoConfig: {
-        connectionString: 'mongodb+srv://admin:a123456@cluster0.cn1mp.mongodb.net/zoomit?retryWrites=true&w=majority',
+        connectionString: process.env.CONNECTION_STRING,
         dbName: 'zoomit'
     },
     collections: {
