@@ -1,21 +1,23 @@
 import { Request, Response } from 'express';
+import { IOperationBuilder } from './operations/types'
+import operationBuilder from './operations';
+import { ICategory } from '../models/types/category';
+import config from '../config';
 
-export const getAllCategories = (req:Request, res: Response) => {
-    res.send('GET all categories');
-};
+const collectionName = config.collections.categories.name;
+const categoriesOperationBuilder: IOperationBuilder<ICategory> = operationBuilder<ICategory>();
 
-export const getCategoryById = (req:Request, res: Response) => {
-    res.send('GET categorie by ID ' + req.params.id);
-};
+export const getAllCategories = () => 
+    categoriesOperationBuilder.getAllObjects(collectionName);
 
-export const addCategory = (req:Request, res: Response) => {
-    res.send('ADD categorie ' + req.body.values);
-};
+export const getCategoryById = (id: string) => 
+    categoriesOperationBuilder.getObjectById(collectionName, id);
 
-export const updateCategory = (req:Request, res: Response) => {
-    res.send('UDPATE categorie ' + req.params.id + 'values ' +  req.body.values);
-};
+export const addCategory = (newCategory: ICategory) => 
+    categoriesOperationBuilder.createObject(collectionName, newCategory);
 
-export const deleteCategory = (req:Request, res: Response) => {
-    res.send('DELETE categorie ' + req.params.id + 'values ' +  req.body.values);
-};
+export const updateCategory = (id: string, categoryToUpdate: ICategory) => 
+    categoriesOperationBuilder.updateObject(collectionName, id, categoryToUpdate);
+
+export const deleteCategory = (id: string) => 
+    categoriesOperationBuilder.deleteObject(collectionName, id);

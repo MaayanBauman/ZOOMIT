@@ -1,41 +1,41 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Handler, json } from 'express';
 import { sources } from '../services';
 
-export const getAllSources = (req: Request, res: Response, next: NextFunction) => {
+export const getAllSources: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.getAllSources(req, res);
+        res.json(await sources.getAllSources());
     } catch (err) {
         next(err);
     }
 };
 
-export const getSourceById = (req: Request, res: Response, next: NextFunction) => {
+export const getSourceById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.getSourceById(req, res);
+        res.json(await sources.getSourceById(req.params.id));
     } catch (err) {
         next(err);
     }
 };
 
-export const addSource = (req: Request, res: Response, next: NextFunction) => {
+export const addSource: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.addSource(req, res);
+        res.json(await sources.addSource(req.body.source));
     } catch (err) {
         next(err);
     }
 };
 
-export const updateSource = (req: Request, res: Response, next: NextFunction) => {
+export const updateSource: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.updateSource(req, res);
+        res.json(await sources.updateSource(req.params.id, req.body.source));
     } catch (err) {
         next(err);
     }
 };
 
-export const deleteSource = (req: Request, res: Response, next: NextFunction) => {
+export const deleteSource: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        sources.deleteSource(req, res);
+        res.json(await sources.deleteSource(req.params.id));
     } catch (err) {
         next(err);
     }

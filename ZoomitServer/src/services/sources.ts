@@ -1,21 +1,23 @@
 import { Request, Response } from 'express';
+import { IOperationBuilder } from './operations/types'
+import operationBuilder from './operations';
+import { ISource } from '../models/types/source';
+import config from '../config';
 
-export const getAllSources = (req:Request, res: Response) => {
-    res.send('GET all sources');
-};
+const collectionName = config.collections.sources.name;
+const sourcesOperationBuilder: IOperationBuilder<ISource> = operationBuilder<ISource>();
 
-export const getSourceById = (req:Request, res: Response) => {
-    res.send('GET source by ID ' + req.params.id);
-};
+export const getAllSources = () => 
+    sourcesOperationBuilder.getAllObjects(collectionName);
 
-export const addSource = (req:Request, res: Response) => {
-    res.send('ADD source ' + req.body.values);
-};
+export const getSourceById = (id: string) => 
+    sourcesOperationBuilder.getObjectById(collectionName, id);
 
-export const updateSource = (req:Request, res: Response) => {
-    res.send('UDPATE srouce ' + req.params.id + 'values ' +  req.body.values);
-};
+export const addSource = (newSource: ISource) => 
+    sourcesOperationBuilder.createObject(collectionName, newSource);
 
-export const deleteSource = (req:Request, res: Response) => {
-    res.send('DELETE srouce ' + req.params.id + 'values ' +  req.body.values);
-};
+export const updateSource = (id: string, sourceToUpdate: ISource) => 
+    sourcesOperationBuilder.updateObject(collectionName, id, sourceToUpdate);
+
+export const deleteSource = (id: string) => 
+    sourcesOperationBuilder.deleteObject(collectionName, id);

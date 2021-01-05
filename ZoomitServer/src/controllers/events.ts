@@ -1,41 +1,41 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Handler } from 'express';
 import { events } from '../services';
 
-export const getAllEvents = (req: Request, res: Response, next: NextFunction) => {
+export const getAllEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.getAllEvents(req, res);
+        res.json(await events.getAllEvents());
     } catch (err) {
         next(err);
     }
 };
 
-export const getEventById = (req: Request, res: Response, next: NextFunction) => {
+export const getEventById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.getEventById(req, res);
+        res.json(await events.getEventById(req.params.id));
     } catch (err) {
         next(err);
     }
 };
 
-export const addEvent = (req: Request, res: Response, next: NextFunction) => {
+export const addEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.addEvent(req, res);
+        res.json(await events.addEvent(req.body.event));
     } catch (err) {
         next(err);
     }
 };
 
-export const updateEvent = (req: Request, res: Response, next: NextFunction) => {
+export const updateEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.updateEvent(req, res);
+        res.json(await events.updateEvent(req.params.id, req.body.event))
     } catch (err) {
         next(err);
     }
 };
 
-export const deleteEvent = (req: Request, res: Response, next: NextFunction) => {
+export const deleteEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        events.deleteEvent(req, res);
+        res.json(await events.deleteEvent(req.params.id));
     } catch (err) {
         next(err);
     }
