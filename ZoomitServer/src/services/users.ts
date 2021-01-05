@@ -7,20 +7,17 @@ import config from '../config';
 const collectionName = config.collections.users.name;
 const usersOperationBuilder: IOperationBuilder<IUser> = operationBuilder<IUser>();
 
-export const getAllUsers = () => usersOperationBuilder.getAllObjects(collectionName);
+export const getAllUsers = () => 
+    usersOperationBuilder.getAllObjects(collectionName);
 
-export const getUserById = (req:Request, res: Response) => {
-    res.send('GET user by ID ' + req.params.id);
-};
+export const getUserById = (id: string) => 
+    usersOperationBuilder.getObjectById(collectionName, id);
 
-export const addUser = (req:Request, res: Response) => {
-    res.send('ADD user ' + req.body.values);
-};
+export const addUser = (newSource: IUser) => 
+    usersOperationBuilder.createObject(collectionName, newSource);
 
-export const updateUser = (req:Request, res: Response) => {
-    res.send('UDPATE user ' + req.params.id + 'values ' +  req.body.values);
-};
+export const updateUser = (id: string, sourceToUpdate: IUser) => 
+    usersOperationBuilder.updateObject(collectionName, id, sourceToUpdate);
 
-export const deleteUser = (req:Request, res: Response) => {
-    res.send('DELETE user ' + req.params.id + 'values ' +  req.body.values);
-};
+export const deleteUser = (id: string) => 
+    usersOperationBuilder.deleteObject(collectionName, id);

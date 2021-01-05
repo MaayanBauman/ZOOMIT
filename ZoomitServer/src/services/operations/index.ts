@@ -1,60 +1,65 @@
+import { ObjectID } from 'mongodb';
 import doOperation from '../../repositories/mongo/operation';
 import { IOperationBuilder } from './types';
 
 const getAllObjects = (collectionName: string) => 
-    doOperation(collectionName, collection => collection.find({}).toArray(), 'error');
+    doOperation(collectionName, collection => collection.find({}).toArray(), 
+                `Fail to get all the objects from ${collectionName}`);
 
 const getObjectsBySubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $all: subset } } 
-    ).toArray(), 'error');
+    ).toArray(), `Fail to get the objects with ${objField}= ${subset} from ${collectionName}`);
     
 const getObjectsInSubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $in: subset } }
-    ).toArray(), 'error');
+    ).toArray(), `Fail to get the objects with ${objField} in ${subset} from ${collectionName}`);
 
-const getObjectById = (collectionName: string, objId: string, id: string) =>
+const getObjectById = (collectionName: string, id: string) => 
     doOperation(collectionName, collection => collection.findOne(
-        { [objId]: id }
-    ), 'error');
+        { '_id': new ObjectID(id) }
+    ), `Fail to get the object by id- ${id} from ${collectionName}`);
 
 const createObject = (collectionName: string, obj: any) =>
-    doOperation(collectionName, collection => collection.insertOne(obj), 'error');
+    doOperation(collectionName, collection => collection.insertOne(obj), 
+                `Fail to the create the object ${obj} in ${collectionName}`);
 
 const createObjects = (collectionName: string, objects: any[]) =>
-    doOperation(collectionName, collection => collection.insertMany(objects), 'error');
+    doOperation(collectionName, collection => collection.insertMany(objects), 
+                `Fail to create the objects ${objects} in ${collectionName}`);
 
-const addUniqueValuesToArray = (collectionName: string, objId: string, id: string, objField: string, values: any[]) =>
+const addUniqueValuesToArray = (collectionName: string, id: string, objField: string, values: any[]) =>
     doOperation(collectionName, collection => collection.findOneAndUpdate(
-        { [objId]: id }, 
+        { '_id': new ObjectID(id) }, 
         { $addToSet: { [objField]: { $each: values } } }, 
         { returnOriginal: false }
-    ), 'error');
+    ), `Fail to add the unique values ${values} to ${objField} in ${collectionName}- ${id}`);
 
-const addValuesToArray = (collectionName: string, objId: string, id: string, objField: string, values: any[]) =>
+const addValuesToArray = (collectionName: string, id: string, objField: string, values: any[]) =>
     doOperation(collectionName, collection => collection.findOneAndUpdate(
-        { [objId]: id }, 
+        { '_id': new ObjectID(id) },
         { $push: { [objField]: { $each: values } } }, 
         { returnOriginal: false }
-    ), 'error');
+    ), `Fail to add the values ${values} to ${objField} in ${collectionName}- ${id}`);
 
-const deleteObject = (collectionName: string, objId: string, id: string) =>
-    doOperation(collectionName, collection => collection.deleteOne({ [objId]: id }), 'error');
+const deleteObject = (collectionName: string, id: string) =>
+    doOperation(collectionName, collection => collection.deleteOne({ '_id': new ObjectID(id) }), 
+                `Fail to delete the object ${id} from ${collectionName}`);
 
-const deleteValuesFromArray = (collectionName: string, objId: string, id: string, objField:string, values: any[]) =>
+const deleteValuesFromArray = (collectionName: string, id: string, objField:string, values: any[]) =>
     doOperation(collectionName, collection => collection.findOneAndUpdate(
-        { [objId]: id },
+        { '_id': new ObjectID(id) },
         { $pullAll: { [objField]: values } },
         { returnOriginal: false }
-    ), 'error');
+    ), `Fail to delete the values ${values} from the ${objField} in  ${collectionName}- ${id}`);
 
-const updateObject = (collectionName: string, objId: string, id: string, obj: any) =>
+const updateObject = (collectionName: string, id: string, obj: any) =>
     doOperation(collectionName, collection => collection.findOneAndUpdate(
-        { [objId]: id },
+        { '_id': new ObjectID(id) },
         { $set: obj },
         { returnOriginal: false }
-    ), 'error');
+    ), `Fail to update ${id}- ${collectionName} to ${obj}`);
 
 export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,

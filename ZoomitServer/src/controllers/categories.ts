@@ -9,33 +9,33 @@ export const getAllCategories: Handler = async (req: Request, res: Response, nex
     }
 };
 
-export const getCategoryById = (req: Request, res: Response, next: NextFunction) => {
+export const getCategoryById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        categories.getCategoryById(req, res);
+        res.json(await categories.getCategoryById(req.params.id));
     } catch (err) {
         next(err);
     }
 };
 
-export const addCategory = (req: Request, res: Response, next: NextFunction) => {
+export const addCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        categories.addCategory(req, res);
+        res.json(await categories.addCategory(req.body.category));
     } catch (err) {
         next(err);
     }
 };
 
-export const updateCategory = (req: Request, res: Response, next: NextFunction) => {
+export const updateCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        categories.updateCategory(req, res);
+        res.json(await categories.updateCategory(req.params.id, req.body.category));
     } catch (err) {
         next(err);
     }
 };
 
-export const deleteCategory = (req: Request, res: Response, next: NextFunction) => {
+export const deleteCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        categories.deleteCategory(req, res);
+        res.json(await categories.deleteCategory(req.params.id));
     } catch (err) {
         next(err);
     }

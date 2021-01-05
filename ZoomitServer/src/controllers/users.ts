@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Handler } from 'express';
 import { users } from '../services';
 
-export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllUsers: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.getAllUsers());
     } catch (err) {
@@ -9,33 +9,33 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     }
 };
 
-export const getUserById = (req: Request, res: Response, next: NextFunction) => {
+export const getUserById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        users.getUserById(req, res);
+        res.json(await users.getUserById(req.params.id));
     } catch (err) {
         next(err);
     }
 };
 
-export const addUser = (req: Request, res: Response, next: NextFunction) => {
+export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        users.addUser(req, res);
+        res.json(await users.addUser(req.body.user));
     } catch (err) {
         next(err);
     }
 };
 
-export const updateUser = (req: Request, res: Response, next: NextFunction) => {
+export const updateUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        users.updateUser(req, res);
+        res.json(await users.updateUser(req.params.id, req.body.user));
     } catch (err) {
         next(err);
     }
 };
 
-export const deleteeUser = (req: Request, res: Response, next: NextFunction) => {
+export const deleteeUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        users.deleteUser(req, res);
+        res.json(await users.deleteUser(req.params.id));
     } catch (err) {
         next(err);
     }
