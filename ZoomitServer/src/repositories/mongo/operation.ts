@@ -1,4 +1,4 @@
-import { Collection, Db, MongoClient, MongoError } from 'mongodb';
+import { Collection, Db, MongoClient } from 'mongodb';
 import { IOperation } from './types';
 import config from '../../config';
 
