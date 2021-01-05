@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     admin: {
         color: '#868692',
+    },
+    activeItem: {
+        textDecorationLine: 'underline!important',
+        color: '#0C63CE'
+    },
+    menuLink: {
+        textDecoration: 'none'
     }
 }));
 
