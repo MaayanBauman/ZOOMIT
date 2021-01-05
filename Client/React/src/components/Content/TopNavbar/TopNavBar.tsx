@@ -35,8 +35,8 @@ const TopNavBar: React.FC = (): JSX.Element => {
                         </NavLink> 
                     </div> 
                     <div className={classes.leftSection}>
-                    <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}>
-                            ניהול המערכת
+                        <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}>
+                                ניהול המערכת
                         </Typography>
                         <IconButton edge="start" color="inherit" aria-label="menu" className={classes.admin}>
                             <Person />
