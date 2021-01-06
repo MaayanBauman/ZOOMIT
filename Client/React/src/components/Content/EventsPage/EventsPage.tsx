@@ -1,11 +1,9 @@
 import React, {  useEffect } from 'react';
 import { Typography } from '@material-ui/core';
-import Carousel from 'react-material-ui-carousel'
 
-import Event from 'models/Event/Event';
 import useEventPage from './useEventPage';
 import useStyles from './EventsPageStyles';
-import EventCard  from './EventCard/EventCard';
+import EventCategoryRow from './EventCategoryRow/EventCategotryRow';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
@@ -17,16 +15,12 @@ const EventsPage: React.FC = (): JSX.Element => {
     }), [events]);
 
     return (
-        <div className={classes.container}>
-            { <Carousel navButtonsAlwaysVisible={true} indicators={false} >
-                <div className={classes.eventRow}>
-                    { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
-                </div>  
-            </Carousel>}
-            {/* <div className={classes.eventRow}>
-                { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
-            </div>   */}
-        </div>
+        <>
+            <div className={classes.container}>
+                <EventCategoryRow events={events}/> 
+            </div>
+        </>
+        
     );
 }
 

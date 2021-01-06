@@ -20,7 +20,7 @@ const EventCard: React.FC<Props> = ({event}: Props): JSX.Element => {
                 <CardActions>
                     <Button size="small">Learn More</Button>
                 </CardActions>
-        </Card>
+            </Card>
         </div>
     );
 }
