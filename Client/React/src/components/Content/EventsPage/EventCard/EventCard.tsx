@@ -13,7 +13,7 @@ const EventCard: React.FC<Props> = ({event}: Props): JSX.Element => {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {event.title}
                     </Typography>
-                    <Typography variant="h5" component="h2">
+                    <Typography  className={classes.zoomer}>
                         {event.description}
                     </Typography>
                 </CardContent>
