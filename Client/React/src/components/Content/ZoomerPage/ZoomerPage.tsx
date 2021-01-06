@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 
 
-const EventsPage: React.FC = (): JSX.Element => {
+const ZoomerPage: React.FC = (): JSX.Element => {
    
     return (
         <div >
@@ -12,4 +12,4 @@ const EventsPage: React.FC = (): JSX.Element => {
     );
 }
 
-export default EventsPage;
+export default ZoomerPage;

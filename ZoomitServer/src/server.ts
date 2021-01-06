@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction, Express } from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+
 import router from './routes';
 import config from './config';
 
@@ -7,6 +9,7 @@ require('dotenv').config();
 
 const app: Express = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/', router);
 
