@@ -19,14 +19,15 @@ const EventsPage: React.FC = (): JSX.Element => {
             <Typography>
               אירועים
             </Typography>
-            <Carousel navButtonsAlwaysVisible={true} indicators={false}>
+            {/* <Carousel navButtonsAlwaysVisible={true} indicators={false}>
                 <div>
                     { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
                 </div>
                 <div>
                     { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
                 </div>
-            </Carousel>
+            </Carousel> */}
+              { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
         </div>
     );
 }
