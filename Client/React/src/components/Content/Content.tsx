@@ -5,6 +5,7 @@ import TopNavBar from './TopNavbar/TopNavBar';
 import EventsPage from './EventsPage/EventsPage';
 import ZoomerPage from './ZoomerPage/ZoomerPage';
 import ProfilePage from './ProfilePage/ProfilePage';
+import LoadingSpinner  from 'utils/LoadingSpinner/LoadingSpinner';
 import {eventsPageRoute, zoomerPageRoute, profilePageRoute} from 'utils/Routes/Routes';
 
 const Content: React.FC = (): JSX.Element => {
@@ -21,6 +22,7 @@ const Content: React.FC = (): JSX.Element => {
                     <Route path={path} exact component={EventsPage} />
                 </Switch>
             </>
+            <LoadingSpinner />
         </div>
     );
 }

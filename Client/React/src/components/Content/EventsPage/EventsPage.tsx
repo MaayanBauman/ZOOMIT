@@ -1,33 +1,26 @@
 import React, {  useEffect } from 'react';
 import { Typography } from '@material-ui/core';
-import Carousel from 'react-material-ui-carousel'
 
-import Event from 'models/Event/Event';
-import EventCard  from './EventCard/EventCard';
 import useEventPage from './useEventPage';
+import useStyles from './EventsPageStyles';
+import EventCategoryRow from './EventCategoryRow/EventCategotryRow';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
     const {events} = useEventPage();
+    const classes = useStyles();
 
     useEffect((()=>{
 
     }), [events]);
 
     return (
-        <div >
-            <Typography>
-              אירועים
-            </Typography>
-            <Carousel navButtonsAlwaysVisible={true} indicators={false}>
-                <div>
-                    { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
-                </div>
-                <div>
-                    { events?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
-                </div>
-            </Carousel>
-        </div>
+        <>
+            <div className={classes.container}>
+                <EventCategoryRow events={events}/> 
+            </div>
+        </>
+        
     );
 }
 
