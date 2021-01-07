@@ -4,9 +4,10 @@ import { Theme } from '@material-ui/core';
 const useStyles = makeStyles({
     root: {
       width: '14vw',
-      height: '40vh',
+      height: '30vh',
       backgroundColor: '#E4F7EB',
-      marginRight: '2vw'
+      marginRight: '2vw',
+      marginTop: '3vh'
     },
     bullet: {
       display: 'inline-block',

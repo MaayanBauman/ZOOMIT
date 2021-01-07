@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 
 import Event from 'models/Event/Event';
@@ -6,21 +7,23 @@ import useStyles from './EventCategoryRowStyles';
 
 export const EventsInRow = 6;
 
-const EventCategotryRow: React.FC<Props> = ({events}: Props): JSX.Element => {
+const EventCategotryRow: React.FC<Props> = ({events, title}: Props): JSX.Element => {
     const classes = useStyles();
 
     const chunks = (events: Event[], size: number) => {
         let results = [];
-        while (events.length) {
-          results.push(events.splice(0, size));
+        let eventsData= [...events];
+        while (eventsData.length) {
+          results.push(eventsData.splice(0, size));
         }
         console.log(results)
         return results;
     };
     
     return (
-        <div>
-        <Carousel navButtonsAlwaysVisible={true} indicators={false} animation='slide' autoPlay={false}>
+        <div className={classes.container}>
+        <Typography className={classes.title}>{title}</Typography> 
+        <Carousel navButtonsAlwaysVisible={true} indicators={true} animation='slide' autoPlay={false}>
             {
                 chunks(events, EventsInRow).map((eventArray)=>{
                     return (
@@ -36,6 +39,7 @@ const EventCategotryRow: React.FC<Props> = ({events}: Props): JSX.Element => {
 }
 interface Props {
     events: Event[];
+    title: string;
 }
 
 export default EventCategotryRow;

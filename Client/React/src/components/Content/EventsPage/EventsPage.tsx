@@ -17,7 +17,9 @@ const EventsPage: React.FC = (): JSX.Element => {
     return (
         <>
             <div className={classes.container}>
-                <EventCategoryRow events={events}/> 
+                <EventCategoryRow events={events} title='מוזיקה'/> 
+                <EventCategoryRow events={events} title='ספורט'/>
+                <EventCategoryRow events={events} title='תאטרון'/>
             </div>
         </>
         
