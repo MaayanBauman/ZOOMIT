@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
+import Category from 'models/Category/Category';
 
 const useEventPage = () : useEventPageOutCome  => {
 
-    const [events, setEvents] = React.useState<Event[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
 
     const getEvents = () => {
         axios.get('/events')
@@ -28,7 +30,22 @@ const useEventPage = () : useEventPageOutCome  => {
                 }
             });
            setEvents(eventsResult);
-           console.log(eventsResult);
+         })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
+
+    const getCategories = () => {
+        axios.get('/categories')
+        .then((result : any)=> {
+            const categoriesResult = result.data.map((category: any)=> {
+                return {
+                    id: category._id,
+                    name: category.name,
+                }
+            });
+           setCategories(categoriesResult);
          })
         .catch((error: any)=> (
             console.log(error)
@@ -37,15 +54,18 @@ const useEventPage = () : useEventPageOutCome  => {
 
     useEffect(() => {
         getEvents();
+        getCategories();
     }, [])
-
+    
     return {
-        events
+        events,
+        categories,
     }
 }
 
 interface useEventPageOutCome {
-    events: Event[]
+    events: Event[],
+    categories: Category[],
 }
 
 export default useEventPage;

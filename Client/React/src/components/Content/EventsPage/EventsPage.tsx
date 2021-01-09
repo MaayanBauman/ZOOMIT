@@ -7,7 +7,7 @@ import EventCategoryRow from './EventCategoryRow/EventCategotryRow';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
-    const {events} = useEventPage();
+    const {events, categories} = useEventPage();
     const classes = useStyles();
 
     useEffect((()=>{
@@ -17,9 +17,9 @@ const EventsPage: React.FC = (): JSX.Element => {
     return (
         <>
             <div className={classes.container}>
-                <EventCategoryRow events={events} title='מוזיקה'/> 
-                <EventCategoryRow events={events} title='ספורט'/>
-                <EventCategoryRow events={events} title='תאטרון'/>
+                {
+                    categories.map(category => (<EventCategoryRow key={category.id} events={events} title={category.name}/>) )
+                }
             </div>
         </>
         
