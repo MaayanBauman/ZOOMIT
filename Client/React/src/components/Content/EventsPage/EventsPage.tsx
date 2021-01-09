@@ -4,16 +4,15 @@ import useEventPage from './useEventPage';
 import useStyles from './EventsPageStyles';
 import EventCategoryRow from './EventCategoryRow/EventCategotryRow';
 import FilterBox from './FilterBox/FiterBox';
+import Category from 'models/Category/Category';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
     const {events, categories} = useEventPage();
     const classes = useStyles();
-
-    useEffect((()=>{
-
-    }), [events]);
-
+    
+    const getEventsByCategory = (category: Category) => events.filter(event => event.category === category.id);
+    
     return (
         <>
             <div className={classes.container}>
@@ -24,7 +23,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <FilterBox />
                 </div>
                 {
-                    categories.map(category => (<EventCategoryRow key={category.id} events={events} title={category.name}/>) )
+                    categories.map(category => (<EventCategoryRow key={category.id} events={getEventsByCategory(category)} title={category.name}/>) )
                 }
             </div>
         </>

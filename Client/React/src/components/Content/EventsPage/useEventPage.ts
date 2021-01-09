@@ -5,7 +5,6 @@ import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 
 const useEventPage = () : useEventPageOutCome  => {
-
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
 
@@ -24,7 +23,7 @@ const useEventPage = () : useEventPageOutCome  => {
                     end_time: new Date(event.end_time),
                     max_registers: event.max_registers,
                     registered_users: event.registered_users,
-                    category: event.string,
+                    category: event.category,
                     price: +event.price.$numberDecimal,
                     source_id: event.source_id
                 }

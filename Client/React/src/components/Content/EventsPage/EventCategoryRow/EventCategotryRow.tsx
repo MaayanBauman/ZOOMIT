@@ -21,7 +21,7 @@ const EventCategotryRow: React.FC<Props> = ({events, title}: Props): JSX.Element
         while (eventsData.length) {
           results.push(eventsData.splice(0, size));
         }
-        console.log(results)
+        console.log(results);
         return results;
     };
     
