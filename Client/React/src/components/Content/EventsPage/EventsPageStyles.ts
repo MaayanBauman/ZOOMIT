@@ -6,7 +6,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         marginTop: '5vh',
         fontFamily:'Assistant',
-        marginRight: '3vw'
+        marginRight: '2vw'
     },
     topbar: {
         direction: 'rtl',

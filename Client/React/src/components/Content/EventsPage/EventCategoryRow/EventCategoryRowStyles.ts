@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     },
     eventRow: {
          display:'flex',
-         width: '100vw',
+         width: '99vw',
          justifyContent: 'flex-end'  
     },
     title: {
