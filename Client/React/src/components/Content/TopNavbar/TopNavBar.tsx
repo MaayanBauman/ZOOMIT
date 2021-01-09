@@ -5,7 +5,7 @@ import{ AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 
 import useStyles from './TopNavbarStyles';
 import logo from 'assets/images/zoomit_small_logo.png';
-import {eventsPageRoute, zoomerPageRoute, profilePageRoute} from 'utils/Routes/Routes';
+import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} from 'utils/Routes/Routes';
 
 
 const TopNavBar: React.FC = (): JSX.Element => {
@@ -17,7 +17,9 @@ const TopNavBar: React.FC = (): JSX.Element => {
             <AppBar position="static" className={classes.appBar} dir='rtl'>
                 <Toolbar variant="dense">
                     <div className={classes.rightSection}>
-                        <img alt='logo' src={logo}  />
+                        <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${eventsPageRoute}`}>
+                            <img alt='logo' src={logo}  />
+                        </NavLink>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${eventsPageRoute}`}>
                             <Typography variant="h6" color="inherit" className={classes.menuTypog}> 
                                 זומים
@@ -35,9 +37,11 @@ const TopNavBar: React.FC = (): JSX.Element => {
                         </NavLink> 
                     </div> 
                     <div className={classes.leftSection}>
-                        <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}>
-                                ניהול המערכת
-                        </Typography>
+                        <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${managePageRoute}`}>
+                            <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
+                            ניהול המערכת
+                            </Typography>
+                        </NavLink> 
                         <IconButton edge="start" color="inherit" aria-label="menu" className={classes.admin}>
                             <Person />
                         </IconButton>
