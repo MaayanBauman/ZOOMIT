@@ -1,17 +1,30 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventPage from './useEventPage';
 import useStyles from './EventsPageStyles';
-import EventCategoryRow from './EventCategoryRow/EventCategotryRow';
-import FilterBox from './FilterBox/FiterBox';
+import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
+import FilterBox from './FilterBox/FilterBox';
 import Category from 'models/Category/Category';
+import Event from 'models/Event/Event';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
     const {events, categories} = useEventPage();
+
+    const [seachText, setSeachText] = useState('');
+    const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+
     const classes = useStyles();
     
-    const getEventsByCategory = (category: Category) => events.filter(event => event.category === category.id);
+    const getEventsByCategory = (category: Category) => filteredEvents.filter((event: Event) => event.category === category.id);
+
+    useEffect(() => {  
+        setFilteredEvents(events.filter((event: Event) => event.title.includes(seachText)));
+    }, [events, seachText]);
+
+    useEffect(() => {  
+        setFilteredEvents(events);
+    }, [events]);
     
     return (
         <>
@@ -20,7 +33,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <Typography className={classes.count} variant="subtitle1" gutterBottom>
                         {events.length} זומים
                     </Typography>
-                    <FilterBox />
+                    <FilterBox seachText={seachText} setSeachText={setSeachText}/>
                 </div>
                 {
                     categories.map(category => (<EventCategoryRow key={category.id} events={getEventsByCategory(category)} title={category.name}/>) )
