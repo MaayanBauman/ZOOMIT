@@ -15,7 +15,6 @@ const useStyles = makeStyles({
         alignSelf: 'flex-end',
         color: '#39394D',
         fontSize: 30,
-        marginRight: '3vw'
     }
 });
 
