@@ -25,6 +25,14 @@ export const addUser: Handler = async (req: Request, res: Response, next: NextFu
     }
 };
 
+export const addUserToEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.addUserToEvent(req.params.id, req.params.event));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const updateUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.updateUser(req.params.id, req.body.user));

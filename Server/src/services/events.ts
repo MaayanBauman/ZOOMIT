@@ -10,11 +10,17 @@ const eventsOperationBuilder: IOperationBuilder<IEvent> = operationBuilder<IEven
 export const getAllEvents = () => 
     eventsOperationBuilder.getAllObjects(collectionName);
 
+export const getEventByCategory = (category: string) => 
+    eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
+
 export const getEventById = (id: string) => 
     eventsOperationBuilder.getObjectById(collectionName, id);
 
 export const addEvent = (newEvent: IEvent) => 
     eventsOperationBuilder.createObject(collectionName, newEvent);
+
+export const addUserToEvent = (id:string, user: string) => 
+    eventsOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registered_users', [user]);
 
 export const updateEvent = (id: string, eventToUpdate: IEvent) => 
     eventsOperationBuilder.updateObject(collectionName, id, eventToUpdate);

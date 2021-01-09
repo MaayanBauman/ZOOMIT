@@ -16,6 +16,9 @@ export const getUserById = (id: string) =>
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
 
+export const addUserToEvent = (id:string, event: string) => 
+    usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [event]);
+
 export const updateUser = (id: string, sourceToUpdate: IUser) => 
     usersOperationBuilder.updateObject(collectionName, id, sourceToUpdate);
 

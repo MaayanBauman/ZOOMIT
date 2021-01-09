@@ -9,6 +9,14 @@ export const getAllEvents: Handler = async (req: Request, res: Response, next: N
     }
 };
 
+export const getEventByCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.getEventByCategory(req.params.category));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const getEventById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.getEventById(req.params.id));
@@ -20,6 +28,14 @@ export const getEventById: Handler = async (req: Request, res: Response, next: N
 export const addEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.addEvent(req.body.event));
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addUserToEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.addUserToEvent(req.params.id, req.params.user));
     } catch (err) {
         next(err);
     }
