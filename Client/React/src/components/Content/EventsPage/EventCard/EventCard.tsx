@@ -1,11 +1,20 @@
 import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+
 
 import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
 
+import {contentRoute, eventPageRoute} from 'utils/Routes/Routes';
+
 const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const handleClickMoreDetails = () => {
+        history.push(`${contentRoute}/event/${event.id}`);
+    }
 
     return (
         <div >
@@ -31,7 +40,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                     </div>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <Button variant="contained" color="secondary">עוד פרטים</Button>
+                    <Button variant="contained" color="secondary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
                     <Button variant="contained" color="primary">הרשמה!</Button>
                 </CardActions>
             </Card>

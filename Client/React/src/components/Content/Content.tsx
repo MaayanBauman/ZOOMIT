@@ -3,10 +3,11 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import TopNavBar from './TopNavbar/TopNavBar';
 import EventsPage from './EventsPage/EventsPage';
+import EventPage from './EventPage/EventPage';
 import ZoomerPage from './ZoomerPage/ZoomerPage';
 import ProfilePage from './ProfilePage/ProfilePage';
 import LoadingSpinner  from 'utils/LoadingSpinner/LoadingSpinner';
-import {eventsPageRoute, zoomerPageRoute, profilePageRoute} from 'utils/Routes/Routes';
+import {eventsPageRoute, zoomerPageRoute, profilePageRoute, eventPageRoute} from 'utils/Routes/Routes';
 
 const Content: React.FC = (): JSX.Element => {
     const { path } = useRouteMatch();
@@ -18,6 +19,7 @@ const Content: React.FC = (): JSX.Element => {
                 <Switch>
                     <Route path={`${path}${zoomerPageRoute}`} component={ZoomerPage} />
                     <Route path={`${path}${eventsPageRoute}`} component={EventsPage} />
+                    <Route path={`${path}${eventPageRoute}`} component={EventPage} />
                     <Route path={`${path}${profilePageRoute}`} component={ProfilePage} />
                     <Route path={path} exact component={EventsPage} />
                 </Switch>
