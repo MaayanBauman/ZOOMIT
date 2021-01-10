@@ -1,7 +1,7 @@
 import * as Actions from './userActionTypes';
 import User from 'models/User/User';
 
-const initialState: User = {
+export const initialState: User = {
     id: '',
     full_name: '',
     email:'',
@@ -15,7 +15,7 @@ const initialState: User = {
     registerd_events:[]
 }
 
-const isLoadingReducer = (state = initialState, action: Actions.userAction): User => {
+const userReducer = (state = initialState, action: Actions.userAction): User => {
     switch (action.type) {
         case Actions.SET_USER: return action.payload.user
 
@@ -23,4 +23,4 @@ const isLoadingReducer = (state = initialState, action: Actions.userAction): Use
     }
 }
 
-export default isLoadingReducer;
+export default userReducer;
