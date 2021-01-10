@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { Person } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
-import{ AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import{ AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/core';
 
 import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
@@ -50,8 +49,8 @@ const TopNavBar: React.FC = (): JSX.Element => {
                             ניהול המערכת
                             </Typography>
                         </NavLink> 
-                        <IconButton edge="start" color="inherit" aria-label="menu" className={classes.admin}>
-                            <Person />
+                        <IconButton edge="start" color="inherit" aria-label="menu" >
+                            <Avatar alt={user.full_name} src={user.photograph} />
                         </IconButton>
                     </div>
                 </Toolbar>
