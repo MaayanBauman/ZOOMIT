@@ -8,7 +8,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import useStyles from './FilterBoxStyles';
 
 
-const FilterBox: React.FC<Props> = ({searchText, setsearchText, onFilter}: Props): JSX.Element => {
+const FilterBox: React.FC<Props> = ({searchText, setSearchText, onFilter}: Props): JSX.Element => {
     
     const classes = useStyles();
 
@@ -20,7 +20,7 @@ const FilterBox: React.FC<Props> = ({searchText, setsearchText, onFilter}: Props
                     placeholder="חפש זומים"
                     inputProps={{ 'aria-label': 'search zoom events' }}
                     value={searchText}
-                    onChange={(e) => setsearchText(e.target.value)}
+                    onChange={(e) => setSearchText(e.target.value)}
                     onKeyDown={(e)=> e.code == 'Enter' && onFilter()}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => onFilter()} >
@@ -37,7 +37,7 @@ const FilterBox: React.FC<Props> = ({searchText, setsearchText, onFilter}: Props
 
 interface Props {
     searchText: string,
-    setsearchText: Function,
+    setSearchText: Function,
     onFilter: Function
 }
 export default FilterBox;
