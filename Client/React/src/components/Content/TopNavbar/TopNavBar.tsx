@@ -1,9 +1,12 @@
 import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { Person } from '@material-ui/icons';
+import { useSelector } from 'react-redux';
 import{ AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 
+import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
+import StoreStateType from 'redux/storeStateType';
 import logo from 'assets/images/zoomit_small_logo.png';
 import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} from 'utils/Routes/Routes';
 
@@ -11,6 +14,8 @@ import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} fro
 const TopNavBar: React.FC = (): JSX.Element => {
     const classes = useStyles();
     const { path } = useRouteMatch();
+
+    const user = useSelector<StoreStateType, User>(state => state.user);
 
     return (
         <div >
@@ -37,6 +42,9 @@ const TopNavBar: React.FC = (): JSX.Element => {
                         </NavLink> 
                     </div> 
                     <div className={classes.leftSection}>
+                        <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
+                           {`שלום ${user.full_name}`}
+                        </Typography>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${managePageRoute}`}>
                             <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
                             ניהול המערכת

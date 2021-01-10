@@ -1,20 +1,15 @@
-import classes from '*.module.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Button } from '@material-ui/core';
-
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 import useStyles from './LoginStyles';
-
-
-const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-  console.log(response);
-}
+import useLogin from './useLogin';
 
 const Login : React.FC = (): JSX.Element => {
     const classes = useStyles();
     const clientId = process.env.REACT_APP_CLIENTID;
+
+    const { SuccessResponseGoogle, FailiureResponseGoogle } = useLogin();
 
     return (
       <GoogleLogin 
@@ -26,8 +21,8 @@ const Login : React.FC = (): JSX.Element => {
           </Button>
         )}
         buttonText="התחברות עם חשבון גוגל"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
+        onSuccess={SuccessResponseGoogle}
+        onFailure={FailiureResponseGoogle}
         cookiePolicy={'single_host_origin'}
       />
     )

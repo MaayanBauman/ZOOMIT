@@ -11,7 +11,7 @@ const EventsPage: React.FC = (): JSX.Element => {
 
     const {events, categories, getEventByTitle, getAllEvents} = useEventPage();
 
-    const [seachText, setSeachText] = useState('');
+    const [searchText, setSearchText] = useState('');
 
     const classes = useStyles();
     
@@ -24,7 +24,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <Typography className={classes.count} variant="subtitle1" gutterBottom>
                         {events.length} זומים
                     </Typography>
-                    <FilterBox seachText={seachText} setSeachText={setSeachText} onFilter={() => { seachText ? getEventByTitle(seachText) : getAllEvents()}}/>
+                    <FilterBox searchText={searchText} setSearchText={setSearchText} onFilter={() => { searchText ? getEventByTitle(searchText) : getAllEvents()}}/>
                 </div>
                 {
                     categories.map(category => (<EventCategoryRow key={category.id} events={getEventsByCategory(category)} title={category.name}/>) )

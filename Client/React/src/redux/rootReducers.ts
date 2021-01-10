@@ -2,7 +2,9 @@ import { combineReducers, Reducer, CombinedState, AnyAction } from 'redux';
 
 import StoreStateType from './storeStateType';
 import isLoadingReducer from './IsLoading/isLoadingReducer';
+import userReducer from './User/userReducer';
 
 export default combineReducers<StoreStateType>({
      isLoading: isLoadingReducer,
+     user: userReducer
 }) as unknown as Reducer<CombinedState<StoreStateType>, AnyAction>;
