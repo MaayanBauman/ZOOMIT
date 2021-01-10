@@ -9,7 +9,9 @@ import useStyles from './LoginStyles';
 
 
 const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-  console.log(response);
+  console.log((response as GoogleLoginResponse).getAuthResponse().access_token);
+
+  
 }
 
 const Login : React.FC = (): JSX.Element => {
