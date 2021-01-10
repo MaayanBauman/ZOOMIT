@@ -21,6 +21,7 @@ const FilterBox: React.FC<Props> = ({seachText, setSeachText, onFilter}: Props):
                     inputProps={{ 'aria-label': 'search zoom events' }}
                     value={seachText}
                     onChange={(e) => setSeachText(e.target.value)}
+                    onKeyDown={(e)=> e.code == 'Enter' && onFilter()}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => onFilter()} >
                     <SearchIcon/>
