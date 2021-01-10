@@ -4,35 +4,37 @@ import axios from 'utils/axios';
 import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 
+const convertEvent = (event: any)=> {
+    return {
+        id: event._id,
+        title: event.title,
+        description: event.description,
+        zoomer_id: event.zoomer_id,
+        zoom_link: event.zoom_link,
+        password: event.password,
+        start_time: new Date(event.start_time),
+        end_time: new Date(event.end_time),
+        max_registers: event.max_registers,
+        registered_users: event.registered_users,
+        category: event.category,
+        price: +event.price.$numberDecimal,
+        source_id: event.source_id
+    }
+};
+
 const useEventPage = () : useEventPageOutCome  => {
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
 
-    const getEvents = () => {
+    const getAllEvents = () => {
         axios.get('/events')
-        .then((result : any)=> {
-            const eventsResult = result.data.map((event: any)=> {
-                return {
-                    id: event._id,
-                    title: event.title,
-                    description: event.description,
-                    zoomer_id: event.zoomer_id,
-                    zoom_link: event.zoom_link,
-                    password: event.password,
-                    start_time: new Date(event.start_time),
-                    end_time: new Date(event.end_time),
-                    max_registers: event.max_registers,
-                    registered_users: event.registered_users,
-                    category: event.category,
-                    price: +event.price.$numberDecimal,
-                    source_id: event.source_id
-                }
-            });
+        .then((result : any) => {
+            const eventsResult = result.data.map(convertEvent);
            setEvents(eventsResult);
          })
         .catch((error: any)=> (
             console.log(error)
-        ))
+        ));
     }
 
     const getCategories = () => {
@@ -51,20 +53,33 @@ const useEventPage = () : useEventPageOutCome  => {
         ))
     }
 
+    const getEventByTitle = (title:string) => {
+        axios.get(`/events/title/${title}`).then((result : any) => {
+            const eventsResult = result.data.map(convertEvent);
+           setEvents(eventsResult);
+         }).catch((error: any)=> (
+            console.log(error)
+        ));
+    }
+
     useEffect(() => {
-        getEvents();
+        getAllEvents();
         getCategories();
-    }, [])
+    }, []);
     
     return {
         events,
         categories,
+        getEventByTitle,
+        getAllEvents
     }
 }
 
 interface useEventPageOutCome {
     events: Event[],
     categories: Category[],
+    getEventByTitle: Function,
+    getAllEvents:Function,
 }
 
 export default useEventPage;

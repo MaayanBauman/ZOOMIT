@@ -6,6 +6,7 @@ const router = Router();
 router.get('/', events.getAllEvents);
 router.get('/category/:category', events.getEventByCategory)
 router.get('/:id', events.getEventById);
+router.get('/title/:title', events.getEventByTitle);
 router.post('/', events.addEvent);
 router.post('/:id/users/:user', events.addUserToEvents);
 router.put('/:id', events.updateEvent);

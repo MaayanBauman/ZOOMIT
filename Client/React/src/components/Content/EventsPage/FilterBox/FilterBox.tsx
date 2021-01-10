@@ -7,12 +7,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import useStyles from './FilterBoxStyles';
 
-const FilterBox: React.FC<Props> = ({seachText, setSeachText}: Props): JSX.Element => {
+
+const FilterBox: React.FC<Props> = ({seachText, setSeachText, onFilter}: Props): JSX.Element => {
     
     const classes = useStyles();
+
     return (
         <div >
-            <Paper component="form" className={classes.search}>
+            <Paper component="div" className={classes.search}>
                 <InputBase
                     className={classes.input}
                     placeholder="חפש זומים"
@@ -20,8 +22,8 @@ const FilterBox: React.FC<Props> = ({seachText, setSeachText}: Props): JSX.Eleme
                     value={seachText}
                     onChange={(e) => setSeachText(e.target.value)}
                 />
-                <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                    <SearchIcon />
+                <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => onFilter()} >
+                    <SearchIcon/>
                 </IconButton>
                 <Divider className={classes.divider} orientation="vertical" />
                 <IconButton color="primary" className={classes.iconButton} aria-label="directions">
@@ -34,6 +36,9 @@ const FilterBox: React.FC<Props> = ({seachText, setSeachText}: Props): JSX.Eleme
 
 interface Props {
     seachText: string,
-    setSeachText: Function
+    setSeachText: Function,
+    onFilter: Function
 }
 export default FilterBox;
+
+// /title/:title

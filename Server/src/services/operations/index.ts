@@ -11,10 +11,15 @@ const getObjectsBySubsetFiled = (collectionName: string, objField: string, subse
         { [objField]: { $all: subset } } 
     ).toArray(), `Fail to get the objects with ${objField}= ${subset} from ${collectionName}`);
     
-const getObjectsInSubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
+    const getObjectsInSubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $in: subset } }
     ).toArray(), `Fail to get the objects with ${objField} in ${subset} from ${collectionName}`);
+
+const getObjectsRegexFiled = (collectionName: string, objField: string, regex: string) =>
+    doOperation(collectionName, collection => collection.find(
+    { [objField]: { $regex: regex }}
+    ).toArray(), `Fail to get the objects with ${objField} in ${regex} from ${collectionName}`);
 
 const getObjectById = (collectionName: string, id: string) => 
     doOperation(collectionName, collection => collection.findOne(
@@ -65,6 +70,7 @@ export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,
     getObjectsBySubsetFiled,
     getObjectsInSubsetFiled,
+    getObjectsRegexFiled,
     getObjectById,
     createObject,
     createObjects,

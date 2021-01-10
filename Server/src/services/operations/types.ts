@@ -9,6 +9,7 @@ export interface IOperationBuilder<T> {
     getAllObjects: (collectionName: string) => Promise<T[]>;
     getObjectsBySubsetFiled: (collectionName: string, objField: string, subset: string[]) => Promise<T[]>;
     getObjectsInSubsetFiled: (collectionName: string, objField: string, subset: string[]) => Promise<T[]>;
+    getObjectsRegexFiled: (collectionName: string, objField: string, regex: string) => Promise<T[]>;
     getObjectById: (collectionName: string, id: string) => Promise<T>;
     createObject: (collectionName: string, obj: T) => Promise<InsertOneWriteOpResult<{ _id:any }>>;
     createObjects: (collectionName: string, objects: T[]) => Promise<InsertWriteOpResult<{ _id:any }>>;

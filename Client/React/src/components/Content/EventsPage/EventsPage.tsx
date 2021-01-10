@@ -9,22 +9,13 @@ import Event from 'models/Event/Event';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
-    const {events, categories} = useEventPage();
+    const {events, categories, getEventByTitle, getAllEvents} = useEventPage();
 
     const [seachText, setSeachText] = useState('');
-    const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
     const classes = useStyles();
     
-    const getEventsByCategory = (category: Category) => filteredEvents.filter((event: Event) => event.category === category.id);
-
-    useEffect(() => {  
-        setFilteredEvents(events.filter((event: Event) => event.title.includes(seachText)));
-    }, [events, seachText]);
-
-    useEffect(() => {  
-        setFilteredEvents(events);
-    }, [events]);
+    const getEventsByCategory = (category: Category) => events.filter((event: Event) => event.category === category.id);
     
     return (
         <>
@@ -33,7 +24,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <Typography className={classes.count} variant="subtitle1" gutterBottom>
                         {events.length} זומים
                     </Typography>
-                    <FilterBox seachText={seachText} setSeachText={setSeachText}/>
+                    <FilterBox seachText={seachText} setSeachText={setSeachText} onFilter={() => { seachText ? getEventByTitle(seachText) : getAllEvents()}}/>
                 </div>
                 {
                     categories.map(category => (<EventCategoryRow key={category.id} events={getEventsByCategory(category)} title={category.name}/>) )

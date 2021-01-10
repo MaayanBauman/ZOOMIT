@@ -13,6 +13,9 @@ export const getAllEvents = () =>
 export const getEventByCategory = (category: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
 
+export const getEventByTitle = (title: string) => 
+    eventsOperationBuilder.getObjectsRegexFiled(collectionName, 'title', title);
+
 export const getEventById = (id: string) => 
     eventsOperationBuilder.getObjectById(collectionName, id);
 

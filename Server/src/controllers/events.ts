@@ -16,6 +16,13 @@ export const getEventByCategory: Handler = async (req: Request, res: Response, n
         next(err);
     }
 };
+export const getEventByTitle: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.getEventByTitle(req.params.title));
+    } catch (err) {
+        next(err);
+    }
+};
 
 export const getEventById: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
