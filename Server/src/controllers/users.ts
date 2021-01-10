@@ -25,9 +25,9 @@ export const addUser: Handler = async (req: Request, res: Response, next: NextFu
     }
 };
 
-export const addUserToEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const addEventToUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.addUserToEvent(req.params.id, req.params.event));
+        res.json(await users.addEventToUser(req.params.id, req.params.event));
     } catch (err) {
         next(err);
     }

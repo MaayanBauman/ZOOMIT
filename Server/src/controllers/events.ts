@@ -40,14 +40,6 @@ export const addEvent: Handler = async (req: Request, res: Response, next: NextF
     }
 };
 
-export const addUserToEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        res.json(await events.addUserToEvent(req.params.id, req.params.user));
-    } catch (err) {
-        next(err);
-    }
-};
-
 export const updateEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.updateEvent(req.params.id, req.body.event))
