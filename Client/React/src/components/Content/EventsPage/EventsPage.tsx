@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import useEventPage from './useEventPage';
+import useEventsPage from './useEventsPage';
 import useStyles from './EventsPageStyles';
 import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
 import FilterBox from './FilterBox/FilterBox';
@@ -9,7 +9,7 @@ import Event from 'models/Event/Event';
 
 const EventsPage: React.FC = (): JSX.Element => {
 
-    const {events, categories, getEventByTitle, getAllEvents} = useEventPage();
+    const {events, categories, getEventByTitle, getAllEvents} = useEventsPage();
 
     const [searchText, setSearchText] = useState('');
 

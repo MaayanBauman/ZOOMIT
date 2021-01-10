@@ -38,8 +38,10 @@ const useStyles = makeStyles({
   },
   cardActions: {
     justifyContent: 'space-between',
+    alignItems: 'stretch',
     '& button': {
-      flexBasis: '47%'
+      flexBasis: '47%',
+      fontSize: '0.7em'
     },
     '& > :not(:first-child)': {
       margin: 0

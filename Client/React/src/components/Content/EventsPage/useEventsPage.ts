@@ -22,7 +22,7 @@ const convertEvent = (event: any)=> {
     }
 };
 
-const useEventPage = () : useEventPageOutCome  => {
+const useEventsPage = () : useEventsPageOutCome  => {
     const [events, setEvents] = useState<Event[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
 
@@ -75,11 +75,11 @@ const useEventPage = () : useEventPageOutCome  => {
     }
 }
 
-interface useEventPageOutCome {
+interface useEventsPageOutCome {
     events: Event[],
     categories: Category[],
     getEventByTitle: Function,
     getAllEvents:Function,
 }
 
-export default useEventPage;
+export default useEventsPage;
