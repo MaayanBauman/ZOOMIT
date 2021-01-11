@@ -7,7 +7,7 @@ import useStyles from './LandingPageStyles';
 const LandingPage: React.FC = (): JSX.Element => {
     const classes = useStyles();
     return (
-        <div className={classes.backgroundIamge + ' ' + classes.container}>
+        <div className={classes.backgroundImage + ' ' + classes.container}>
             <div className={classes.logoContainer}>
                 <img src={logo} alt='logo'  className={classes.logo}/>
             </div>

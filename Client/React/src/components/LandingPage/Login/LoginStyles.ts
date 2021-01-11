@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import backgroundImage from 'assets/images/background.png';
 
 const useStyles = makeStyles(() => ({
     signInGoogle: {

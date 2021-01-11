@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
         width: 'auto',
         height: '30vh',
     },
-    backgroundIamge: {
+    backgroundImage: {
         backgroundImage: `url(${backgroundImage})`,
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed',
