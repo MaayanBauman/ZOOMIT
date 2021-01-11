@@ -7,7 +7,6 @@ import EventPage from './EventPage/EventPage';
 import ZoomerPage from './ZoomerPage/ZoomerPage';
 import ProfilePage from './ProfilePage/ProfilePage';
 
-import LoadingSpinner  from 'utils/LoadingSpinner/LoadingSpinner';
 import {eventsPageRoute, zoomerPageRoute, profilePageRoute, eventPageRoute } from 'utils/Routes/Routes';
 
 import useStyles from './ContentStyles';
@@ -28,7 +27,6 @@ const Content: React.FC = (): JSX.Element => {
                     <Route path={path} exact component={EventsPage} />
                 </Switch>
             </>
-            <LoadingSpinner />
         </div>
     );
 }

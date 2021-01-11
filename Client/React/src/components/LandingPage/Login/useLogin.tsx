@@ -10,6 +10,32 @@ import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
 
 const useLogin = () : useEventPageOutCome  => {
     const history = useHistory();
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleOpenSignUpDialog = () => {
+        setDialogOpen(true);
+    };
+    const handleCloseSignUpDialog = () => {
+        setDialogOpen(false);
+    };
+
+    const handleLogin = (email: String) => {
+        
+        // check if the user exists
+        axios.get(`users/email/${email}`)
+        .then((result: any)=> {
+            if(result.data.length === 0){
+                handleOpenSignUpDialog();
+            } 
+            else {
+                history.push(contentRoute + eventsPageRoute);
+            }
+        })
+        .catch((error)=> {
+            console.log(error);
+        })
+    }
+
    
     const SuccessResponseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         console.log((response as GoogleLoginResponse)?.getAuthResponse()?.access_token);
@@ -20,9 +46,9 @@ const useLogin = () : useEventPageOutCome  => {
             full_name: profile?.getName(),
             email: profile?.getEmail(),
             photograph: profile?.getImageUrl()
-        })
+        });
 
-        history.push(contentRoute + eventsPageRoute);
+        handleLogin(profile?.getEmail());
     }
 
     const FailiureResponseGoogle = (response: GoogleLoginResponseOffline) => {
@@ -31,13 +57,19 @@ const useLogin = () : useEventPageOutCome  => {
 
     return {
         SuccessResponseGoogle,
-        FailiureResponseGoogle
+        FailiureResponseGoogle,
+        handleOpenSignUpDialog,
+        handleCloseSignUpDialog,
+        dialogOpen
     }
 }
 
 interface useEventPageOutCome {
     SuccessResponseGoogle: (response: GoogleLoginResponse | GoogleLoginResponseOffline)=> void | undefined,
-    FailiureResponseGoogle: (response: GoogleLoginResponseOffline)=> void | undefined
+    FailiureResponseGoogle: (response: GoogleLoginResponseOffline)=> void | undefined,
+    handleOpenSignUpDialog: () => void,
+    handleCloseSignUpDialog: () => void,
+    dialogOpen: boolean
 }
 
 export default useLogin;
