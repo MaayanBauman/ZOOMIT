@@ -1,12 +1,12 @@
 import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 
-
 import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
 
-import {contentRoute, eventPageRoute} from 'utils/Routes/Routes';
+import { contentRoute, eventPageRoute } from 'utils/Routes/Routes';
+import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 
 const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
     const classes = useStyles();
@@ -29,10 +29,10 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                     </div>
                     <div className={classes.details}>
                         <Typography variant="body1">
-                            {event.start_time.toLocaleDateString('he-IL', { 'day': '2-digit', 'month': '2-digit', 'year': 'numeric' })}&emsp;{event.start_time.toLocaleDateString('he-IL', { 'weekday': 'long' })}
+                            {formatDate(event.start_time)}&emsp;{formatDayName(event.start_time)}
                         </Typography>
                         <Typography variant="body1">
-                            {event.end_time.toTimeString().split(' ')[0].split(':').slice(0, 2).join(':')}-{event.start_time.toTimeString().split(' ')[0].split(':').slice(0, 2).join(':')}
+                            {formatTime(event.end_time)}-{formatTime(event.start_time)}
                         </Typography>
                         <Typography variant="body1">
                             {event.price} &#8362;
@@ -47,6 +47,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
         </div>
     );
 }
+
 interface Props {
     event: Event;
 }
