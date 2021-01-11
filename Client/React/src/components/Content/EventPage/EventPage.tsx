@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
-import Event from 'models/Event/Event';
 import { useParams } from 'react-router-dom';
 
 const EventPage: React.FC = (): JSX.Element => {
@@ -26,7 +25,6 @@ const EventPage: React.FC = (): JSX.Element => {
                 </Typography>
             </div>
         </>
-
     );
 }
 

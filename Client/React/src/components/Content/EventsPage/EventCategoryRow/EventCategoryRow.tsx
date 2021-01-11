@@ -28,8 +28,8 @@ const EventCategotryRow: React.FC<Props> = ({events, title}: Props): JSX.Element
     return (
         <div className={classes.container}>
         <Typography className={classes.title}>
-            {like ? <StarIcon onClick={() => setLike(false) } /> : <StarBorderIcon onClick={() => setLike(true) }/>}
             {title} 
+            {like ? <StarIcon onClick={() => setLike(false) } /> : <StarBorderIcon onClick={() => setLike(true) }/>}
         </Typography> 
         <Carousel navButtonsAlwaysVisible={true} indicators={true} animation='slide' autoPlay={false}>
             {

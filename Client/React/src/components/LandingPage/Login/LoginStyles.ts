@@ -9,7 +9,6 @@ const useStyles = makeStyles(() => ({
         alignSelf: 'center',
         marginTop: '9vh',
         marginBottom: '2vh',
-        fontFamily: "Assistant!important",
         font: 'black!important'
     }
 }));

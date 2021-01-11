@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     menuTypog: {
         color: '#0C63CE',
-        fontFamily: 'Assistant',
         marginRight: theme.spacing(2.8),
         fontSize: 16
     },

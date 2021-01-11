@@ -5,11 +5,9 @@ const useStyles = makeStyles({
         display:'flex',
         flexDirection: 'column',
         marginTop: '5vh',
-        fontFamily:'Assistant',
         marginRight: '2vw'
     },
     topbar: {
-        direction: 'rtl',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'

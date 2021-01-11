@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
     aboutUsMessage: {
         display: 'flex',
         justifyContent: 'center',
-        fontFamily: 'Assistant',
     },
     signInGoogle: {
         width: '18vw',

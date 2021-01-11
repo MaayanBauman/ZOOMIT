@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
 import theme from 'assets/styles/theme';
 
 const useStyles = makeStyles({
@@ -8,7 +7,6 @@ const useStyles = makeStyles({
     backgroundColor: theme.backgrounds.bg2,
     marginRight: '2vw',
     marginTop: '3vh',
-    direction: 'rtl',
   },
   cardContentt: {
     padding: '16px 16px 0 16px'

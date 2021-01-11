@@ -6,15 +6,19 @@ import EventsPage from './EventsPage/EventsPage';
 import EventPage from './EventPage/EventPage';
 import ZoomerPage from './ZoomerPage/ZoomerPage';
 import ProfilePage from './ProfilePage/ProfilePage';
+
 import LoadingSpinner  from 'utils/LoadingSpinner/LoadingSpinner';
-import {eventsPageRoute, zoomerPageRoute, profilePageRoute, eventPageRoute} from 'utils/Routes/Routes';
+import {eventsPageRoute, zoomerPageRoute, profilePageRoute, eventPageRoute } from 'utils/Routes/Routes';
+
+import useStyles from './ContentStyles';
 
 const Content: React.FC = (): JSX.Element => {
     const { path } = useRouteMatch();
+    const classes = useStyles();
 
     return (
-        <div >
-            <TopNavBar />
+        <div className={classes.content} >
+            <TopNavBar/>
             <>
                 <Switch>
                     <Route path={`${path}${zoomerPageRoute}`} component={ZoomerPage} />

@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
 
 const useStyles = makeStyles({
     container:{
@@ -7,12 +6,10 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     eventRow: {
-         display:'flex',
-         width: '99vw',
-         justifyContent: 'flex-end'  
+        display:'flex',
+        width: '99vw',
     },
     title: {
-        alignSelf: 'flex-end',
         color: '#39394D',
         fontSize: 30,
     }

@@ -2,14 +2,11 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
     container: {
-        display:'flex',
-        flexDirection: 'column',
         marginTop: '5vh',
-        fontFamily:'Assistant',
-        marginRight: '2vw'
+        marginRight: '2vw',
+        marginLeft: '2vw',
     },
     topbar: {
-        direction: 'rtl',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'

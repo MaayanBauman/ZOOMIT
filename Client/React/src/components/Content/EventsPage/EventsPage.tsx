@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventsPage from './useEventsPage';
 import useStyles from './EventsPageStyles';
 import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
 import FilterBox from './FilterBox/FilterBox';
-import Category from 'models/Category/Category';
-import Event from 'models/Event/Event';
+import EventsByCategories from 'models/Event/EventsByCategories';
+
+
+import { getEventsByCatgory } from 'utils/Event';
 
 const EventsPage: React.FC = (): JSX.Element => {
-
-    const {events, categories, getEventByTitle, getAllEvents} = useEventsPage();
-
-    const [searchText, setSearchText] = useState('');
-
+    
     const classes = useStyles();
+    const {events, getEventByTitle, getAllEvents} = useEventsPage();
+    const eventsByCategories: EventsByCategories = getEventsByCatgory(events);
     
-    const getEventsByCategory = (category: Category) => events.filter((event: Event) => event.category === category.id);
-    
+    const [searchText, setSearchText] = useState('');
     return (
         <>
             <div className={classes.container}>
@@ -27,7 +26,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <FilterBox searchText={searchText} setSearchText={setSearchText} onFilter={() => { searchText ? getEventByTitle(searchText) : getAllEvents()}}/>
                 </div>
                 {
-                    categories.map(category => (<EventCategoryRow key={category.id} events={getEventsByCategory(category)} title={category.name}/>) )
+                    Object.keys(eventsByCategories).map((categoryName: string) => (<EventCategoryRow key={categoryName} events={eventsByCategories[categoryName]} title={categoryName}/>) )
                 }
             </div>
         </>
