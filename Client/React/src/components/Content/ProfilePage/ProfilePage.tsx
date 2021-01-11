@@ -32,7 +32,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                 </Typography>
                 <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
                     <Button variant="contained" color="primary" className={classes.zoomer_requast_btn}>
-                        אני רוצה להיות זומר\ית!
+                        אני רוצה להיות זומר/ית!
                     </Button>
                 </Typography>
             </Typography>
