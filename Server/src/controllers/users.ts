@@ -17,17 +17,17 @@ export const getUserById: Handler = async (req: Request, res: Response, next: Ne
     }
 };
 
-export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const getUsersByType: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.addUser(req.body.user));
+        res.json(await users.getUsersByType(req.params.type));
     } catch (err) {
         next(err);
     }
 };
 
-export const addEventToUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.addEventToUser(req.params.id, req.params.event));
+        res.json(await users.addUser(req.body.user));
     } catch (err) {
         next(err);
     }

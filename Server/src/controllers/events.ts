@@ -32,9 +32,25 @@ export const getEventById: Handler = async (req: Request, res: Response, next: N
     }
 };
 
+export const getEventsByUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.getEventsByUser(req.params.user));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const addEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.addEvent(req.body.event));
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addUserToEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.addUserToEvent(req.params.id, req.params.user));
     } catch (err) {
         next(err);
     }

@@ -7,7 +7,9 @@ router.get('/', events.getAllEvents);
 router.get('/category/:category', events.getEventByCategory)
 router.get('/:id', events.getEventById);
 router.get('/title/:title', events.getEventByTitle);
+router.get('/users/:user', events.getEventsByUser);
 router.post('/', events.addEvent);
+router.put('/:id/users/:user', events.addUserToEvent);
 router.put('/:id', events.updateEvent);
 router.delete('/:id', events.deleteEvent);
 

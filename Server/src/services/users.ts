@@ -15,14 +15,11 @@ export const getAllUsers = () =>
 export const getUserById = (id: string) => 
     usersOperationBuilder.getObjectById(collectionName, id);
 
+export const getUsersByType = (type: string) =>
+    usersOperationBuilder.getObjectsBySubsetFiled(collectionName, 'user_type', [type])
+
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
-
-export const addEventToUser = (id:string, event: string) => 
-    Promise.all([
-        addUserToEvent(event, id), 
-        usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [event])
-    ]);
 
 export const updateUser = (id: string, sourceToUpdate: IUser) => 
     usersOperationBuilder.updateObject(collectionName, id, sourceToUpdate);
