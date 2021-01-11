@@ -25,6 +25,14 @@ export const getUsersByType: Handler = async (req: Request, res: Response, next:
     }
 };
 
+export const getUsersByEmail: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.getUsersByEmail(req.params.email));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.addUser(req.body.user));

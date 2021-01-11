@@ -18,6 +18,9 @@ export const getUserById = (id: string) =>
 export const getUsersByType = (type: string) =>
     usersOperationBuilder.getObjectsBySubsetFiled(collectionName, 'user_type', [type])
 
+export const getUsersByEmail = (email: string) =>
+    usersOperationBuilder.getObjectsBySubsetFiled(collectionName, 'email', [email])
+
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
 

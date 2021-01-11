@@ -7,7 +7,7 @@ export interface IUser {
     email: string;
     user_type: string;
     favorite_categories: Array<ICategory>;
-    photograph: Binary;
+    photograph: string;
     approved_date: Date;
     description: string;
     is_waiting_for_approval: boolean;
