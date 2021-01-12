@@ -1,0 +1,20 @@
+{
+    "name": "client",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "install_react": "cd React && npm install",
+        "install_angular": "cd Angular && npm install",
+        "install_all": "run-p install_react install_angular",
+        "build_react": "cd React && npm run build",
+        "build_angular": "cd Angular && npm run build",
+        "build_all": "run-p build_angular build_react",
+        "start_react": "cd React && npm run start",
+        "start_angular": "cd Angular && npm run start",
+        "start": "run-p start_angular start_react"
+    },
+    "dependencies": {
+        "npm-run-all": "^4.1.5"
+    },
+    "devDependencies": {}
+}

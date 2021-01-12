@@ -1,0 +1,20 @@
+{
+    "name": "zoomit",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "install_client": "cd Client && npm install",
+        "install_server": "cd Server && npm install",
+        "install_all": "run-p install_client install_server",
+        "build_client": "cd Client && npm run build",
+        "build_server": "cd Server && npm run build",
+        "build_all": "run-p build_client build_server",
+        "start_client": "cd Client && npm run start",
+        "start_server": "cd Server && npm run start",
+        "start": "run-p start_server start_client"
+    },
+    "dependencies": {
+        "npm-run-all": "^4.1.5"
+    },
+    "devDependencies": {}
+}
