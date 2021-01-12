@@ -20,7 +20,6 @@ const useLogin = () : useEventPageOutCome  => {
     };
 
     const handleLogin = (email: String) => {
-        
         // check if the user exists
         axios.get(`users/email/${email}`)
         .then((result: any)=> {

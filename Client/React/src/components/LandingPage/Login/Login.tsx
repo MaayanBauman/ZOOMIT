@@ -11,7 +11,7 @@ const Login : React.FC = (): JSX.Element => {
     const clientId = process.env.REACT_APP_CLIENTID;
 
     const { SuccessResponseGoogle, FailiureResponseGoogle,  
-      handleOpenSignUpDialog, handleCloseSignUpDialog, dialogOpen } = useLogin();
+       handleCloseSignUpDialog, dialogOpen } = useLogin();
 
     return (
       <>
@@ -28,7 +28,7 @@ const Login : React.FC = (): JSX.Element => {
             onFailure={FailiureResponseGoogle}
             cookiePolicy={'single_host_origin'}
           />
-          <SignUpDialog isOpen={dialogOpen} handleOpen={handleOpenSignUpDialog} handleClose={handleCloseSignUpDialog} />
+          <SignUpDialog isOpen={dialogOpen} handleClose={handleCloseSignUpDialog} />
       </>
     )
 };
