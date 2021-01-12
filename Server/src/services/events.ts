@@ -3,6 +3,7 @@ import { IEvent } from '../models/types/event';
 import config from '../config';
 import { IOperationBuilder } from './operations/types';
 import operationBuilder from './operations';
+import { ObjectId } from 'mongodb';
 
 const collectionName = config.collections.events.name;
 const eventsOperationBuilder: IOperationBuilder<IEvent> = operationBuilder<IEvent>();
@@ -10,14 +11,17 @@ const eventsOperationBuilder: IOperationBuilder<IEvent> = operationBuilder<IEven
 export const getAllEvents = () => 
     eventsOperationBuilder.getAllObjects(collectionName);
 
+export const getEventById = (id: string) => 
+    eventsOperationBuilder.getObjectById(collectionName, id);
+
+export const getEventsById = (ids: Array<string>) => 
+    eventsOperationBuilder.getObjectsById(collectionName, ids);
+
 export const getEventByCategory = (category: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
 
 export const getEventByTitle = (title: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'title', [title]);
-
-export const getEventById = (id: string) => 
-    eventsOperationBuilder.getObjectById(collectionName, id);
 
 export const getEventsByUser = (user: string) => 
     eventsOperationBuilder.getObjectsInSubsetFiled(collectionName, 'registered_users', [user])

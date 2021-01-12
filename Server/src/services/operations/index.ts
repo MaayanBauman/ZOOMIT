@@ -6,12 +6,12 @@ const getAllObjects = (collectionName: string) =>
     doOperation(collectionName, collection => collection.find({}).toArray(), 
                 `Fail to get all the objects from ${collectionName}`);
 
-const getObjectsBySubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
+const getObjectsBySubsetFiled = (collectionName: string, objField: string, subset: any[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $all: subset } } 
     ).toArray(), `Fail to get the objects with ${objField}= ${subset} from ${collectionName}`);
     
-    const getObjectsInSubsetFiled = (collectionName: string, objField: string, subset: string[]) =>
+const getObjectsInSubsetFiled = (collectionName: string, objField: string, subset: any[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $in: subset } }
     ).toArray(), `Fail to get the objects with ${objField} in ${subset} from ${collectionName}`);
@@ -25,6 +25,11 @@ const getObjectById = (collectionName: string, id: string) =>
     doOperation(collectionName, collection => collection.findOne(
         { '_id': new ObjectID(id) }
     ), `Fail to get the object by id- ${id} from ${collectionName}`);
+
+const getObjectsById = (collectionName: string, ids: Array<string>) => 
+    doOperation(collectionName, collection => collection.find(
+        { '_id': { $in: ids.map((id) => new ObjectID(id)) } }
+    ).toArray(), `Fail to get the objects by ids- ${ids} from ${collectionName}`);
 
 const createObject = (collectionName: string, obj: any) =>
     doOperation(collectionName, collection => collection.insertOne(obj), 
@@ -72,6 +77,7 @@ export default <T>(): IOperationBuilder<T> => ({
     getObjectsInSubsetFiled,
     getObjectsRegexFiled,
     getObjectById,
+    getObjectsById,
     createObject,
     createObjects,
     addUniqueValuesToArray,

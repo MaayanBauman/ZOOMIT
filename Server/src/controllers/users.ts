@@ -33,9 +33,25 @@ export const getUsersByEmail: Handler = async (req: Request, res: Response, next
     }
 };
 
+export const getUserEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.getUserEvents(req.params.id));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.addUser(req.body.user));
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addEventToUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.addEventToUser(req.params.id, req.params.event));
     } catch (err) {
         next(err);
     }

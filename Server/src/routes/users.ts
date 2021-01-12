@@ -7,7 +7,9 @@ router.get('/', users.getAllUsers);
 router.get('/:id', users.getUserById);
 router.get('/types/:type', users.getUsersByType);
 router.get('/email/:email', users.getUsersByEmail);
+router.get('/:id/events', users.getUserEvents);
 router.post('/', users.addUser);
+router.put('/:id/events/:event', users.addEventToUser);
 router.put('/:id', users.updateUser);
 router.delete('/:id', users.deleteeUser);
 

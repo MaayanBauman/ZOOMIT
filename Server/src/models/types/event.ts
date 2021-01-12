@@ -1,5 +1,4 @@
 import { Decimal128, ObjectId } from "mongodb";
-import { IUser } from "./user";
 
 export interface IEvent {
     _id: ObjectId;
@@ -11,7 +10,7 @@ export interface IEvent {
     start_time: Date;
     end_time: string;
     max_registers: number;
-    registered_users: Array<IUser>
+    registered_users: Array<string>
     category: ObjectId;
     price: Decimal128;
     source_id: ObjectId;
