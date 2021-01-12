@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch } from 'react';
 
 import axios from 'utils/axios';
 import Category from 'models/Category/Category';
@@ -7,6 +7,7 @@ const useSignUpDialog = () : useEventPageOutCome  => {
     
     const [categories, setCategories] = useState<Category[]>([]);
     const [favoriteCategories, setFavoriteCategories] = useState<string[]>([]);
+    const [userName, setUserName] = useState<string>('');
 
     const getCategories = () => {
         axios.get('/categories')
@@ -25,8 +26,17 @@ const useSignUpDialog = () : useEventPageOutCome  => {
     }
 
     const favoriteHandler = (event : any) => {
-        setFavoriteCategories([...favoriteCategories, event.target.value])
+        const newFav = event.target.value;
+        if(!favoriteCategories.find((value) => value === newFav)){
+            setFavoriteCategories([...favoriteCategories, event.target.value])
+        } else {
+            setFavoriteCategories(favoriteCategories.filter((item: string) => item !== newFav))
+        }
         console.log(event.target);
+    }
+
+    const createUser = () => {
+        alert(userName)
     }
 
     useEffect(() => {
@@ -36,14 +46,20 @@ const useSignUpDialog = () : useEventPageOutCome  => {
     return {
         categories,
         favoriteHandler,
-        favoriteCategories
+        favoriteCategories,
+        createUser,
+        userName,
+        setUserName
     }
 }
 
 interface useEventPageOutCome {
     categories: Category[],
     favoriteHandler: (event:any ) => void,
-    favoriteCategories: string[]
+    favoriteCategories: string[],
+    createUser: () => void,
+    userName: string,
+    setUserName: Function
 }
 
 export default useSignUpDialog;
