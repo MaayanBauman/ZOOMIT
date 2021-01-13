@@ -20,7 +20,6 @@ const useLogin = () : useEventPageOutCome  => {
     };
 
     const handleLogin = (email: String) => {
-        
         // check if the user exists
         axios.get(`users/email/${email}`)
         .then((result: any)=> {
@@ -28,6 +27,11 @@ const useLogin = () : useEventPageOutCome  => {
                 handleOpenSignUpDialog();
             } 
             else {
+                setUser({ 
+                    ...initialState,
+                    full_name: result.data[0].full_name,
+                    photograph: result.data[0].photograph,
+                });
                 history.push(contentRoute + eventsPageRoute);
             }
         })

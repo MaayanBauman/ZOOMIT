@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import{ AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/core';
 
 import User from 'models/User/User';
