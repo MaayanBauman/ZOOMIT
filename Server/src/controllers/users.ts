@@ -43,7 +43,9 @@ export const getUserEvents: Handler = async (req: Request, res: Response, next: 
 
 export const addUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.addUser({...req.body.user, user_type:'user'}));
+        let user = req.body.user;
+        delete user._id;
+        res.json(await users.addUser({...user, user_type:'user'}));
     } catch (err) {
         next(err);
     }
