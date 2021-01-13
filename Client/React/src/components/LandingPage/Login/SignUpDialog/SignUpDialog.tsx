@@ -11,7 +11,7 @@ const SignUpDialog : React.FC<Props> = ({isOpen, handleClose}: Props): JSX.Eleme
     const classes = useStyles();
 
     const {categories, favoriteHandler, favoriteCategories, createUser,
-        userName, setUserName} = useSignUpDialog();
+        userName, setUserName} = useSignUpDialog({handleClose});
 
     return (
         <div>
@@ -36,7 +36,6 @@ const SignUpDialog : React.FC<Props> = ({isOpen, handleClose}: Props): JSX.Eleme
                             />)})
                         }  
                     </FormGroup>
-                 {/* {favoriteCategories.map((val: string)=> <p>{val}</p>)} */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={createUser} color="primary">

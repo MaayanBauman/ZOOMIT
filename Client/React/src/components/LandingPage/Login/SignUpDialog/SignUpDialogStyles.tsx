@@ -12,6 +12,9 @@ const useStyles = makeStyles({
       top: theme.spacing(1),
       color: theme.palette.grey[500],
     },
+    swal: {
+      fontFamily: 'Assistant'
+    }
 });
 
 export default useStyles;

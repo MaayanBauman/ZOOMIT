@@ -1,13 +1,28 @@
-import { useState, useEffect, Dispatch } from 'react';
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import axios from 'utils/axios';
+import User from 'models/User/User';
+import useStyles from './SignUpDialogStyles';
 import Category from 'models/Category/Category';
+import StoreStateType from 'redux/storeStateType';
+import {setUser} from 'redux/User/userActionCreator';
+import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
 
-const useSignUpDialog = () : useEventPageOutCome  => {
+
+const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutCome  => {
     
     const [categories, setCategories] = useState<Category[]>([]);
-    const [favoriteCategories, setFavoriteCategories] = useState<string[]>([]);
     const [userName, setUserName] = useState<string>('');
+    const [favoriteCategories, setFavoriteCategories] = useState<string[]>([]);
+
+    const user = useSelector<StoreStateType, User>(state => state.user);
+
+    const classes = useStyles();
+    const history = useHistory();
+
 
     const getCategories = () => {
         axios.get('/categories')
@@ -36,7 +51,39 @@ const useSignUpDialog = () : useEventPageOutCome  => {
     }
 
     const createUser = () => {
-        alert(userName)
+        handleClose();
+        
+        setUser({ 
+            ...user,
+            full_name: userName,
+        });
+
+        axios.post('users', 
+            {user: 
+                {...user,
+                 favorite_categories : favoriteCategories,
+                 full_name: userName}
+            })
+        .then((response: any) => {
+            if(response){
+                Swal.fire({
+                    title: 'המשתמש נוצר בהצלחה',
+                    text: ',תמשיך הלאה לכל האירועים',
+                    icon: 'success',
+                    confirmButtonText: 'יאלה קח אותי',
+                    customClass: {
+                        title: classes.swal,
+                        content: classes.swal,
+                        container: classes.swal
+                    },
+                  }).then(()=> {
+                    history.push(contentRoute + eventsPageRoute);
+                  })        
+            }
+        })
+        .catch((error)=> {
+            console.log(error)
+        })
     }
 
     useEffect(() => {
@@ -60,6 +107,10 @@ interface useEventPageOutCome {
     createUser: () => void,
     userName: string,
     setUserName: Function
+}
+
+interface useEventPageInCome {
+    handleClose: () => void
 }
 
 export default useSignUpDialog;
