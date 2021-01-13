@@ -27,6 +27,10 @@ const useLogin = () : useEventPageOutCome  => {
                 handleOpenSignUpDialog();
             } 
             else {
+                setUser({ 
+                    ...initialState,
+                    full_name: result.data[0].full_name,
+                });
                 history.push(contentRoute + eventsPageRoute);
             }
         })
