@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: '2vh',
         },
         categoriesContainer: {
-            marginRight:'2vw',
             alignItems: 'center',
-
+            height: '20vh',
+            width: 'fit-content',
         }
     })
 );

@@ -2,7 +2,7 @@ import * as Actions from './userActionTypes';
 import User from 'models/User/User';
 
 export const initialState: User = {
-    id: '',
+    _id: '',
     full_name: '',
     email:'',
     user_type: '',
