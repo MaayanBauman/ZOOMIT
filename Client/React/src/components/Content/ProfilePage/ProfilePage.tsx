@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Typography, Avatar, Button } from '@material-ui/core';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { Typography, Avatar, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 
 import User from 'models/User/User';
 import Category from 'models/Category/Category';
@@ -13,6 +11,7 @@ import EventCategoryRow from '../EventsPage/EventCategoryRow/EventCategoryRow';
 import useStyles from './ProfilePageStyle';
 import { getEventsByCatgory } from 'utils/Event';
 import useEventsPage from '../EventsPage/useEventsPage';
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();
@@ -38,16 +37,16 @@ const ProfilePage: React.FC = (): JSX.Element => {
             </Typography>
             <Typography className={classes.categories_section}>
                 הקטגוריות שלי:
-                <Typography>
+                <FormGroup className={classes.categoriesContainer} >
                     {
                         categories.map((category: Category) => (
-                            <Typography className={classes.categoriesContainer}> 
-                                {user.favorite_categories.includes(category) ? <StarIcon onClick={() => console.log('remove from favorite_categories') } /> : <StarBorderIcon onClick={() => console.log('add to favorite_categories') }/>}
-                                {category.name} 
-                            </Typography>
-                        ))
-                    }
-                </Typography>
+                            <FormControlLabel 
+                                // onChange={favoriteHandler}
+                                control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
+                                label={category.name}
+                            />))
+                    }  
+                </FormGroup>
             </Typography>
             <Typography className={classes.linked_events_section}>
                 הזומים שנרשמתי אליהם:
