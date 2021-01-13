@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Carousel from 'react-material-ui-carousel';
 
 import Event from 'models/Event/Event';
 import EventCard  from '../EventCard/EventCard';
 import useStyles from './EventCategoryRowStyles';
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 
 export const EventsInRow = 6;
 
@@ -29,7 +28,7 @@ const EventCategotryRow: React.FC<Props> = ({events, title}: Props): JSX.Element
         <div className={classes.container}>
         <Typography className={classes.title}>
             {title} 
-            {like ? <StarIcon onClick={() => setLike(false) } /> : <StarBorderIcon onClick={() => setLike(true) }/>}
+            {like ? <Favorite onClick={() => setLike(false) } /> : <FavoriteBorder onClick={() => setLike(true) }/>}
         </Typography> 
         <Carousel navButtonsAlwaysVisible={true} indicators={true} animation='slide' autoPlay={false}>
             {
