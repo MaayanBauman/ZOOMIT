@@ -30,6 +30,7 @@ const useLogin = () : useEventPageOutCome  => {
                 setUser({ 
                     ...initialState,
                     full_name: result.data[0].full_name,
+                    photograph: result.data[0].photograph,
                 });
                 history.push(contentRoute + eventsPageRoute);
             }
