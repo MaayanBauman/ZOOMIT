@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import store from 'redux/store';
+// import store from 'redux/store';
 import { setIsLoading } from 'redux/IsLoading/isLoadingActionCreators';
 
 const instance = axios.create({

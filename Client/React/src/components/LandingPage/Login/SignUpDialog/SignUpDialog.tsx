@@ -3,7 +3,7 @@ import { DialogTitle,Button, Dialog, DialogActions , Typography,
     DialogContent, FormGroup , Checkbox, FormControlLabel, TextField } from '@material-ui/core';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 
-import useStyles from './SignUpDialogStyles';
+// import useStyles from './SignUpDialogStyles';
 import Category from 'models/Category/Category';
 import useSignUpDialog from './useSignUpDialog';
 

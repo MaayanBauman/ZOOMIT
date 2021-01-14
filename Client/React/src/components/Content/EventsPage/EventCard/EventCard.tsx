@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
-
 import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 
@@ -24,7 +23,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                         {event.title}
                     </Typography>
                     <div className={classes.zoomer}>
-                        <img src={userpic}></img>
+                        <img alt={'userpic'} src={userpic}></img>
                         <Typography variant="subtitle1">{event.description}</Typography>
                     </div>
                     <div className={classes.details}>

@@ -14,7 +14,7 @@ const EventPage: React.FC = (): JSX.Element => {
 
     useEffect(() => {
         getEventById(id);
-    }, [])
+    }, [getEventById, id])
 
     return (
         <>
