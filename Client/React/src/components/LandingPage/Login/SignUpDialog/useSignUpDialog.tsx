@@ -11,7 +11,6 @@ import StoreStateType from 'redux/storeStateType';
 import {setUser} from 'redux/User/userActionCreator';
 import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
 
-
 const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutCome  => {
     
     const [categories, setCategories] = useState<Category[]>([]);
@@ -22,7 +21,6 @@ const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutC
 
     const classes = useStyles();
     const history = useHistory();
-
 
     const getCategories = () => {
         axios.get('/categories')
