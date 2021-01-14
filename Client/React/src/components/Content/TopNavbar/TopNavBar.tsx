@@ -50,7 +50,9 @@ const TopNavBar: React.FC = (): JSX.Element => {
                             </Typography>
                         </NavLink> 
                         <IconButton edge="start" color="inherit" aria-label="menu" >
-                            <Avatar alt={user.full_name} src={user.photograph} />
+                            <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
+                                <Avatar alt={user.full_name} src={user.photograph} />
+                            </NavLink>
                         </IconButton>
                     </div>
                 </Toolbar>
