@@ -5,7 +5,7 @@ import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
 
-import { contentRoute, eventPageRoute } from 'utils/Routes/Routes';
+import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 
 const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {

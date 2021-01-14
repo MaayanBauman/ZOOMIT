@@ -8,9 +8,8 @@ import Category from 'models/Category/Category';
 import useSignUpDialog from './useSignUpDialog';
 
 const SignUpDialog : React.FC<Props> = ({isOpen, handleClose}: Props): JSX.Element => {
-    const classes = useStyles();
 
-    const {categories, favoriteHandler, favoriteCategories, createUser, userName, setUserName} = useSignUpDialog({handleClose});
+    const { categories, favoriteHandler, createUser, setUserName } = useSignUpDialog({handleClose});
 
     return (
         <div>
