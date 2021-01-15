@@ -24,7 +24,7 @@ const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutC
 
     const getCategories = () => {
         axios.get('/categories')
-        .then((result : any)=> {
+        .then((result : any) => {
             const categoriesResult = result.data.map((category: any)=> {
                 return {
                     id: category._id,
@@ -50,20 +50,17 @@ const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutC
 
     const createUser = () => {
         handleClose();
-        
-        setUser({ 
+        var newUser =  { 
             ...user,
-            full_name: userName,
-        });
+            favorite_categories : favoriteCategories,
+            full_name: userName
+        }
 
-        axios.post('users', 
-            {user: 
-                {...user,
-                 favorite_categories : favoriteCategories,
-                 full_name: userName}
-            })
+        axios.post('users', { user: newUser })
         .then((response: any) => {
-            if(response){
+            if (response) {
+                newUser._id = response.data.insertedId;
+                setUser(newUser);
                 Swal.fire({
                     title: 'המשתמש נוצר בהצלחה',
                     text: ',תמשיך הלאה לכל האירועים',

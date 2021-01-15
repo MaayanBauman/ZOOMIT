@@ -5,7 +5,7 @@ export const initialState: User = {
     _id: '',
     full_name: '',
     email:'',
-    user_type: '',
+    user_type: 'user',
     favorite_categories: [],
     owned_events: [],
     photograph: '',

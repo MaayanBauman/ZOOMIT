@@ -1,24 +1,40 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Typography, Avatar, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 
 import User from 'models/User/User';
 import Category from 'models/Category/Category';
-import EventsByCategories from 'models/Event/EventsByCategories';
+
 import StoreStateType from 'redux/storeStateType';
-import EventCategoryRow from '../EventsPage/EventCategoryRow/EventCategoryRow';
 
 import useStyles from './ProfilePageStyle';
-import { getEventsByCatgory } from 'utils/Event';
-import useEventsPage from '../EventsPage/useEventsPage';
-import { Favorite, FavoriteBorder } from '@material-ui/icons';
+import useProfilePage from './useProfilePage';
+import EventCategoryRow from '../EventsPage/EventCategoryRow/EventCategoryRow';
 
 const ProfilePage: React.FC = (): JSX.Element => {
-    const classes = useStyles();
+    const classes = useStyles();    
+    const { categories, eventsByCategories, getUserEventsByCategories, updateUserFavCategories } = useProfilePage();
     
     const user = useSelector<StoreStateType, User>(state => state.user);
-    const eventsByCategories: EventsByCategories = getEventsByCatgory(user.registerd_events);
-    const { categories } = useEventsPage();
+
+    const favoriteHandler = (event : any) => {
+        const newFav = event.target.value;
+        const favoriteCategories = user.favorite_categories;
+        console.log(favoriteCategories);
+        let userFavCategories = [];
+        if(!favoriteCategories?.find((value) => value === newFav)) {
+            userFavCategories = [...favoriteCategories, event.target.value];
+        } else {
+            userFavCategories = favoriteCategories.filter((item: string) => item !== newFav);
+        }
+        updateUserFavCategories(user, userFavCategories)
+    }
+
+    useEffect(() => {
+        user._id !== '' && getUserEventsByCategories(user._id);
+    }, []);
 
     return (
         <div className={classes.container}>
@@ -39,10 +55,10 @@ const ProfilePage: React.FC = (): JSX.Element => {
                 הקטגוריות שלי:
                 <FormGroup className={classes.categoriesContainer} >
                     {
-                        categories.map((category: Category) => (
+                        categories?.map((category: Category) => (
                             <FormControlLabel 
-                                // onChange={favoriteHandler}
-                                control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
+                                onChange={favoriteHandler}
+                                control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category.id)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
                                 label={category.name}
                             />))
                     }  
@@ -52,7 +68,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                 הזומים שנרשמתי אליהם:
                 <Typography>
                     {
-                        Object.keys(eventsByCategories).map((categoryName: string) => (<EventCategoryRow key={categoryName} events={eventsByCategories[categoryName]} title={categoryName}/>) )
+                        Object.keys(eventsByCategories)?.map((categoryName: string) => (<EventCategoryRow key={categoryName} events={eventsByCategories[categoryName]} title={categoryName}/>) )
                     }
                 </Typography>
             </Typography>

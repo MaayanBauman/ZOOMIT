@@ -5,8 +5,6 @@ import useStyles from './EventsPageStyles';
 import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
 import FilterBox from './FilterBox/FilterBox';
 import EventsByCategories from 'models/Event/EventsByCategories';
-
-
 import { getEventsByCatgory } from 'utils/Event';
 
 const EventsPage: React.FC = (): JSX.Element => {

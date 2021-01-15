@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, Handler } from 'express';
 import { users } from '../services';
 
+
 export const getAllUsers: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.getAllUsers());
@@ -45,7 +46,7 @@ export const addUser: Handler = async (req: Request, res: Response, next: NextFu
     try {
         let user = req.body.user;
         delete user._id;
-        res.json(await users.addUser({...user, user_type:'user'}));
+        res.json(await users.addUser({...user, user_type: 'user'}));
     } catch (err) {
         next(err);
     }
@@ -61,7 +62,9 @@ export const addEventToUser: Handler = async (req: Request, res: Response, next:
 
 export const updateUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.updateUser(req.params.id, req.body.user));
+        let user = req.body.user;
+        delete user._id;
+        res.json(await users.updateUser(req.params.id, user));
     } catch (err) {
         next(err);
     }
