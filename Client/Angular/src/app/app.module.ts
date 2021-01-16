@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { UsersCounterComponent } from './users-counter/users-counter.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: 'http://localhost:8081', options: {} };
+const config: SocketIoConfig = { url: /*config.ANGULAR_APP_SERVER_URL*/ 'http://localhost:4001', options: {} };
 
 @NgModule({
   declarations: [

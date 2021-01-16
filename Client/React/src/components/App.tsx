@@ -6,7 +6,7 @@ import Content from 'components/Content/Content';
 import { contentRoute, landingPageRoute } from 'utils/Routes/Routes';
 import LoadingSpinner from 'utils/LoadingSpinner/LoadingSpinner';
 
-const serverUrl = process.env.REACT_APP_SOCKET_SERVER_URL || '';
+const serverUrl = process.env.REACT_APP_SERVER_URL || '';
 io.connect(serverUrl);
 
 const App: React.FC = (): JSX.Element => {

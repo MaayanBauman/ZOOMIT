@@ -10,6 +10,7 @@ import config from './config';
 require('dotenv').config();
 
 const app: Express = express();
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -33,20 +34,11 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500).send('Internal server error');
 });
 
-app.listen(config.port, () => {
-  console.log( `server started on port ${config.port}`);
-});
-
 const server: httpServer = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: [config.clientReactUrl, config.clientAngolarUrl],
-    methods: ["GET", "POST"],
-    credentials: false,
-  }
-});
+const io = require("socket.io")(server);
 
 var usersCount: number = 0;
+
 io.on('connection', (socket: Socket) => {    
   console.log(socket.handshake.headers.origin);
   if (socket.handshake.headers.origin === config.clientReactUrl) {
@@ -59,4 +51,6 @@ io.on('connection', (socket: Socket) => {
     }   
 }); 
 
-server.listen(config.websocketPort); 
+server.listen(config.port, () => {
+  console.log( `server started on port ${config.port}`);
+});
