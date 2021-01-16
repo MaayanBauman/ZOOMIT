@@ -32,6 +32,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
   res.sendStatus(500).send('Internal server error');
 });
+
 app.listen(config.port, () => {
   console.log( `server started on port ${config.port}`);
 });
@@ -57,4 +58,5 @@ io.on('connection', (socket: Socket) => {
         });
     }   
 }); 
-server.listen(8081); 
+
+server.listen(config.websocketPort); 

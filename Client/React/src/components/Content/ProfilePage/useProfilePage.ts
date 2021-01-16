@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import axios from 'utils/axios';
-import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
 import { setUser } from 'redux/User/userActionCreator';

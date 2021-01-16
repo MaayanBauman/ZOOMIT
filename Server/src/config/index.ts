@@ -2,6 +2,7 @@ require('dotenv').config();
 
 export default {
     port: process.env.PORT,
+    websocketPort: process.env.WEBSOCKET_PORT,
     clientReactUrl: process.env.REACT_APP_CLIENT_URL,
     clientAngolarUrl: process.env.ANGULAR_APP_CLIENT_URL,
     mongoConfig: {
