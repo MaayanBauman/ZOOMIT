@@ -32,6 +32,9 @@ export const addEvent = (newEvent: IEvent) =>
 export const addUserToEvent = (id:string, user: string) => 
     eventsOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registered_users', [user]);
 
+export const removeUserFromEvent = (id:string, user: string) => 
+    eventsOperationBuilder.deleteValuesFromArray(collectionName, id, 'registered_users', [user]);
+
 export const updateEvent = (id: string, eventToUpdate: IEvent) => 
     eventsOperationBuilder.updateObject(collectionName, id, eventToUpdate);
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IOperationBuilder } from './operations/types'
 import operationBuilder from './operations';
 import { IUser } from '../models/types/user';
-import { addUserToEvent, getEventsById } from './events';
+import { addUserToEvent, getEventsById, removeUserFromEvent } from './events';
 import config from '../config';
 
 const collectionName = config.collections.users.name;
@@ -32,6 +32,12 @@ export const addEventToUser = (id:string, event: string) =>
     Promise.all([
         addUserToEvent(event, id), 
         usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [event])
+    ]);
+
+export const removeEventFromUser = (id:string, event: string) => 
+    Promise.all([
+        removeUserFromEvent(event, id), 
+        usersOperationBuilder.deleteValuesFromArray(collectionName, id, 'registerd_events', [event])
     ]);
 
 export const updateUser = (id: string, sourceToUpdate: IUser) => 

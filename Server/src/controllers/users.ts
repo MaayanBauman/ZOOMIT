@@ -60,6 +60,14 @@ export const addEventToUser: Handler = async (req: Request, res: Response, next:
     }
 };
 
+export const removeEventFromUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.removeEventFromUser(req.params.id, req.params.event));
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const updateUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let user = req.body.user;
