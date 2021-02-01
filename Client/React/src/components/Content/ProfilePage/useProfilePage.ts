@@ -56,6 +56,19 @@ const useEventsPage = () : useEventsPageOutCome  => {
             console.log(error);
         });
     }
+    
+     const favoriteHandler = (event : any, user: User,) => {
+        const newFav = event.target.value;
+        const favoriteCategories = user.favorite_categories;
+        console.log(favoriteCategories);
+        let userFavCategories = [];
+        if (!favoriteCategories?.find((value) => value === newFav)) {
+            userFavCategories = [...favoriteCategories, event.target.value];
+        } else {
+            userFavCategories = favoriteCategories.filter((item: string) => item !== newFav);
+        }
+        updateUserFavCategories(user, userFavCategories)
+    }
 
     const updateUserFavCategories = (user: User, favCategories: string[]) => {
         const updatedUser = { ...user, favorite_categories : favCategories }
@@ -76,7 +89,8 @@ const useEventsPage = () : useEventsPageOutCome  => {
         categories,
         eventsByCategories,
         updateUserFavCategories,
-        getUserEventsByCategories
+        getUserEventsByCategories,
+        favoriteHandler,   
     }
 }
 
@@ -85,6 +99,7 @@ interface useEventsPageOutCome {
     eventsByCategories: EventsByCategories,
     updateUserFavCategories: Function,
     getUserEventsByCategories: Function,
+    favoriteHandler: Function,
 }
 
 export default useEventsPage;

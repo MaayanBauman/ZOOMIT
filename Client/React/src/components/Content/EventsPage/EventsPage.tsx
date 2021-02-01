@@ -6,11 +6,16 @@ import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
 import FilterBox from './FilterBox/FilterBox';
 import EventsByCategories from 'models/Event/EventsByCategories';
 import { getEventsByCatgory } from 'utils/Event';
+import StoreStateType from 'redux/storeStateType';
+import User from 'models/User/User';
+import { useSelector } from 'react-redux';
+import Category from 'models/Category/Category';
 
 const EventsPage: React.FC = (): JSX.Element => {
+    const user = useSelector<StoreStateType, User>(state => state.user);
     
     const classes = useStyles();
-    const {events, getEventByTitle, getAllEvents} = useEventsPage();
+    const { events, categories, getEventByTitle, getAllEvents} = useEventsPage();
     const eventsByCategories: EventsByCategories = getEventsByCatgory(events);
     
     const [searchText, setSearchText] = useState('');
@@ -24,7 +29,8 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <FilterBox searchText={searchText} setSearchText={setSearchText} onFilter={() => { searchText ? getEventByTitle(searchText) : getAllEvents()}}/>
                 </div>
                 {
-                    Object.keys(eventsByCategories).map((categoryName: string) => (<EventCategoryRow key={categoryName} events={eventsByCategories[categoryName]} title={categoryName}/>) )
+                    categories?.map((category: Category) => eventsByCategories[category.name] && 
+                        (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>))
                 }
             </div>
         </>

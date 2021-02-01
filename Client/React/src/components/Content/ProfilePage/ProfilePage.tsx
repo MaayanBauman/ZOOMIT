@@ -15,22 +15,9 @@ import EventCategoryRow from '../EventsPage/EventCategoryRow/EventCategoryRow';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();    
-    const { categories, eventsByCategories, getUserEventsByCategories, updateUserFavCategories } = useProfilePage();
+    const { categories, eventsByCategories, getUserEventsByCategories, favoriteHandler } = useProfilePage();
     
     const user = useSelector<StoreStateType, User>(state => state.user);
-
-    const favoriteHandler = (event : any) => {
-        const newFav = event.target.value;
-        const favoriteCategories = user.favorite_categories;
-        console.log(favoriteCategories);
-        let userFavCategories = [];
-        if(!favoriteCategories?.find((value) => value === newFav)) {
-            userFavCategories = [...favoriteCategories, event.target.value];
-        } else {
-            userFavCategories = favoriteCategories.filter((item: string) => item !== newFav);
-        }
-        updateUserFavCategories(user, userFavCategories)
-    }
 
     useEffect(() => {
         user._id !== '' && getUserEventsByCategories(user._id);
@@ -57,7 +44,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                     {
                         categories?.map((category: Category) => (
                             <FormControlLabel 
-                                onChange={favoriteHandler}
+                                onChange={(e) => favoriteHandler(e, user)}
                                 control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category.id)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
                                 label={category.name}
                             />))
@@ -68,7 +55,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                 הזומים שנרשמתי אליהם:
                 <Typography>
                     {
-                        Object.keys(eventsByCategories)?.map((categoryName: string) => (<EventCategoryRow key={categoryName} events={eventsByCategories[categoryName]} title={categoryName}/>) )
+                        categories?.map((category: Category) => eventsByCategories[category.name] && (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>) )
                     }
                 </Typography>
             </Typography>
