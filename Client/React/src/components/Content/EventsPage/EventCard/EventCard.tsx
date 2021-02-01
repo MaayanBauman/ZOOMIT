@@ -39,8 +39,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                     </div>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <Button variant="contained" color="secondary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
-                    <Button variant="contained" color="primary">הרשמה!</Button>
+                    <Button variant="contained" color="primary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
                 </CardActions>
             </Card>
         </div>

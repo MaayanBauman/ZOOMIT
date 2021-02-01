@@ -35,14 +35,11 @@ const useStyles = makeStyles({
     }
   },
   cardActions: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'stretch',
     '& button': {
-      flexBasis: '47%',
-      fontSize: '0.7em'
-    },
-    '& > :not(:first-child)': {
-      margin: 0
+      fontSize: '0.7em',
+      width: '97vw'
     }
   }
 });
