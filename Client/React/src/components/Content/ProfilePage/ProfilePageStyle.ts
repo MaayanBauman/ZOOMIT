@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             display:'flex',
             flexDirection: 'column',
-            marginTop: '5vh',
             marginRight: '2vw',
             marginLeft: '2vw',
         },
@@ -49,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             height: '20vh',
             width: 'fit-content',
+        },
+        noEventsMsg: {
+            marginRight: '2vw',
+            marginTop: '2vh',
         }
     })
 );

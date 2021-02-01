@@ -11,11 +11,11 @@ import StoreStateType from 'redux/storeStateType';
 
 import useStyles from './ProfilePageStyle';
 import useProfilePage from './useProfilePage';
-import EventCategoryRow from '../EventsPage/EventCategoryRow/EventCategoryRow';
+import EventsCarousel from '../EventsPage/EventCategoryRow/EventsCarousel';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();    
-    const { categories, eventsByCategories, getUserEventsByCategories, favoriteHandler } = useProfilePage();
+    const { categories, events, getUserEventsByCategories, favoriteHandler } = useProfilePage();
     
     const user = useSelector<StoreStateType, User>(state => state.user);
 
@@ -53,11 +53,12 @@ const ProfilePage: React.FC = (): JSX.Element => {
             </Typography>
             <Typography className={classes.linked_events_section}>
                 הזומים שנרשמתי אליהם:
-                <Typography>
-                    {
-                        categories?.map((category: Category) => eventsByCategories[category.name] && (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>) )
-                    }
-                </Typography>
+                {
+                    events.length ? 
+                        (<EventsCarousel events={events}/> )
+                    : 
+                        (<Typography className={classes.noEventsMsg}>אינך רשום לזומים :(</Typography>)
+                }
             </Typography>
         </div>
     );

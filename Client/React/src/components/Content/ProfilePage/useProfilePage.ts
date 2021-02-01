@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'utils/axios';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
+import Event from 'models/Event/Event';
 import { setUser } from 'redux/User/userActionCreator';
 import { getEventsByCatgory } from 'utils/Event';
 import EventsByCategories from 'models/Event/EventsByCategories';
@@ -26,8 +27,9 @@ const convertEvent = (event: any)=> {
 };
 
 const useEventsPage = () : useEventsPageOutCome  => {
-    const [ eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
+    const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
     const [categories, setCategories] = useState<Category[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     const getCategories = () => {
         axios.get('/categories')
@@ -49,6 +51,7 @@ const useEventsPage = () : useEventsPageOutCome  => {
         axios.get(`/users/${userId}/events`)
         .then((result : any)=> {
             const eventsResult = result.data.map(convertEvent);
+            setEvents(eventsResult);
             const eventsByCategories: EventsByCategories = getEventsByCatgory(eventsResult)
             setEventsByCategories(eventsByCategories);
         })
@@ -86,6 +89,7 @@ const useEventsPage = () : useEventsPageOutCome  => {
     }, []);
     
     return {
+        events,
         categories,
         eventsByCategories,
         updateUserFavCategories,
@@ -95,6 +99,7 @@ const useEventsPage = () : useEventsPageOutCome  => {
 }
 
 interface useEventsPageOutCome {
+    events: Event[],
     categories: Category[],
     eventsByCategories: EventsByCategories,
     updateUserFavCategories: Function,
