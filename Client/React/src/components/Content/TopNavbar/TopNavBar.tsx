@@ -7,6 +7,7 @@ import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
 import StoreStateType from 'redux/storeStateType';
 import logo from 'assets/images/zoomit_small_logo.png';
+import SignOutPopover from './SignOutPopover/SignOutPopover';
 import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} from 'utils/Routes/Routes';
 
 
@@ -15,6 +16,13 @@ const TopNavBar: React.FC = (): JSX.Element => {
     const { path } = useRouteMatch();
 
     const user = useSelector<StoreStateType, User>(state => state.user);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
+
+    const handleAvatarMouseOver = (event : any) => {
+        setIsPopoverOpen(true);
+        setAnchorEl(event.currentTarget);
+    };
 
     return (
         <div >
@@ -49,9 +57,14 @@ const TopNavBar: React.FC = (): JSX.Element => {
                             ניהול המערכת
                             </Typography>
                         </NavLink> 
-                        <IconButton edge="start" color="inherit" aria-label="menu" >
+                        <IconButton edge="start" color="inherit" aria-lhandleAvatarMouseOverl="menu" >
                             <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
-                                <Avatar alt={user.full_name} src={user.photograph} />
+                                <span>
+                                    <Avatar alt={user.full_name} 
+                                            src={user.photograph} 
+                                            onMouseOver={(event)=> handleAvatarMouseOver(event)}/>
+                                    <SignOutPopover anchorEl={anchorEl} isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen}/>
+                                </span>                               
                             </NavLink>
                         </IconButton>
                     </div>
