@@ -1,0 +1,26 @@
+.container {
+    width: 100%;
+    height: 100%;
+    direction: rtl;
+}
+
+/* Styles for tab labels */
+.mat-tab-label {
+    padding: 5px;
+    background-color: transparent;
+    color: black;
+    font-weight: 700;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+    padding: 5px;
+    background-color: transparent;
+    color: #0C63CE;
+    font-weight: 700;
+}
+
+/* Styles for the ink bar */
+.mat-ink-bar {
+    background-color: #0C63CE!important;
+}
