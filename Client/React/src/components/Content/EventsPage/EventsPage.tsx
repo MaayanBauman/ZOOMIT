@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventsPage from './useEventsPage';
 import useStyles from './EventsPageStyles';
@@ -15,10 +15,9 @@ const EventsPage: React.FC = (): JSX.Element => {
     const user = useSelector<StoreStateType, User>(state => state.user);
     
     const classes = useStyles();
-    const { events, categories, getEventByTitle, getAllEvents} = useEventsPage();
+    const { events, categories, getEventByFilters} = useEventsPage();
     const eventsByCategories: EventsByCategories = getEventsByCatgory(events);
     
-    const [searchText, setSearchText] = useState('');
     return (
         <>
             <div className={classes.container}>
@@ -26,7 +25,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <Typography className={classes.count} variant="subtitle1" gutterBottom>
                         {events.length} זומים
                     </Typography>
-                    <FilterBox searchText={searchText} setSearchText={setSearchText} onFilter={() => { searchText ? getEventByTitle(searchText) : getAllEvents()}}/>
+                    <FilterBox onFilter={getEventByFilters}/>
                 </div>
                 {
                     categories?.map((category: Category) => eventsByCategories[category.name] && 
