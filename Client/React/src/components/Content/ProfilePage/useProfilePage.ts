@@ -63,7 +63,6 @@ const useEventsPage = () : useEventsPageOutCome  => {
      const favoriteHandler = (event : any, user: User,) => {
         const newFav = event.target.value;
         const favoriteCategories = user.favorite_categories;
-        console.log(favoriteCategories);
         let userFavCategories = [];
         if (!favoriteCategories?.find((value) => value === newFav)) {
             userFavCategories = [...favoriteCategories, event.target.value];

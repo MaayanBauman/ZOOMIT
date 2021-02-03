@@ -45,7 +45,6 @@ const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutC
         } else {
             setFavoriteCategories(favoriteCategories.filter((item: string) => item !== newFav))
         }
-        console.log(event.target);
     }
 
     const createUser = () => {
