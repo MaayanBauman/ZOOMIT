@@ -21,7 +21,7 @@ export const getEventByCategory = (category: string) =>
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
 
 export const getEventByTitle = (title: string) => 
-    eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'title', [title]);
+    eventsOperationBuilder.getObjectsRegexFiled(collectionName, 'title', title);
 
 export const getEventsByUser = (user: string) => 
     eventsOperationBuilder.getObjectsInSubsetFiled(collectionName, 'registered_users', [user])
