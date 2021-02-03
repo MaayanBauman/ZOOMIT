@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material/snack-bar';
-import { RealtimeService } from '../realtime.service';
 
 @Component({
   selector: 'app-user-request-alert',
@@ -20,7 +19,6 @@ export class UserRequestAlertComponent {
       verticalPosition: this.verticalPosition,
       panelClass:['user-request-alert'],
     });
-    
   }
 }
 
