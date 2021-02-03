@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 import axios from 'utils/axios';
@@ -35,11 +35,9 @@ const useLogin = () : useEventPageOutCome  => {
         })
     }
 
-   
     const SuccessResponseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-        console.log((response as GoogleLoginResponse)?.getAuthResponse()?.access_token);
         const profile = (response as GoogleLoginResponse)?.getBasicProfile();
-
+        
         setUser({ 
             ...initialState,
             full_name: profile?.getName(),
