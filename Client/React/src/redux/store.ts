@@ -8,9 +8,7 @@ import StoreStateType from './storeStateType';
 
 const persistConfig: PersistConfig<StoreStateType> = {
     key: 'root',
-    storage: storageSession,
-    // We used the blacklist prop in order to avoid saving maps on session storage
-    blacklist: ['cities', 'countries', 'contactTypes']
+    storage: storageSession
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers)
