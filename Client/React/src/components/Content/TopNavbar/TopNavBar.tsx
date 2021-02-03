@@ -5,6 +5,7 @@ import{ AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/cor
 
 import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
+import UserType from 'models/Enums/UserType';
 import StoreStateType from 'redux/storeStateType';
 import logo from 'assets/images/zoomit_small_logo.png';
 import SignOutPopover from './SignOutPopover/SignOutPopover';
@@ -43,9 +44,10 @@ const TopNavBar: React.FC = (): JSX.Element => {
                             </Typography>
                         </NavLink> 
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${zoomerPageRoute}`}>
+                           { user.user_type === UserType.ZOOMER && 
                             <Typography variant="h6" color="inherit" className={classes.menuTypog}>
-                                אני זומר
-                            </Typography>
+                                    אני זומר
+                            </Typography>}
                         </NavLink> 
                     </div> 
                     <div className={classes.leftSection}>
@@ -53,9 +55,10 @@ const TopNavBar: React.FC = (): JSX.Element => {
                            {`שלום ${user.full_name}`}
                         </Typography>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${managePageRoute}`}>
+                        {    user.user_type === UserType.ADMIN &&
                             <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
-                            ניהול המערכת
-                            </Typography>
+                                ניהול המערכת
+                            </Typography>}
                         </NavLink> 
                         <IconButton edge="start" color="inherit" aria-lhandleAvatarMouseOverl="menu" >
                             <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>

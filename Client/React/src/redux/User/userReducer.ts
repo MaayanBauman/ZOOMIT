@@ -1,11 +1,12 @@
 import * as Actions from './userActionTypes';
 import User from 'models/User/User';
+import UserType from 'models/Enums/UserType';
 
 export const initialState: User = {
     _id: '',
     full_name: '',
     email:'',
-    user_type: 'user',
+    user_type: UserType.USER,
     favorite_categories: [],
     owned_events: [],
     photograph: '',
