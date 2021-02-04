@@ -15,7 +15,7 @@ import EventsCarousel from '../EventsPage/EventCategoryRow/EventsCarousel';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();    
-    const { categories, events, getUserEventsByCategories, favoriteHandler } = useProfilePage();
+    const { categories, events, getUserEventsByCategories, favoriteHandler, createNewZoomerReq } = useProfilePage();
     
     const user = useSelector<StoreStateType, User>(state => state.user);
 
@@ -32,11 +32,15 @@ const ProfilePage: React.FC = (): JSX.Element => {
                             {user.full_name}
                     </Typography>
                 </Typography>
-                <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
-                    <Button variant="contained" color="primary" className={classes.zoomer_requast_btn}>
-                        אני רוצה להיות זומר/ית!
-                    </Button>
-                </Typography>
+                {
+                    user.user_type === 'user' && (
+                        <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
+                            <Button variant="contained" color="primary" onClick={() => createNewZoomerReq(user._id)} className={classes.zoomer_requast_btn}>
+                                אני רוצה להיות זומר/ית!
+                            </Button>
+                        </Typography>
+                    )
+                }
             </Typography>
             <Typography className={classes.categories_section}>
                 הקטגוריות שלי:

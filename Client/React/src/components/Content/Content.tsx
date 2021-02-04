@@ -15,6 +15,7 @@ import {eventsPageRoute, zoomerPageRoute, profilePageRoute,
          eventPageRoute, managePageRoute,landingPageRoute } from 'utils/Routes/Routes';
 
 import useStyles from './ContentStyles';
+import Alert from './Alert/Alert';
 
 const Content: React.FC = (): JSX.Element => {
 
@@ -38,6 +39,7 @@ const Content: React.FC = (): JSX.Element => {
                             <Route path={path} exact component={EventsPage} />
                         </Switch>
                     </>
+                    <Alert/>
                 </div> :
                 <Redirect to={landingPageRoute}/>
             }

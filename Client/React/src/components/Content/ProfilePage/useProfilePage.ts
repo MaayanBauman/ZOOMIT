@@ -7,6 +7,7 @@ import Event from 'models/Event/Event';
 import { setUser } from 'redux/User/userActionCreator';
 import { getEventsByCatgory } from 'utils/Event';
 import EventsByCategories from 'models/Event/EventsByCategories';
+import { socket } from 'components/useApp';
 
 const convertEvent = (event: any)=> {
     return {
@@ -83,12 +84,17 @@ const useEventsPage = () : useEventsPageOutCome  => {
         ))
     }
 
+    const createNewZoomerReq = (userId: string) => {
+        socket.emit('new-zoomer-request', userId);
+    }
+
     useEffect(() => {
         getCategories();
     }, []);
     
     return {
         events,
+        createNewZoomerReq,
         categories,
         eventsByCategories,
         updateUserFavCategories,
@@ -104,6 +110,7 @@ interface useEventsPageOutCome {
     updateUserFavCategories: Function,
     getUserEventsByCategories: Function,
     favoriteHandler: Function,
+    createNewZoomerReq: Function,
 }
 
 export default useEventsPage;
