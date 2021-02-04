@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersCounterComponent } from './users-counter/users-counter.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -15,7 +14,6 @@ const config: SocketIoConfig = { url: /*config.ANGULAR_APP_SERVER_URL*/ 'http://
 @NgModule({
   declarations: [
     AppComponent,
-    UsersCounterComponent,
   ],
   imports: [
     BrowserModule,

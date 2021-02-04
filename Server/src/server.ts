@@ -54,7 +54,7 @@ io.on('connection', (socket: Socket) => {
 		socket.on('disconnect', () => {
 			sockets = sockets.filter((currSocket: Socket) => currSocket!== socket)
 		});
-    }   
+  }   
 }); 
 
 server.listen(config.port, () => {
