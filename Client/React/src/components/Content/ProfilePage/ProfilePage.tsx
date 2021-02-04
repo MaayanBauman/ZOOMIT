@@ -12,10 +12,11 @@ import StoreStateType from 'redux/storeStateType';
 import useStyles from './ProfilePageStyle';
 import useProfilePage from './useProfilePage';
 import EventsCarousel from '../EventsPage/EventCategoryRow/EventsCarousel';
+import UserType from 'models/Enums/UserType';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();    
-    const { categories, events, getUserEventsByCategories, favoriteHandler, createNewZoomerReq } = useProfilePage();
+    const { categories, events, getUserEventsByCategories, favoriteHandler, createNewZoomerReq, cancelZoomerReq } = useProfilePage();
     
     const user = useSelector<StoreStateType, User>(state => state.user);
 
@@ -33,12 +34,19 @@ const ProfilePage: React.FC = (): JSX.Element => {
                     </Typography>
                 </Typography>
                 {
-                    user.user_type === 'user' && (
-                        <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
-                            <Button variant="contained" color="primary" onClick={() => createNewZoomerReq(user._id)} className={classes.zoomer_requast_btn}>
-                                אני רוצה להיות זומר/ית!
-                            </Button>
-                        </Typography>
+                    user.user_type === UserType.USER && ( 
+                        !user.is_waiting_for_approval ? 
+                            <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
+                                <Button variant="contained" color="primary" onClick={() => createNewZoomerReq(user)} className={classes.zoomer_requast_btn}>
+                                    אני רוצה להיות זומר/ית!
+                                </Button>
+                            </Typography>
+                            :
+                            <Typography className={classes.user_actions} variant="subtitle1" gutterBottom>
+                                <Button variant="contained" color="secondary" onClick={() => cancelZoomerReq(user)} className={classes.zoomer_requast_btn}>
+                                    בטל בקשה להיות זומר/ית
+                                </Button>
+                            </Typography>
                     )
                 }
             </Typography>

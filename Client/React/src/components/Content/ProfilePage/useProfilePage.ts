@@ -84,8 +84,26 @@ const useEventsPage = () : useEventsPageOutCome  => {
         ))
     }
 
-    const createNewZoomerReq = (userId: string) => {
-        socket.emit('new-zoomer-request', userId);
+    const createNewZoomerReq = (user: User) => {
+        const updatedUser = { ...user, is_waiting_for_approval: true }
+        axios.put(`/users/${user._id}`, { user: updatedUser })
+        .then((result : any) => {
+            setUser(result.data.value)
+            socket.emit('new-zoomer-request', user._id);
+        })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
+    const cancelZoomerReq = (user: User) => {
+        const updatedUser = { ...user, is_waiting_for_approval: false }
+        axios.put(`/users/${user._id}`, { user: updatedUser })
+        .then((result : any) => {
+            setUser(result.data.value)
+        })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
     }
 
     useEffect(() => {
@@ -99,7 +117,8 @@ const useEventsPage = () : useEventsPageOutCome  => {
         eventsByCategories,
         updateUserFavCategories,
         getUserEventsByCategories,
-        favoriteHandler,   
+        favoriteHandler,  
+        cancelZoomerReq, 
     }
 }
 
@@ -111,6 +130,7 @@ interface useEventsPageOutCome {
     getUserEventsByCategories: Function,
     favoriteHandler: Function,
     createNewZoomerReq: Function,
+    cancelZoomerReq: Function,
 }
 
 export default useEventsPage;
