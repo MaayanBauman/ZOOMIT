@@ -20,6 +20,9 @@ export const getEventsById = (ids: Array<string>) =>
 export const getEventByCategory = (category: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
 
+export const getCountEventsByCategory = () => 
+    eventsOperationBuilder.getCountObjectsByFiled(collectionName, 'category');
+
 export const getEventByTitle = (title: string) => 
     eventsOperationBuilder.getObjectsRegexFiled(collectionName, 'title', title);
 

@@ -16,6 +16,11 @@ const getObjectsInSubsetFiled = (collectionName: string, objField: string, subse
         { [objField]: { $in: subset } }
     ).toArray(), `Fail to get the objects with ${objField} in ${subset} from ${collectionName}`);
 
+const getCountObjectsByFiled = (collectionName: string, objField: string) =>
+    doOperation(collectionName, collection => collection.aggregate([
+        { $group: { _id: `$${objField}`, count: { $sum: 1 }} }
+    ]).toArray(), `Fail to get the count objects with ${objField} from ${collectionName}`);
+
 const getObjectsRegexFiled = (collectionName: string, objField: string, regex: string) =>
     doOperation(collectionName, collection => collection.find(
     { [objField]: { $regex: regex }}
@@ -75,6 +80,7 @@ export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,
     getObjectsBySubsetFiled,
     getObjectsInSubsetFiled,
+    getCountObjectsByFiled,
     getObjectsRegexFiled,
     getObjectById,
     getObjectsById,
