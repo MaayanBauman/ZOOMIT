@@ -1,8 +1,10 @@
+import UserType from 'models/Enums/UserType';
+
 interface User {
     _id: string;
     full_name: string;
     email: string;
-    user_type: string;
+    user_type: UserType;
     favorite_categories: Array<string>;
     owned_events: Array<string>;
     photograph: string;

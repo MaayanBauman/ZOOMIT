@@ -7,6 +7,7 @@ import Event from 'models/Event/Event';
 import { setUser } from 'redux/User/userActionCreator';
 import { getEventsByCatgory } from 'utils/Event';
 import EventsByCategories from 'models/Event/EventsByCategories';
+import { socket } from 'components/useApp';
 
 const convertEvent = (event: any)=> {
     return {
@@ -63,7 +64,6 @@ const useEventsPage = () : useEventsPageOutCome  => {
      const favoriteHandler = (event : any, user: User,) => {
         const newFav = event.target.value;
         const favoriteCategories = user.favorite_categories;
-        console.log(favoriteCategories);
         let userFavCategories = [];
         if (!favoriteCategories?.find((value) => value === newFav)) {
             userFavCategories = [...favoriteCategories, event.target.value];
@@ -84,17 +84,41 @@ const useEventsPage = () : useEventsPageOutCome  => {
         ))
     }
 
+    const createNewZoomerReq = (user: User) => {
+        const updatedUser = { ...user, is_waiting_for_approval: true }
+        axios.put(`/users/${user._id}`, { user: updatedUser })
+        .then((result : any) => {
+            setUser(result.data.value)
+            socket.emit('new-zoomer-request', user._id);
+        })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
+    const cancelZoomerReq = (user: User) => {
+        const updatedUser = { ...user, is_waiting_for_approval: false }
+        axios.put(`/users/${user._id}`, { user: updatedUser })
+        .then((result : any) => {
+            setUser(result.data.value)
+        })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
+
     useEffect(() => {
         getCategories();
     }, []);
     
     return {
         events,
+        createNewZoomerReq,
         categories,
         eventsByCategories,
         updateUserFavCategories,
         getUserEventsByCategories,
-        favoriteHandler,   
+        favoriteHandler,  
+        cancelZoomerReq, 
     }
 }
 
@@ -105,6 +129,8 @@ interface useEventsPageOutCome {
     updateUserFavCategories: Function,
     getUserEventsByCategories: Function,
     favoriteHandler: Function,
+    createNewZoomerReq: Function,
+    cancelZoomerReq: Function,
 }
 
 export default useEventsPage;

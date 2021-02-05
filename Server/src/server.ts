@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import router from './routes';
 import config from './config';
+import UserType from './models/Enums/UserType';
 
 require('dotenv').config();
 
@@ -37,18 +38,23 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 const server: httpServer = http.createServer(app);
 const io = require("socket.io")(server);
 
-var usersCount: number = 0;
+let sockets: Socket[] = [];
 
 io.on('connection', (socket: Socket) => {    
-  console.log(socket.handshake.headers.origin);
   if (socket.handshake.headers.origin === config.clientReactUrl) {
-        usersCount++;        
-        socket.broadcast.emit('usersCount', usersCount);               
-        socket.on('disconnect', () => {
-            usersCount--;                   
-            socket.broadcast.emit('usersCount', usersCount);            
-        });
-    }   
+    sockets.push(socket);
+    	socket.on('new-zoomer-request', (userId) => {
+        	sockets.forEach((currSocket: Socket) => {
+          		if (currSocket.handshake.query['user-type'] === UserType.ADMIN) {
+            		currSocket.emit('new-zoomer-request', userId);
+          		}
+        	}) 
+      	});   
+
+		socket.on('disconnect', () => {
+			sockets = sockets.filter((currSocket: Socket) => currSocket!== socket)
+		});
+  }   
 }); 
 
 server.listen(config.port, () => {

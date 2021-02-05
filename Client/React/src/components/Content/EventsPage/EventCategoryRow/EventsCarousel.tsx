@@ -14,7 +14,6 @@ const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
         while (eventsData.length) {
           results.push(eventsData.splice(0, size));
         }
-        console.log(results);
         return results;
     };
     
