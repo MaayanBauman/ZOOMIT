@@ -1,15 +1,29 @@
-import { Request, Response } from 'express';
+import { query, Request, Response } from 'express';
 import { IEvent } from '../models/types/event';
 import config from '../config';
 import { IOperationBuilder } from './operations/types';
 import operationBuilder from './operations';
 import { ObjectId } from 'mongodb';
+import EventsFilter from '../models/types/EventsFilter';
 
 const collectionName = config.collections.events.name;
 const eventsOperationBuilder: IOperationBuilder<IEvent> = operationBuilder<IEvent>();
 
 export const getAllEvents = () => 
     eventsOperationBuilder.getAllObjects(collectionName);
+
+export const getEventsByFilters = (filters: EventsFilter) => {
+    let query: object = {
+        price: { $gte: filters.min_price, $lte: filters.max_price },
+        start_time: { $gte: new Date(filters.start_time) },
+        end_time: { $lte: new Date(filters.end_time) },
+    };
+
+    if(!!filters.title) query = { ...query, title: { $regex: filters.title }};
+    if(!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
+    if(!!filters.category) query = { ...query, category: filters.category };
+    return eventsOperationBuilder.getAllObjectsByQuery(collectionName, query);
+}
 
 export const getEventById = (id: string) => 
     eventsOperationBuilder.getObjectById(collectionName, id);
@@ -24,7 +38,7 @@ export const getEventByTitle = (title: string) =>
     eventsOperationBuilder.getObjectsRegexFiled(collectionName, 'title', title);
 
 export const getEventsByUser = (user: string) => 
-    eventsOperationBuilder.getObjectsInSubsetFiled(collectionName, 'registered_users', [user])
+    eventsOperationBuilder.getObjectsInSubsetFiled(collectionName, 'registered_users', [user]);
 
 export const addEvent = (newEvent: IEvent) => 
     eventsOperationBuilder.createObject(collectionName, newEvent);

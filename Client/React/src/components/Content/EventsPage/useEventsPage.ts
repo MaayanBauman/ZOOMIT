@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import _isEqual from 'lodash/isEqual'
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
 import StoreStateType from 'redux/storeStateType';
 import EventsFilter from 'models/Event/EventsFilter';
-import { initialState } from 'redux/EventsFilters/EventsFiltersReducer';
 import { useSelector } from 'react-redux';
 
 const convertEvent = (event: any)=> {
@@ -78,21 +76,18 @@ const useEventsPage = () : useEventsPageOutCome  => {
             console.log(error)
         ));
     }
-    
-    const filterEvents = () => {
 
-    }
-    
     const getEventByFilters = () => {
-        if (_isEqual(eventsFilters, initialState)) {
-            getAllEvents()
-        } else {
-            filterEvents()
-        }
+        axios.post(`/events/getByFilters`,{ data: eventsFilters }).then((result : any) => {
+            const eventsResult = result.data.map(convertEvent);
+           setEvents(eventsResult);
+         }).catch((error: any)=> (
+            console.log(error)
+        ));
     }
 
     useEffect(() => {
-        getAllEvents();
+        getEventByFilters();
         getCategories();
         getAllZoomers();
     }, []);

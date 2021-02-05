@@ -28,8 +28,13 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <FilterBox onFilter={getEventByFilters}/>
                 </div>
                 {
-                    categories?.map((category: Category) => eventsByCategories[category.name] && 
-                        (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>))
+                    events.length ? 
+                        categories?.map((category: Category) => eventsByCategories[category.name] && 
+                            (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>))
+                    :
+                    <Typography className={classes.noEventsMsg} variant="subtitle1" gutterBottom>
+                        לא נמצאו זומים מתאימים
+                    </Typography>
                 }
             </div>
         </>

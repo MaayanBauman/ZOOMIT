@@ -8,4 +8,5 @@ interface EventsFilter {
     max_price: number;
 };
 
+
 export default EventsFilter;

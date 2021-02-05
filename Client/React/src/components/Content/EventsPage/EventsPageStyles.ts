@@ -15,6 +15,10 @@ const useStyles = makeStyles({
         color: '#868692',
         fontSize: 18,
     },
+    noEventsMsg:{
+        marginRight: '2vw',
+            marginTop: '2vh',
+    }
 });
 
 export default useStyles;

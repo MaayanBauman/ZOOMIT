@@ -9,6 +9,15 @@ export const getAllEvents: Handler = async (req: Request, res: Response, next: N
     }
 };
 
+export const getEventsByFilters: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.getEventsByFilters(req.body.data));
+    } catch (err) {
+        next(err);
+    }
+};
+
+
 export const getEventByCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.getEventByCategory(req.params.category));
@@ -16,6 +25,7 @@ export const getEventByCategory: Handler = async (req: Request, res: Response, n
         next(err);
     }
 };
+
 export const getEventByTitle: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.getEventByTitle(req.params.title));

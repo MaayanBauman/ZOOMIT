@@ -7,6 +7,7 @@ import {
 
 export interface IOperationBuilder<T> {
     getAllObjects: (collectionName: string) => Promise<T[]>;
+    getAllObjectsByQuery: (collectionName: string, query: object) => Promise<T[]>;
     getObjectsBySubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
     getObjectsInSubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
     getObjectsRegexFiled: (collectionName: string, objField: string, regex: string) => Promise<T[]>;

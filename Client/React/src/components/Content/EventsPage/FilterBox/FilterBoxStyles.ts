@@ -35,14 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent:"space-between",
       },
       divider: {
-        height: '20vh',
+        height: '19vh',
         margin: 4,
       },
       rightSection:{
-        width:"50%",
+        width:"23vw",
       },
       leftSection:{
-        width:"50%",
+        width:"23vw",
       },
       filed: {
         display:'flex',
@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) =>
         width:"90%",
         justifyContent:"space-between",
         padding:" 0 1vw",
-        alignItems:"center",
+        alignItems:"center",  
+        height: '30%',
       },
       select:{
         width:"50%",
@@ -77,6 +78,12 @@ const useStyles = makeStyles((theme: Theme) =>
         display:"flex",
         direction:"rtl",
       },
+      filterBtn: {
+        background:'#0C63CE',
+        width: '10vw',
+        marginTop: '7vh',
+        marginRight: '55%',
+      }
     })
 );
 

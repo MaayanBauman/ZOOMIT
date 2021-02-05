@@ -6,20 +6,20 @@ import StoreStateType from 'redux/storeStateType';
 import { useSelector } from 'react-redux';
 import EventsFilter from 'models/Event/EventsFilter';
 import useFilterBox from './useFilterBox';
-import { Paper, IconButton, InputBase, Avatar, Card, CardContent, Checkbox, Collapse, Divider, FormControl, FormControlLabel, FormGroup, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Paper, IconButton, InputBase, Avatar, Card, CardContent, Checkbox, Collapse, Divider, FormControl, FormControlLabel, FormGroup, MenuItem, Select, TextField, Typography, Button, } from '@material-ui/core';
 import useEventsPage from '../useEventsPage';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
+import { initialState } from 'redux/EventsFilters/EventsFiltersReducer';
 
 const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
 
     const classes = useStyles();
     const { zoomers, categories } = useEventsPage ();
-    const { setTitle, setCategory, setZoomer, setTimeStart, setTimeEnd, setMaxPrice, setMinPrice } = useFilterBox();
-    const filters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
+    const { setFieldValue, resetExtraFilter } = useFilterBox();
+    const filters = useSelector<StoreStateType, EventsFilter> (state => state.eventsFilters);
 
-    const [isExtraFilterOpen, setIsExtrafilterOpen] = useState(true);
-    
+    const [isExtraFilterOpen, setIsExtrafilterOpen] = useState(false);
     const [shouldFilterByCategory, setShouldFilterByCategory] = useState(false);
     const [shouldFilterByPrice, setShouldFilterByPrice] = useState(false);
     const [shouldFilterByDate, setShouldFilterByDate] = useState(false);
@@ -33,14 +33,22 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                     placeholder="חפש זומים"
                     inputProps={{ 'aria-label': 'search zoom events'}}
                     value={filters.title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => setFieldValue('title', e.target.value)}
                     onKeyDown={(e)=> e.code === 'Enter' && onFilter()}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => onFilter()} >
                     <SearchIcon/>
                 </IconButton>
                 <Divider className={classes.searchDivider} orientation="vertical" />
-                <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={() => setIsExtrafilterOpen(!isExtraFilterOpen)}>
+                <IconButton 
+                    color="primary" 
+                    className={classes.iconButton} 
+                    aria-label="directions" 
+                    onClick={() => {
+                        resetExtraFilter()
+                        setIsExtrafilterOpen(!isExtraFilterOpen)
+                    }}
+                >
                     <FilterListIcon />
                 </IconButton>
             </Paper>
@@ -50,38 +58,70 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                         <FormGroup className={classes.rightSection}>
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
-                                    control={<Checkbox checked={shouldFilterByCategory} onChange={() => setShouldFilterByCategory(!shouldFilterByCategory)} name="category" />}
                                     label="קטגוריה"
+                                    control={
+                                        <Checkbox 
+                                            checked={shouldFilterByCategory} 
+                                            name="category" 
+                                            onChange={() => {
+                                                shouldFilterByCategory && setFieldValue('category', initialState.category)
+                                                setShouldFilterByCategory(!shouldFilterByCategory)
+                                            }} 
+                                        />
+                                    }
                                 />
-                                <Select
-                                    defaultValue={categories[0]?.id}
-                                    className={classes.select}
-                                    value={filters.category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    displayEmpty
-                                    variant="standard"
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                >
-                                    { categories?.map((category: Category) => (<MenuItem value={category.id}>{category.name}</MenuItem>))}
-                                </Select>
+                                {
+                                    shouldFilterByCategory &&
+                                    <Select
+                                        className={classes.select}
+                                        value={filters.category}
+                                        onChange={(e) => setFieldValue('category', e.target.value)}
+                                        displayEmpty
+                                        variant="standard"
+                                        inputProps={{ 'aria-label': 'Without label' }}
+                                    >
+                                        { categories?.map((category: Category) => (<MenuItem value={category.name}>{category.name}</MenuItem>))}
+                                    </Select>
+                                }
                             </FormControl>
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
-                                    control={<Checkbox checked={shouldFilterByPrice} onChange={() => setShouldFilterByPrice(!shouldFilterByPrice)} name="category" />}
                                     label="מחיר"
-                                />
-                                <Typography className={classes.priceRange}>
-                                    <div>מ-</div>
-                                    <TextField className={classes.priceInput} value={filters.min_price || 0 } onChange={(e)=> setMinPrice(parseInt(e.target.value))}/>
-                                    <div>עד-</div>
-                                    <TextField className={classes.priceInput} value={filters.max_price || 100} onChange={(e)=> setMaxPrice(parseInt(e.target.value))}/>
-                                    <div>בש"ח</div>
-                                </Typography>
+                                    control={
+                                        <Checkbox 
+                                            checked={shouldFilterByPrice} 
+                                            name="price"
+                                            onChange={() => {
+                                                shouldFilterByPrice && setFieldValue('min_price', initialState.min_price) && setFieldValue('max_price', initialState.max_price)
+                                                setShouldFilterByPrice(!shouldFilterByPrice)
+                                            }}
+                                        />
+                                    }
+                                /> 
+                                {
+                                    shouldFilterByPrice && 
+                                    <Typography className={classes.priceRange}>
+                                            <div>מ-</div>
+                                            <TextField className={classes.priceInput} value={filters.min_price} onChange={(e)=> setFieldValue('min_price', e.target.value !== '' ? parseInt(e.target.value) : 0 )}/>
+                                            <div>עד-</div>
+                                            <TextField className={classes.priceInput} value={filters.max_price} onChange={(e)=> setFieldValue('max_price', parseInt(e.target.value) || 100 )}/>
+                                            <div>בש"ח</div>
+                                        </Typography>
+                                }
                             </FormControl>
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
-                                    control={<Checkbox checked={shouldFilterByDate} onChange={() => setShouldFilterByDate(!shouldFilterByDate) } name="category" />}
                                     label="זמן"
+                                    control={
+                                        <Checkbox 
+                                            name="time" 
+                                            checked={shouldFilterByDate} 
+                                            onChange={() => {
+                                                shouldFilterByDate && setFieldValue('start_time', initialState.start_time) && setFieldValue('end_time', initialState.end_time)
+                                                setShouldFilterByDate(!shouldFilterByDate)
+                                            }} 
+                                        />
+                                    }
                                 />                           
                             </FormControl>
                         </FormGroup>
@@ -89,24 +129,37 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                         <FormGroup className={classes.leftSection}>
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
-                                    control={<Checkbox checked={shouldFilterByZoomer} onChange={() => setShouldFilterByZoomer(!shouldFilterByZoomer)} name="category" />}
                                     label="זומר"
-                                    />
-                                <Select
-                                    className={classes.select}
-                                    value={filters.zoomer}
-                                    onChange={(e) => setZoomer(e.target.value)}
-                                    variant="standard"
-                                    inputProps={{ 'aria-label': 'Without label', select: {'display':'flex' }}}
-                                >
-                                    { zoomers?.map((zoomer: User) => (
-                                        <MenuItem className={classes.menuItem} value={zoomer._id}>
-                                            <Avatar className={classes.avatar} alt={zoomer.full_name} src={zoomer.photograph}/>
-                                            {zoomer.full_name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
+                                    control={
+                                        <Checkbox 
+                                            name="zoomer_id" 
+                                            checked={shouldFilterByZoomer} 
+                                            onChange={() => {
+                                                shouldFilterByZoomer && setFieldValue('zoomer_id', initialState.zoomer_id)
+                                                setShouldFilterByZoomer(!shouldFilterByZoomer)
+                                            }} 
+                                        />
+                                    }
+                                />
+                                {
+                                    shouldFilterByZoomer && 
+                                    <Select
+                                        className={classes.select}
+                                        value={filters.zoomer_id}
+                                        onChange={(e) => setFieldValue('zoomer_id', e.target.value)}
+                                        variant="standard"
+                                        inputProps={{ 'aria-label': 'Without label', select: {'display':'flex' }}}
+                                    >
+                                        { zoomers?.map((zoomer: User) => (
+                                            <MenuItem className={classes.menuItem} value={zoomer._id}>
+                                                <Avatar className={classes.avatar} alt={zoomer.full_name} src={zoomer.photograph}/>
+                                                {zoomer.full_name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                }
                             </FormControl>
+                            <Button variant="contained" className={classes.filterBtn} onClick={() => onFilter()}> עדכן סינונים נוספים </Button>
                         </FormGroup>
                     </CardContent>
                 </Card>

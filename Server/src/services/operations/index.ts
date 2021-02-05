@@ -6,6 +6,11 @@ const getAllObjects = (collectionName: string) =>
     doOperation(collectionName, collection => collection.find({}).toArray(), 
                 `Fail to get all the objects from ${collectionName}`);
 
+const getAllObjectsByQuery = (collectionName: string, query: object) => {
+    return doOperation(collectionName, collection => collection.find(query).toArray(), 
+    `Fail to get all the objects from ${collectionName}`);
+}
+
 const getObjectsBySubsetFiled = (collectionName: string, objField: string, subset: any[]) =>
     doOperation(collectionName, collection => collection.find(
         { [objField]: { $all: subset } } 
@@ -73,6 +78,7 @@ const updateObject = (collectionName: string, id: string, obj: any) =>
 
 export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,
+    getAllObjectsByQuery,
     getObjectsBySubsetFiled,
     getObjectsInSubsetFiled,
     getObjectsRegexFiled,
