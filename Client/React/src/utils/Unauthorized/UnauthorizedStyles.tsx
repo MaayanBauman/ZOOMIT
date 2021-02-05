@@ -14,9 +14,8 @@ const useStyle = makeStyles({
         backgroundPosition: 'bottom',
     }, 
     container: {
-        marginTop: '1vh',
+        marginTop: '2vh',
         width: '100vw',
-        height: '87.7vh',
         overflow: 'hidden'
     },
     message: {
