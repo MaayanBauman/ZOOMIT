@@ -5,6 +5,7 @@ const router = Router();
 
 router.get('/', events.getAllEvents);
 router.get('/category/:category', events.getEventByCategory)
+router.get('/categories/count', events.getCountEventsByCategory)
 router.get('/:id', events.getEventById);
 router.get('/title/:title', events.getEventByTitle);
 router.get('/users/:user', events.getEventsByUser);
