@@ -11,6 +11,8 @@ import useEventsPage from '../useEventsPage';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
 import { initialState } from 'redux/EventsFilters/EventsFiltersReducer';
+import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
 
@@ -60,11 +62,13 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                 <FormControlLabel
                                     label="קטגוריה"
                                     control={
-                                        <Checkbox 
+                                        <Checkbox
+                                            icon={<CircleUnchecked className={classes.checkbox}/>}
+                                            checkedIcon={<CircleCheckedFilled className={classes.checkbox}/>} 
                                             checked={shouldFilterByCategory} 
                                             name="category" 
                                             onChange={() => {
-                                                shouldFilterByCategory && setFieldValue('category', initialState.category)
+                                                shouldFilterByCategory && setFieldValue('category' , initialState.category)
                                                 setShouldFilterByCategory(!shouldFilterByCategory)
                                             }} 
                                         />
@@ -76,7 +80,6 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         className={classes.select}
                                         value={filters.category}
                                         onChange={(e) => setFieldValue('category', e.target.value)}
-                                        displayEmpty
                                         variant="standard"
                                         inputProps={{ 'aria-label': 'Without label' }}
                                     >
@@ -89,6 +92,8 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     label="מחיר"
                                     control={
                                         <Checkbox 
+                                            icon={<CircleUnchecked className={classes.checkbox} />}
+                                            checkedIcon={<CircleCheckedFilled className={classes.checkbox} />}
                                             checked={shouldFilterByPrice} 
                                             name="price"
                                             onChange={() => {
@@ -113,7 +118,9 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                 <FormControlLabel
                                     label="זמן"
                                     control={
-                                        <Checkbox 
+                                        <Checkbox
+                                            icon={<CircleUnchecked className={classes.checkbox} />}
+                                            checkedIcon={<CircleCheckedFilled className={classes.checkbox} />} 
                                             name="time" 
                                             checked={shouldFilterByDate} 
                                             onChange={() => {
@@ -131,7 +138,9 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                 <FormControlLabel
                                     label="זומר"
                                     control={
-                                        <Checkbox 
+                                        <Checkbox
+                                            icon={<CircleUnchecked className={classes.checkbox} />}
+                                            checkedIcon={<CircleCheckedFilled className={classes.checkbox} />}
                                             name="zoomer_id" 
                                             checked={shouldFilterByZoomer} 
                                             onChange={() => {

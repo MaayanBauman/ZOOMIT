@@ -70,8 +70,8 @@ const useStyles = makeStyles((theme: Theme) =>
         width:"14vw",
       },
       avatar: {
-        height: '36px',
-        width: '36px',
+        height: '30px',
+        width: '30px',
         marginLeft: '4px',
       },
       menuItem: {
@@ -83,6 +83,9 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '10vw',
         marginTop: '7vh',
         marginRight: '55%',
+      },
+      checkbox:{
+        color:'#0C63CE',
       }
     })
 );
