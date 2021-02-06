@@ -1,0 +1,22 @@
+<div class="spinner-wrapper" *ngIf="showSpinner">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="categories-container" *ngIf="!showSpinner">
+    <div lass="categories-list">
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let category of categories">
+                <mat-icon class="delete-category">delete</mat-icon>
+                <mat-icon>edit</mat-icon>
+                <div class="category-name">{{category.name}}</div>
+            </mat-list-item>
+        </mat-list>
+        <div class="add-category">
+            <button mat-mini-fab color="#F26D21">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="categories-char">
+        <chart></chart>
+    </div>
+</div>

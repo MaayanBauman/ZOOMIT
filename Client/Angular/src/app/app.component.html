@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-tab-group mat-align-tabs="start">
+    <mat-tab-group mat-align-tabs="start" dynamicHeight>
         <mat-tab label="זומרים">
             איזור של זומרים
         </mat-tab>
@@ -7,7 +7,9 @@
             איזור של זומים
         </mat-tab>
         <mat-tab label="קטגוריות">
-            איזור של קטגוריות
+            <ng-template matTabContent>
+                <categories></categories>
+            </ng-template>
         </mat-tab>
-      </mat-tab-group>
+    </mat-tab-group>
 </div>

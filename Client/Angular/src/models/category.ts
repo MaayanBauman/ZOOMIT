@@ -1,6 +1,10 @@
-interface Category {
+export interface Category {
     id: string;
     name: string;
 };
 
-export default Category;
+export interface CategoryChart {
+    _id: string;
+    count: number;
+};
+

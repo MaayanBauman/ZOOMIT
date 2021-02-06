@@ -1,0 +1,49 @@
+.categories-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 20%;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #F26D21;
+}
+
+.categories-list {
+    display: block;
+}
+
+.category-name {
+    padding-right: 10px;
+}
+
+.add-category {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.add-category button {
+    background-color: #F26D21;
+}
+
+.mat-list-base .mat-list-item {
+    color: black;
+    font-size: 14px;
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    height: 100%;
+    padding: 10px;
+}
+
+.categories-char {
+    width: 60%;
+}
