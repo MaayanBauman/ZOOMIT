@@ -42,7 +42,7 @@ const ZoomerPage: React.FC = (): JSX.Element => {
                                 placeholder="הכנס את התיאור שלך"
                                 variant="outlined"
                                 color='primary'
-                                multiline={true}
+                                multiline
                                 disabled={!isEditMode}
                                 value={zoomer.description}
                                 onChange= {(event) => handleDescriptonChange(event)}

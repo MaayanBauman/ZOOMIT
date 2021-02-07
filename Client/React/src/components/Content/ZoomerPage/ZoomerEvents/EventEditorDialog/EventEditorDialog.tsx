@@ -42,7 +42,7 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                     </div>
                     <div className={classes.formRow}>
                         <InputLabel className={classes.label}>תיאור</InputLabel>
-                        <TextField className={classes.fieldInput} size="small" fullWidth/>
+                        <TextField className={classes.fieldInput} size="small" fullWidth multiline/>
                     </div>
                     <div className={classes.formRow}>
                         <InputLabel className={classes.label}>לינק</InputLabel>

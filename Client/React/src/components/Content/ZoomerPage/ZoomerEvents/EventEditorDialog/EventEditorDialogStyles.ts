@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         
     }, 
     calendarIcon: {
-        color: theme.palette.primary.light
+        color: theme.palette.secondary.main
     }
 }));
 
