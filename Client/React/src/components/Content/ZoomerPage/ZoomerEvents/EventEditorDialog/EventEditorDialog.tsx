@@ -37,7 +37,7 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                         <InputLabel className={classes.label}>מועד</InputLabel>
                         <TextField className={classes.fieldInput} size="small" fullWidth
                          InputProps={{
-                            endAdornment: <CalendarTodayOutlined className={}></CalendarTodayOutlined>
+                            endAdornment: <CalendarTodayOutlined className={classes.calendarIcon}></CalendarTodayOutlined>
                         }} />
                     </div>
                     <div className={classes.formRow}>
