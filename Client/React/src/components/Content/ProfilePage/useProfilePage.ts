@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
+import {useSelector} from 'react-redux';
 
 import axios from 'utils/axios';
-import Category from 'models/Category/Category';
 import User from 'models/User/User';
 import Event from 'models/Event/Event';
-import { setUser } from 'redux/User/userActionCreator';
-import { getEventsByCatgory } from 'utils/Event';
-import EventsByCategories from 'models/Event/EventsByCategories';
 import { socket } from 'components/useApp';
+import Category from 'models/Category/Category';
+import { getEventsByCatgory } from 'utils/Event';
+import StoreStateType from 'redux/storeStateType';
+import { setUser } from 'redux/User/userActionCreator';
+import EventsByCategories from 'models/Event/EventsByCategories';
 
 const convertEvent = (event: any)=> {
     return {
@@ -27,26 +29,11 @@ const convertEvent = (event: any)=> {
     }
 };
 
-const useEventsPage = () : useEventsPageOutCome  => {
-    const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [events, setEvents] = useState<Event[]>([]);
+const useProfilePage = () : useEventsPageOutCome  => {
 
-    const getCategories = () => {
-        axios.get('/categories')
-        .then((result : any)=> {
-            const categoriesResult = result.data.map((category: any)=> {
-                return {
-                    id: category._id,
-                    name: category.name,
-                }
-            });
-           setCategories(categoriesResult);
-         })
-        .catch((error: any)=> (
-            console.log(error)
-        ))
-    }
+    const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
+    const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
+    const [events, setEvents] = useState<Event[]>([]);
 
     const getUserEventsByCategories = (userId: string) => {
         axios.get(`/users/${userId}/events`)
@@ -105,10 +92,6 @@ const useEventsPage = () : useEventsPageOutCome  => {
             console.log(error)
         ))
     }
-
-    useEffect(() => {
-        getCategories();
-    }, []);
     
     return {
         events,
@@ -133,4 +116,4 @@ interface useEventsPageOutCome {
     cancelZoomerReq: Function,
 }
 
-export default useEventsPage;
+export default useProfilePage;

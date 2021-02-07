@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
@@ -6,6 +6,7 @@ import axios from 'utils/axios';
 import {setUser} from 'redux/User/userActionCreator';
 import {initialState} from 'redux/User/userReducer';
 import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
+import {setCategories} from 'redux/Categories/categoriesActionCreator';
 
 const useLogin = () : useEventPageOutCome  => {
     const history = useHistory();
@@ -51,6 +52,26 @@ const useLogin = () : useEventPageOutCome  => {
     const FailiureResponseGoogle = (response: GoogleLoginResponseOffline) => {
         console.log(response);
     }
+
+    const getCategories = () => {
+        axios.get('/categories')
+        .then((result : any) => {
+            const categoriesResult = result.data.map((category: any)=> {
+                return {
+                    id: category._id,
+                    name: category.name,
+                }
+            });
+           setCategories(categoriesResult);
+         })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, []);
 
     return {
         SuccessResponseGoogle,
