@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
-import theme from 'assets/styles/theme';
 
 const useStyles = makeStyles((theme: Theme) => ({
     zoomerDetailes: {
