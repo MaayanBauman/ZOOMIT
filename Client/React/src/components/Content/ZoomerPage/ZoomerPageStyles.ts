@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex', 
         flexDirection: 'column',
         marginRight: '5vw',
-        height: '40vh'
+        height: '40vh',
+        overflowY: 'auto'
     },
     zoomerImg: {
         width: '7vw',

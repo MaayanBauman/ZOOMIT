@@ -13,30 +13,14 @@ import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
 
 const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutCome  => {
     
-    const [categories, setCategories] = useState<Category[]>([]);
     const [userName, setUserName] = useState<string>('');
     const [favoriteCategories, setFavoriteCategories] = useState<string[]>([]);
 
     const user = useSelector<StoreStateType, User>(state => state.user);
+    const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
 
     const classes = useStyles();
     const history = useHistory();
-
-    const getCategories = () => {
-        axios.get('/categories')
-        .then((result : any) => {
-            const categoriesResult = result.data.map((category: any)=> {
-                return {
-                    id: category._id,
-                    name: category.name,
-                }
-            });
-           setCategories(categoriesResult);
-         })
-        .catch((error: any)=> (
-            console.log(error)
-        ))
-    }
 
     const favoriteHandler = (event : any) => {
         const newFav = event.target.value;
@@ -80,10 +64,6 @@ const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutC
         })
     }
 
-    useEffect(() => {
-        getCategories();
-    }, []);
-    
     return {
         categories,
         favoriteHandler,

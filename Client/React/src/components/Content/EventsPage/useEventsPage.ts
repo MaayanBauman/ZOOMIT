@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+
 import axios from 'utils/axios';
-import Event from 'models/Event/Event';
-import Category from 'models/Category/Category';
 import User from 'models/User/User';
+import Event from 'models/Event/Event';
+import { useSelector } from 'react-redux';
+import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import EventsFilter from 'models/Event/EventsFilter';
-import { useSelector } from 'react-redux';
 
 const convertEvent = (event: any)=> {
     return {
@@ -26,11 +27,13 @@ const convertEvent = (event: any)=> {
 };
 
 const useEventsPage = () : useEventsPageOutCome  => {
-    const [events, setEvents] = useState<Event[]>([]);
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [zoomers, setZoomers] = useState<User[]>([]);
-    const eventsFilters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
 
+    const [events, setEvents] = useState<Event[]>([]);
+    const [zoomers, setZoomers] = useState<User[]>([]);
+
+    const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
+    const eventsFilters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
+    
     const getAllEvents = () => {
         axios.get('/events')
         .then((result : any) => {
@@ -52,22 +55,6 @@ const useEventsPage = () : useEventsPageOutCome  => {
         ));
     }
 
-    const getCategories = () => {
-        axios.get('/categories')
-        .then((result : any) => {
-            const categoriesResult = result.data.map((category: any)=> {
-                return {
-                    id: category._id,
-                    name: category.name,
-                }
-            });
-           setCategories(categoriesResult);
-         })
-        .catch((error: any) => (
-            console.log(error)
-        ))
-    }
-
     const getEventByTitle = (title:string) => {
         axios.get(`/events/title/${title}`).then((result : any) => {
             const eventsResult = result.data.map(convertEvent);
@@ -87,9 +74,8 @@ const useEventsPage = () : useEventsPageOutCome  => {
     }
 
     useEffect(() => {
-        getEventByFilters();
-        getCategories();
         getAllZoomers();
+        getEventByFilters();
     }, []);
     
     return {
