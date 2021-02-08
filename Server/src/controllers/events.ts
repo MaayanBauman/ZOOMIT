@@ -62,7 +62,9 @@ export const addEvent: Handler = async (req: Request, res: Response, next: NextF
     try {
         let event = req.body.event;
         delete event.id;
-        res.json(await events.addEvent(req.body.event));
+        event.start_time = new Date(req.body.event.start_time);
+        event.end_time = new Date(req.body.event.end_time);
+        res.json(await events.addEvent(event));
     } catch (err) {
         next(err);
     }

@@ -4,9 +4,8 @@ import {useSelector} from 'react-redux';
 import axios from 'utils/axios';
 import User from 'models/User/User'; 
 import Event from 'models/Event/Event';
-import storeStateType from 'redux/storeStateType' ; 
-import {useZoomerPageOutCome} from './useEventEditorDialogInterfaces';
 import StoreStateType from 'redux/storeStateType';
+import {useZoomerPageOutCome} from './useEventEditorDialogInterfaces';
 
 const useEventEditorDialog  = () : useZoomerPageOutCome  => {
 
