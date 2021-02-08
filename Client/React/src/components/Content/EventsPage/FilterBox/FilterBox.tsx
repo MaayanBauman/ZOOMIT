@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import useStyles from './FilterBoxStyles';
@@ -36,6 +36,12 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
             {zoomer.full_name}
         </MenuItem>
     )
+    useEffect(() => {
+        if (!isExtraFilterOpen){
+            onFilter()
+        }
+    }, [isExtraFilterOpen]);
+    
     return (
         <div className={classes.container}>
             <Paper component="div" className={classes.search}>
@@ -44,7 +50,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                     placeholder="חפש זומים"
                     inputProps={{ 'aria-label': 'search zoom events'}}
                     value={filters.title}
-                    onChange={(e) => setFieldValue('title', e.target.value)}
+                    onChange={(e) => setFieldValue({ title: e.target.value })}
                     onKeyDown={(e)=> e.code === 'Enter' && onFilter()}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => onFilter()} >
@@ -56,7 +62,13 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                     className={classes.iconButton} 
                     aria-label="directions" 
                     onClick={() => {
-                        resetExtraFilter()
+                        if (isExtraFilterOpen) {
+                            resetExtraFilter()
+                            setShouldFilterByCategory(false)
+                            setShouldFilterByPrice(false)
+                            setShouldFilterByDate(false)
+                            setShouldFilterByZoomer(false)
+                        } 
                         setIsExtrafilterOpen(!isExtraFilterOpen)
                     }}
                 >
@@ -77,7 +89,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                             checked={shouldFilterByCategory} 
                                             name="category" 
                                             onChange={() => {
-                                                shouldFilterByCategory && setFieldValue('category' , initialState.category)
+                                                shouldFilterByCategory && setFieldValue({ category: initialState.category })
                                                 setShouldFilterByCategory(!shouldFilterByCategory)
                                             }} 
                                         />
@@ -88,7 +100,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     <Select
                                         className={classes.select}
                                         value={filters.category}
-                                        onChange={(e) => setFieldValue('category', e.target.value)}
+                                        onChange={(e) => setFieldValue({ category: e.target.value })}
                                         variant="standard"
                                         inputProps={{ 'aria-label': 'Without label' }}
                                     >
@@ -106,7 +118,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                             checked={shouldFilterByPrice} 
                                             name="price"
                                             onChange={() => {
-                                                shouldFilterByPrice && setFieldValue('min_price', initialState.min_price) && setFieldValue('max_price', initialState.max_price)
+                                                shouldFilterByPrice && setFieldValue({ min_price: initialState.min_price, max_price: initialState.max_price })
                                                 setShouldFilterByPrice(!shouldFilterByPrice)
                                             }}
                                         />
@@ -116,9 +128,9 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     shouldFilterByPrice && 
                                     <Typography className={classes.priceRange}>
                                             <div>מ-</div>
-                                            <TextField className={classes.priceInput} value={filters.min_price} onChange={(e)=> setFieldValue('min_price', e.target.value !== '' ? parseInt(e.target.value) : 0 )}/>
+                                            <TextField className={classes.priceInput} value={filters.min_price} onChange={(e)=> setFieldValue({ min_price: e.target.value !== '' ? parseInt(e.target.value) : 0 })}/>
                                             <div>עד-</div>
-                                            <TextField className={classes.priceInput} value={filters.max_price} onChange={(e)=> setFieldValue('max_price', parseInt(e.target.value) || 100 )}/>
+                                            <TextField className={classes.priceInput} value={filters.max_price} onChange={(e)=> setFieldValue({ max_price: parseInt(e.target.value) || 100 })}/>
                                             <div>בש"ח</div>
                                         </Typography>
                                 }
@@ -133,7 +145,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                             name="time" 
                                             checked={shouldFilterByDate} 
                                             onChange={() => {
-                                                shouldFilterByDate && setFieldValue('start_time', initialState.start_time)
+                                                shouldFilterByDate && setFieldValue({ start_time: initialState.start_time })
                                                 setShouldFilterByDate(!shouldFilterByDate)
                                             }} 
                                         />
@@ -146,7 +158,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         className={classes.picker}
                                         format="dd/MM/yyyy"
                                         value={filters.start_time}
-                                        onChange={(date) => setFieldValue('start_time', date)}
+                                        onChange={(date) => setFieldValue({ start_time: date })}
                                         showTodayButton
                                         keyboardIcon={
                                             <CalendarToday className={classes.calendarIcon}/>
@@ -168,7 +180,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                             name="zoomer_id" 
                                             checked={shouldFilterByZoomer} 
                                             onChange={() => {
-                                                shouldFilterByZoomer && setFieldValue('zoomer_id', initialState.zoomer_id)
+                                                shouldFilterByZoomer && setFieldValue({ zoomer_id: initialState.zoomer_id })
                                                 setShouldFilterByZoomer(!shouldFilterByZoomer)
                                             }} 
                                         />
@@ -179,7 +191,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     <Select
                                         className={classes.select}
                                         value={filters.zoomer_id}
-                                        onChange={(e) => setFieldValue('zoomer_id', e.target.value)}
+                                        onChange={(e) => setFieldValue({ zoomer_id: e.target.value })}
                                         variant="standard"
                                         renderValue={(zoomerId: any) => {
                                             const selectedZoomer: any = zoomers.find(zoomer=> zoomer._id === zoomerId);
@@ -190,7 +202,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     </Select>
                                 }
                             </FormControl>
-                            <Button variant="contained" className={classes.filterBtn} onClick={() => onFilter()}> עדכן סינונים נוספים </Button>
+                            <Button variant="contained" className={classes.filterBtn} onClick={() => onFilter()}> עדכן סינונים </Button>
                         </FormGroup>
                     </CardContent>
                 </Card>
