@@ -60,6 +60,8 @@ export const getEventsByUser: Handler = async (req: Request, res: Response, next
 
 export const addEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        let event = req.body.event;
+        delete event.id;
         res.json(await events.addEvent(req.body.event));
     } catch (err) {
         next(err);

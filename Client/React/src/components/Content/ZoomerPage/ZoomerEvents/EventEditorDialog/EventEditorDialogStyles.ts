@@ -10,16 +10,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     formRow: {
         display: 'flex',
         flexDirection: 'row',
-        marginBottom: '1vh'
+        marginBottom: '1vh',
+        marginTop : '2vh'
     }, 
     label: {
         width: '5vw'
-    }, 
-    fieldInput: {
-        
-    }, 
+    },
     calendarIcon: {
         color: theme.palette.secondary.main
+    },
+    datePickers: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop : '2vh'
+    },
+    picker: {
+        width: '12vw'
+    },
+    dialogButton: {
+        marginRight: '1vw',
+        width: '8vw'
     }
 }));
 
