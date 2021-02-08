@@ -16,7 +16,6 @@ export const getEventsByFilters = (filters: EventsFilter) => {
     let query: object = {
         price: { $gte: filters.min_price, $lte: filters.max_price },
         start_time: { $gte: new Date(filters.start_time) },
-        end_time: { $lte: new Date(filters.end_time) },
     };
 
     if(!!filters.title) query = { ...query, title: { $regex: filters.title }};

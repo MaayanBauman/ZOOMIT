@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import EventsFilter from 'models/Event/EventsFilter';
 import useFilterBox from './useFilterBox';
 import { Paper, IconButton, InputBase, Avatar, Card, CardContent, Checkbox, Collapse, Divider, FormControl, FormControlLabel, FormGroup, MenuItem, Select, TextField, Typography, Button, } from '@material-ui/core';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import { CalendarToday } from '@material-ui/icons';
+
 import useEventsPage from '../useEventsPage';
 import Category from 'models/Category/Category';
 import User from 'models/User/User';
@@ -14,19 +17,25 @@ import { initialState } from 'redux/EventsFilters/EventsFiltersReducer';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
-const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
 
+const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
     const classes = useStyles();
     const { zoomers, categories } = useEventsPage ();
     const { setFieldValue, resetExtraFilter } = useFilterBox();
     const filters = useSelector<StoreStateType, EventsFilter> (state => state.eventsFilters);
-
+    
     const [isExtraFilterOpen, setIsExtrafilterOpen] = useState(false);
     const [shouldFilterByCategory, setShouldFilterByCategory] = useState(false);
     const [shouldFilterByPrice, setShouldFilterByPrice] = useState(false);
     const [shouldFilterByDate, setShouldFilterByDate] = useState(false);
     const [shouldFilterByZoomer, setShouldFilterByZoomer] = useState(false);
-
+    
+    const getZoomerItem = (zoomer: User) => (
+        <MenuItem className={classes.menuItem} value={zoomer._id}>
+            <Avatar className={classes.avatar} alt={zoomer.full_name} src={zoomer.photograph}/>
+            {zoomer.full_name}
+        </MenuItem>
+    )
     return (
         <div className={classes.container}>
             <Paper component="div" className={classes.search}>
@@ -83,7 +92,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         variant="standard"
                                         inputProps={{ 'aria-label': 'Without label' }}
                                     >
-                                        { categories?.map((category: Category) => (<MenuItem value={category.name}>{category.name}</MenuItem>))}
+                                        { categories?.map((category: Category) => (<MenuItem className={classes.menuItem} value={category.name}>{category.name}</MenuItem>))}
                                     </Select>
                                 }
                             </FormControl>
@@ -116,7 +125,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                             </FormControl>
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
-                                    label="זמן"
+                                    label="החל מתאריך"
                                     control={
                                         <Checkbox
                                             icon={<CircleUnchecked className={classes.checkbox} />}
@@ -124,12 +133,27 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                             name="time" 
                                             checked={shouldFilterByDate} 
                                             onChange={() => {
-                                                shouldFilterByDate && setFieldValue('start_time', initialState.start_time) && setFieldValue('end_time', initialState.end_time)
+                                                shouldFilterByDate && setFieldValue('start_time', initialState.start_time)
                                                 setShouldFilterByDate(!shouldFilterByDate)
                                             }} 
                                         />
                                     }
-                                />                           
+                                />             
+                                {
+                                    shouldFilterByDate && 
+                                    <KeyboardDatePicker
+                                        autoOk
+                                        className={classes.picker}
+                                        format="dd/MM/yyyy"
+                                        value={filters.start_time}
+                                        onChange={(date) => setFieldValue('start_time', date)}
+                                        showTodayButton
+                                        keyboardIcon={
+                                            <CalendarToday className={classes.calendarIcon}/>
+                                        }
+                                        variant="inline"
+                                    />
+                                }              
                             </FormControl>
                         </FormGroup>
                         <Divider className={classes.divider} orientation="vertical" />
@@ -157,14 +181,12 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         value={filters.zoomer_id}
                                         onChange={(e) => setFieldValue('zoomer_id', e.target.value)}
                                         variant="standard"
-                                        inputProps={{ 'aria-label': 'Without label', select: {'display':'flex' }}}
+                                        renderValue={(zoomerId: any) => {
+                                            const selectedZoomer: any = zoomers.find(zoomer=> zoomer._id === zoomerId);
+                                            return selectedZoomer?._id && getZoomerItem(selectedZoomer)
+                                        }}
                                     >
-                                        { zoomers?.map((zoomer: User) => (
-                                            <MenuItem className={classes.menuItem} value={zoomer._id}>
-                                                <Avatar className={classes.avatar} alt={zoomer.full_name} src={zoomer.photograph}/>
-                                                {zoomer.full_name}
-                                            </MenuItem>
-                                        ))}
+                                        { zoomers?.map((zoomer: User) => getZoomerItem(zoomer))}
                                     </Select>
                                 }
                             </FormControl>

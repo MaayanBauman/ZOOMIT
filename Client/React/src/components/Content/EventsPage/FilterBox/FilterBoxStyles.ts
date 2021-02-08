@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       select:{
         width:"50%",
-        paddingRight: '24px',
         display: 'flex',
         alignItems: 'center',
       },
@@ -77,6 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
       menuItem: {
         display:"flex",
         direction:"rtl",
+        alignItems: "center",
       },
       filterBtn: {
         background:'#0C63CE',
@@ -86,7 +86,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       checkbox:{
         color:'#0C63CE',
-      }
+      },
+      picker: {
+        width: '10vw',
+      },
+      calendarIcon: {
+        color: '#0C63CE'
+      },
     })
 );
 
