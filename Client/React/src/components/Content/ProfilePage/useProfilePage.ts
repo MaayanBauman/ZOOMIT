@@ -32,6 +32,7 @@ const convertEvent = (event: any)=> {
 const useProfilePage = () : useEventsPageOutCome  => {
 
     const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
+    const user = useSelector<StoreStateType, User>(state => state.user);
     const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
     const [events, setEvents] = useState<Event[]>([]);
 
@@ -94,6 +95,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
     }
     
     return {
+        user,
         events,
         createNewZoomerReq,
         categories,
@@ -106,6 +108,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
 }
 
 interface useEventsPageOutCome {
+    user: User,
     events: Event[],
     categories: Category[],
     eventsByCategories: EventsByCategories,
