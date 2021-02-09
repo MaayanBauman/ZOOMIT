@@ -5,6 +5,7 @@ import axios from 'utils/axios';
 import User from 'models/User/User'; 
 import Event from 'models/Event/Event';
 import StoreStateType from 'redux/storeStateType';
+import {setUser} from 'redux/User/userActionCreator';
 import {useZoomerPageOutCome} from './useEventEditorDialogInterfaces';
 
 const useEventEditorDialog  = () : useZoomerPageOutCome  => {
@@ -44,8 +45,12 @@ const useEventEditorDialog  = () : useZoomerPageOutCome  => {
             source_id: ''
         }
 
-        axios.post('/events', {event: newEvent}).then((res)=> {
-            console.log(res);
+        axios.post('/events/zoomer', {event: newEvent}).then((res)=> {
+            console.log(res.data.ops[0]._id);
+            setUser({
+                ...zoomer,
+                owned_events: [...zoomer.owned_events, res.data.ops[0]._id]
+            })
         }).catch((err)=> {
             console.log(err);
         })

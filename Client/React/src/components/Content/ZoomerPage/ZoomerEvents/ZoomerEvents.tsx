@@ -8,6 +8,7 @@ import StoreStateType from 'redux/storeStateType';
 
 import useStyles from './ZoomerEventsStyles'; 
 import EventEditorDialog from './EventEditorDialog/EventEditorDialog';
+import ZoomerEventsTable from './ZoomerEventsTable/ZoomerEventsTable';
 
 const ZoomerEvent: React.FC = (): JSX.Element => {
 
@@ -23,7 +24,7 @@ const ZoomerEvent: React.FC = (): JSX.Element => {
                <IconButton onClick={() => setIsEventEditorOpen(true)}><AddCircleIcon className={classes.addEventButton}></AddCircleIcon></IconButton>
                <EventEditorDialog isEditMode={false} isOpen={isEventEditorOpen} handleClose={()=> setIsEventEditorOpen(false)}/>
            </div> : 
-           <div>יש אירועים</div>}
+           <ZoomerEventsTable />}
         </>
     );
 }

@@ -11,6 +11,7 @@ router.get('/title/:title', events.getEventByTitle);
 router.get('/users/:user', events.getEventsByUser);
 router.post('/getByFilters', events.getEventsByFilters)
 router.post('/', events.addEvent);
+router.post('/zoomer', events.addZoomerEvent);
 router.put('/:id', events.updateEvent);
 router.delete('/:id', events.deleteEvent);
 

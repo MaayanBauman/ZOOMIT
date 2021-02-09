@@ -25,6 +25,11 @@ export const getUserEvents = async (id: string) => {
     return getEventsById(user.registerd_events);
 }
 
+export const getZoomerEvents = async (id: string) => {
+    const user = await getUserById(id);
+    return getEventsById(user.owned_events);
+}
+
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
 
@@ -38,6 +43,17 @@ export const removeEventFromUser = (id:string, event: string) =>
     Promise.all([
         removeUserFromEvent(event, id), 
         usersOperationBuilder.deleteValuesFromArray(collectionName, id, 'registerd_events', [event])
+    ]);
+
+export const addEventToZoomer = (id:string, event: string) => 
+    Promise.all([ 
+        usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'owned_events', [event])
+    ]);
+
+export const deleteEventFromZoomer = (id:string, event: string) => 
+    Promise.all([
+        removeUserFromEvent(event, id), 
+        usersOperationBuilder.deleteValuesFromArray(collectionName, id, 'owned_events', [event])
     ]);
 
 export const updateUser = (id: string, sourceToUpdate: IUser) => 
