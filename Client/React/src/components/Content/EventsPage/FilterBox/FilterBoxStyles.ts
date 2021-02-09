@@ -3,7 +3,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       container:{
-        marginRight: '22vw',
         alignItems: 'center',
       },
       search:{

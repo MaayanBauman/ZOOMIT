@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     noEventsMsg:{
         marginRight: '2vw',
             marginTop: '2vh',
+    },
+    filterBox: {
+        marginRight: '22vw'
     }
 });
 
