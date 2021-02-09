@@ -9,6 +9,7 @@ import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import {formatDate, formatTime} from 'utils/DatesUtil/DatesUtil';
+import {categoryNameById} from 'utils/CategoryUtil/CategoryUtil';
 
 import useStyles from './ZoomerEventsTableStyles'; 
 import useZoomerEventsTable from './useZoomerEventsTable';
@@ -21,19 +22,19 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
     const zoomer = useSelector<StoreStateType, User>(state => state.user);
     const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     const [isEventEditorOpen, setIsEventEditorOpen] = useState<boolean>(false);
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const { zoomerEvents } = useZoomerEventsTable();
 
-    const categoryNameById = (categoryId: string) => {
-        const category = categories.filter((category: Category) => category.id === categoryId);
-        return category[0].name;
-    }
-    
     return (
         <>
+        <EventEditorDialog isOpen={isEventEditorOpen} isEditMode={isEditMode} handleClose={()=> {setIsEventEditorOpen(false)}}/>
         <div className={classes.searchAndAdd}>
             <Typography>{`${zoomerEvents.length} אירועים`}</Typography>
             <FilterBox onFilter={()=> {}} />
-            <IconButton onClick={() => setIsEventEditorOpen(true)}>
+            <IconButton onClick={() => {
+                setIsEditMode(false);
+                setIsEventEditorOpen(true);
+            }}>
                 <AddCircle className={classes.addEventButton}></AddCircle>
             </IconButton>
         </div>
@@ -58,7 +59,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                             <TableCell component="th" scope="row">
                                 {event.title}
                             </TableCell>
-                            <TableCell align="right">{categoryNameById(event.category)}</TableCell>
+                            <TableCell align="right">{categoryNameById(categories, event.category)}</TableCell>
                             <TableCell align="right">{
                                 formatDate(event.start_time) + ' ' + formatTime(event.start_time) + '-' +
                                 formatTime(event.end_time)
@@ -68,7 +69,11 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                             <TableCell align="right">{event.zoom_link.length > 25 ? `...${event.zoom_link.slice(0,25)}`: event.zoom_link}</TableCell>
                             <TableCell align="right">{event.registered_users.length}</TableCell>
                             <TableCell align="right" className={classes.eventActions}>
-                                <IconButton><EditOutlined className={classes.icon}/></IconButton>
+                                <IconButton onClick={(evnt)=> {
+                                    setIsEditMode(true);
+                                    setIsEventEditorOpen(true);
+                                    alert(event.title)
+                                }}><EditOutlined  className={classes.icon}/></IconButton>
                                 <IconButton><DeleteOutlineOutlined className={classes.icon}/></IconButton>
                             </TableCell>
                         </TableRow>

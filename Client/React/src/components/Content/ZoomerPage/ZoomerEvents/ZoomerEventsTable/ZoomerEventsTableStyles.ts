@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     table: {
         margin: '1vh',
-        scroll: 'auto'
+        overflowY: 'auto'
     },
     addEventButton: {
         color: theme.palette.primary.main,

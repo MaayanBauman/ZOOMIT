@@ -23,7 +23,7 @@ const useZoomerEventsTable  = () : useZoomerPageOutCome  => {
 
     useEffect(()=> {
         getZoomerEvents();
-    }, [])
+    }, [zoomer])
 
     return {
         zoomerEvents
