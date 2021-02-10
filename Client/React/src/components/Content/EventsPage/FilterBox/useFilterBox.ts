@@ -8,15 +8,13 @@ import { initialState } from 'redux/EventsFilters/EventsFiltersReducer';
 const useFilterBox = () : useFilterBoxOutCome  => {
     const filters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
 
-    const setFieldValue = (fieldKey : string, field: any) => {
+    const setFieldValue = (changes: object) => {
         setFilters({ 
             ...filters,
-            [fieldKey]: field,
+            ...changes,
         });
     }
-    const resetExtraFilter = () => {
-        setFilters({...initialState, title: filters.title});
-    }
+    const resetExtraFilter = () => setFieldValue({ ...initialState, title: filters.title });
 
     
     useEffect(() => {

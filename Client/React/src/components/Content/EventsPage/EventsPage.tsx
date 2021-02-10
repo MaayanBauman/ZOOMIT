@@ -25,7 +25,9 @@ const EventsPage: React.FC = (): JSX.Element => {
                     <Typography className={classes.count} variant="subtitle1" gutterBottom>
                         {events.length} זומים
                     </Typography>
-                    <FilterBox onFilter={getEventByFilters}/>
+                    <span className={classes.filterBox}>
+                        <FilterBox onFilter={getEventByFilters}/>
+                     </span>   
                 </div>
                 {
                     events.length ? 

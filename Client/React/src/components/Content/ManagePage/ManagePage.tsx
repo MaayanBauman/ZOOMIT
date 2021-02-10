@@ -6,8 +6,11 @@ import User from 'models/User/User';
 import UserType from 'models/Enums/UserType';
 import StoreStateType from 'redux/storeStateType';
 import Unauthorized from 'utils/Unauthorized/Unauthorized';
+import useStyles from './ManagePageStyles';
 
 const ManagePage: React.FC = (): JSX.Element => {
+    const classes = useStyles();
+
     const user = useSelector<StoreStateType, User>(state => state.user);
     return (
         <>
@@ -17,6 +20,7 @@ const ManagePage: React.FC = (): JSX.Element => {
                   width="100%"
                   height="100%"
                   id="myId"
+                  className={classes.iframe}
                   position="relative"
                 />
             }

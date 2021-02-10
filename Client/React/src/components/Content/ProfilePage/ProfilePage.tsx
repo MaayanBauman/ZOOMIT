@@ -1,13 +1,8 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import { Typography, Avatar, Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
-
-import User from 'models/User/User';
 import Category from 'models/Category/Category';
-
-import StoreStateType from 'redux/storeStateType';
 
 import useStyles from './ProfilePageStyle';
 import useProfilePage from './useProfilePage';
@@ -16,10 +11,8 @@ import UserType from 'models/Enums/UserType';
 
 const ProfilePage: React.FC = (): JSX.Element => {
     const classes = useStyles();    
-    const { categories, events, getUserEventsByCategories, favoriteHandler, createNewZoomerReq, cancelZoomerReq } = useProfilePage();
+    const { user, categories, events, getUserEventsByCategories, favoriteHandler, createNewZoomerReq, cancelZoomerReq } = useProfilePage();
     
-    const user = useSelector<StoreStateType, User>(state => state.user);
-
     useEffect(() => {
         user._id !== '' && getUserEventsByCategories(user._id);
     }, []);

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Handler } from 'express';
-import { events } from '../services';
+import { events, users } from '../services';
 
 export const getAllEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -16,7 +16,6 @@ export const getEventsByFilters: Handler = async (req: Request, res: Response, n
         next(err);
     }
 };
-
 
 export const getEventByCategory: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -60,7 +59,28 @@ export const getEventsByUser: Handler = async (req: Request, res: Response, next
 
 export const addEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await events.addEvent(req.body.event));
+        let event = req.body.event;
+        delete event.id;
+        event.start_time = new Date(req.body.event.start_time);
+        event.end_time = new Date(req.body.event.end_time);
+        res.json(await events.addEvent(event));
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addZoomerEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        let event = req.body.event;
+        delete event.id;
+        event.start_time = new Date(req.body.event.start_time);
+        event.end_time = new Date(req.body.event.end_time);
+        event.price = +req.body.event.price;
+        const result = await events.addEvent(event); 
+        const eventId= result.ops[0]._id as string;
+        await users.addEventToZoomer(event.zoomer_id, eventId);
+
+        res.json(result);
     } catch (err) {
         next(err);
     }

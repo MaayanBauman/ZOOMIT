@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             display: 'flex',
             justifyContent:'space-between',
+            marginTop: '3vh',
         },
         categories_section:{
             height: '25vh',

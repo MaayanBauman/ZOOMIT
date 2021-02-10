@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {useSelector} from 'react-redux';
 
 import axios from 'utils/axios';
@@ -9,29 +9,13 @@ import Category from 'models/Category/Category';
 import { getEventsByCatgory } from 'utils/Event';
 import StoreStateType from 'redux/storeStateType';
 import { setUser } from 'redux/User/userActionCreator';
+import {convertEvent} from 'utils/EventsUtil/EventsUtil';
 import EventsByCategories from 'models/Event/EventsByCategories';
-
-const convertEvent = (event: any)=> {
-    return {
-        id: event._id,
-        title: event.title,
-        description: event.description,
-        zoomer_id: event.zoomer_id,
-        zoom_link: event.zoom_link,
-        password: event.password,
-        start_time: new Date(event.start_time),
-        end_time: new Date(event.end_time),
-        max_registers: event.max_registers,
-        registered_users: event.registered_users,
-        category: event.category,
-        price: +event.price.$numberDecimal,
-        source_id: event.source_id
-    }
-};
 
 const useProfilePage = () : useEventsPageOutCome  => {
 
     const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
+    const user = useSelector<StoreStateType, User>(state => state.user);
     const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
     const [events, setEvents] = useState<Event[]>([]);
 
@@ -94,6 +78,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
     }
     
     return {
+        user,
         events,
         createNewZoomerReq,
         categories,
@@ -106,6 +91,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
 }
 
 interface useEventsPageOutCome {
+    user: User,
     events: Event[],
     categories: Category[],
     eventsByCategories: EventsByCategories,
