@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { CategoryChart } from '../../../models/category';
 import * as d3 from 'd3';
 
@@ -9,22 +9,28 @@ import * as d3 from 'd3';
 })
 
 export class ChartComponent implements AfterViewInit {
+  @Input() isChartLoad: boolean;
+  @Output() isChartLoadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   private svg: any;
   private margin: number;
-  private width: number
-  private height: number
-  private maxIndex: number;
+  private width: number;
+  private height: number;
 
   constructor() {
+    this.isChartLoad = false;
     this.margin = 100;
     this.width = 750 - (this.margin * 2);
     this.height = 400 - (this.margin * 2);
-    this.maxIndex = 15;
   }
 
   ngAfterViewInit(): void {
     this.createSvg();
-    d3.json('http://localhost:8080/events/categories/count').then((data: any) => this.drawBars(data));
+    d3.json('http://localhost:8080/events/categories/count').then((data: any) => {
+      this.isChartLoad = true; 
+      this.isChartLoadChange.emit(this.isChartLoad);
+      return this.drawBars(data)
+    });
   }
 
   private createSvg(): void {

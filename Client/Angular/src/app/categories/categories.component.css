@@ -47,3 +47,7 @@
 .categories-char {
     width: 60%;
 }
+
+mat-icon {
+    cursor: pointer;
+}

@@ -12,7 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
+import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -28,13 +30,15 @@ const config: SocketIoConfig = { url: /*config.ANGULAR_APP_SERVER_URL*/ 'http://
     BrowserModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
+    ToastrModule.forRoot(),
     BrowserAnimationsModule,
     MatTabsModule,
     MatListModule,
     HttpClientModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

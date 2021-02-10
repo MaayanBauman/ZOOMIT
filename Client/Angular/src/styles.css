@@ -6,3 +6,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     color: black;
 }
+
+#toast-container > div {
+    opacity:1;
+}
