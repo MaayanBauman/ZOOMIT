@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection:'row',
         width:"90%",
         justifyContent:"space-between",
-        padding:" 0 1vw",
         alignItems:"center",  
         height: '30%',
       },
@@ -58,13 +57,13 @@ const useStyles = makeStyles((theme: Theme) =>
         alignItems: 'center',
       },
       priceRange:{
-        width:"50%",
+        width:"55%",
         marginTop:"2%",
         display:"flex",
       },
       priceInput:{
-        marginRight:"5%",
-        marginLeft:"5%",
+        marginRight:"0.5vw",
+        marginLeft:"0.5vw",
         width:"14vw",
       },
       avatar: {
