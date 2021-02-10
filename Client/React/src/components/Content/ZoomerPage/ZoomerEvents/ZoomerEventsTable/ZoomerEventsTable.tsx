@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+import React, {useState, useEffect} from 'react';
 import { TableContainer, Table, TableBody, TableRow, Typography,
          TableCell, TableHead, Paper, IconButton } from '@material-ui/core';
 import {EditOutlined, DeleteOutlineOutlined, AddCircle} from '@material-ui/icons';
 
-import User from 'models/User/User';
 import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
@@ -19,15 +18,18 @@ import FilterBox from 'components/Content/EventsPage/FilterBox/FilterBox';
 const ZoomerEventsTable: React.FC = (): JSX.Element => {
 
     const classes = useStyles();
-    const zoomer = useSelector<StoreStateType, User>(state => state.user);
     const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     const [isEventEditorOpen, setIsEventEditorOpen] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
-    const { zoomerEvents } = useZoomerEventsTable();
+    const [chosenEvent, setChosenEvent] = useState<Event>();
+    const { zoomerEvents } = useZoomerEventsTable({isEventEditorOpen});
 
     return (
         <>
-        <EventEditorDialog isOpen={isEventEditorOpen} isEditMode={isEditMode} handleClose={()=> {setIsEventEditorOpen(false)}}/>
+        <EventEditorDialog isOpen={isEventEditorOpen} isEditMode={isEditMode} handleClose={()=> {
+            setIsEventEditorOpen(false);
+            setChosenEvent(undefined);
+        }} event={chosenEvent}/>
         <div className={classes.searchAndAdd}>
             <Typography>{`${zoomerEvents.length} אירועים`}</Typography>
             <FilterBox onFilter={()=> {}} />
@@ -69,10 +71,10 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                             <TableCell align="right">{event.zoom_link.length > 25 ? `...${event.zoom_link.slice(0,25)}`: event.zoom_link}</TableCell>
                             <TableCell align="right">{event.registered_users.length}</TableCell>
                             <TableCell align="right" className={classes.eventActions}>
-                                <IconButton onClick={(evnt)=> {
+                                <IconButton onClick={()=> {
+                                    setChosenEvent(event);
                                     setIsEditMode(true);
                                     setIsEventEditorOpen(true);
-                                    alert(event.title)
                                 }}><EditOutlined  className={classes.icon}/></IconButton>
                                 <IconButton><DeleteOutlineOutlined className={classes.icon}/></IconButton>
                             </TableCell>

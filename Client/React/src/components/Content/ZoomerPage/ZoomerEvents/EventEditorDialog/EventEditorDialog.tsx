@@ -5,6 +5,7 @@ import { DialogTitle,Button, Dialog, DialogActions ,Select ,MenuItem,
     DialogContent, TextField, InputLabel, InputAdornment  } from '@material-ui/core';
 import { KeyboardTimePicker, KeyboardDatePicker,} from '@material-ui/pickers';
  
+import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 
@@ -14,13 +15,13 @@ import useEventEditorDialog from './useEventEditorDialog';
 const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
 
     const classes = useStyles();
-    const {isOpen, handleClose, isEditMode} = props;
+    const {isOpen, handleClose, isEditMode, event} = props;
     const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
 
     const {startDate, setStartDate, endDate, setEndDate,handleDateChange,
             eventName, setEventName, categoryId, setCategoryId, description,
             setDescription, link, setLink, price, setPrice,
-            maxRegisters, setMaxRegisters, zoomPass, setZoomPass, createEvent } = useEventEditorDialog();
+            maxRegisters, setMaxRegisters, zoomPass, setZoomPass, createEvent, updateEvent } = useEventEditorDialog({currEvent: event});
 
     const datePickers = (
         <>
@@ -130,7 +131,8 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                 <DialogActions>
                     <Button color="primary" variant="contained" className={classes.dialogButton} 
                         onClick={()=> {
-                            createEvent();
+                            if(isEditMode) updateEvent();
+                            else createEvent();
                             handleClose();
                         }}>
                        אישור
@@ -148,7 +150,8 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
 export interface Props {
     isEditMode: boolean,
     isOpen : boolean,
-    handleClose: () => void
+    handleClose: () => void,
+    event? : Event
 }
     
 export default EventEditorDialog;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {useSelector} from 'react-redux';
 
 import axios from 'utils/axios';
@@ -8,10 +8,11 @@ import StoreStateType from 'redux/storeStateType';
 import {setUser}  from 'redux/User/userActionCreator';
 import {convertEvent} from 'utils/EventsUtil/EventsUtil';
 
-const useZoomerEventsTable  = () : useZoomerPageOutCome  => {
+const useZoomerEventsTable  = ({isEventEditorOpen}: Props) : useZoomerPageOutCome  => {
 
     const zoomer = useSelector<StoreStateType, User>(state => state.user);
     const [zoomerEvents, setZoomerEvents] = useState<Event[]>([]); 
+    const zoomerEventsRef = useRef(zoomer.owned_events);
 
     const getZoomerEvents = () => {
         axios.get(`/users/zoomer/${zoomer._id}/events`)
@@ -23,7 +24,12 @@ const useZoomerEventsTable  = () : useZoomerPageOutCome  => {
 
     useEffect(()=> {
         getZoomerEvents();
-    }, [zoomer])
+    }, [])
+
+    useEffect(()=> {
+        if(zoomerEventsRef.current !== zoomer.owned_events && !isEventEditorOpen) 
+            getZoomerEvents();
+    }, [zoomer,isEventEditorOpen])
 
     return {
         zoomerEvents
@@ -32,6 +38,10 @@ const useZoomerEventsTable  = () : useZoomerPageOutCome  => {
 
 interface useZoomerPageOutCome {
     zoomerEvents: Event[]
+}
+
+interface Props {
+    isEventEditorOpen : boolean
 }
 
 

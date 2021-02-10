@@ -88,7 +88,13 @@ export const addZoomerEvent: Handler = async (req: Request, res: Response, next:
 
 export const updateEvent: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await events.updateEvent(req.params.id, req.body.event))
+        let event = req.body.event;
+        delete event.id;
+        event.start_time = new Date(req.body.event.start_time);
+        event.end_time = new Date(req.body.event.end_time);
+        event.price = +req.body.event.price;
+
+        res.json(await events.updateEvent(req.params.id, event))
     } catch (err) {
         next(err);
     }
