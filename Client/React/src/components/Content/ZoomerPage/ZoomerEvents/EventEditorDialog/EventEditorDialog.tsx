@@ -2,8 +2,8 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import { CalendarToday, AccessTime } from '@material-ui/icons';
 import { DialogTitle,Button, Dialog, DialogActions ,Select ,MenuItem,
-    DialogContent, TextField, InputLabel, InputAdornment  } from '@material-ui/core';
-import { KeyboardTimePicker, KeyboardDatePicker,} from '@material-ui/pickers';
+    DialogContent, TextField, InputLabel, InputAdornment } from '@material-ui/core';
+import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
  
 import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
@@ -102,6 +102,8 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                         <InputLabel >מס' משתתפים מקסימלי</InputLabel>
                         <TextField size="small" fullWidth
                          value={maxRegisters}
+                         type='number'
+                         className={classes.number}
                          onChange={(event)=> setMaxRegisters(event.target.value)}/>
                     </div>
                     <div className={classes.formRow}>
@@ -120,7 +122,9 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                         <InputLabel className={classes.label}>מחיר</InputLabel>
                         <TextField size="small" fullWidth
                             value={price}
-                            onChange={(event)=> setPrice(event.target.value)}
+                            onChange={(event) => setPrice(event.target.value)}
+                            type='number'
+                            className={classes.number}
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">₪</InputAdornment>
                             }} 
@@ -131,7 +135,7 @@ const EventEditorDialog : React.FC<Props> = (props : Props): JSX.Element => {
                 <DialogActions>
                     <Button color="primary" variant="contained" className={classes.dialogButton} 
                         onClick={()=> {
-                            if(isEditMode) updateEvent();
+                            if (isEditMode) updateEvent();
                             else createEvent();
                             handleClose();
                         }}>
