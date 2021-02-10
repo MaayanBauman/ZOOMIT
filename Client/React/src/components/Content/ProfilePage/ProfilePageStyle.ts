@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '25vh',
         },
         user_info:{
-            alignItems: 'center',
             display: 'flex',
         },
         title: {
