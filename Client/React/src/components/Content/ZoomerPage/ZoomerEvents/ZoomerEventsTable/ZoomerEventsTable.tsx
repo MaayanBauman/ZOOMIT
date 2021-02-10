@@ -73,7 +73,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                             <TableCell align="right">{event.description.length > 25 ? `${event.description.slice(0,25)}...`: event.description}</TableCell>
                             <TableCell align="right">{event.price as number}</TableCell>
                             <TableCell align="right">{event.zoom_link.length > 25 ? `...${event.zoom_link.slice(0,25)}`: event.zoom_link}</TableCell>
-                            <TableCell align="right">{`${event.registered_users.length}/${event.max_registers.length}`}</TableCell>
+                            <TableCell align="right">{`${event.registered_users.length}/${event.max_registers}`}</TableCell>
                             <TableCell align="right" className={classes.eventActions}>
                                 <IconButton onClick={()=> { history.push(`${contentRoute}/event/${event.id}`);}}>
                                     <VisibilityOutlinedIcon className={classes.icon}/>
