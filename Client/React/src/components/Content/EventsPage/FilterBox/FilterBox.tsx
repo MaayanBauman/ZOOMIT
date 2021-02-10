@@ -18,7 +18,7 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 
-const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
+const FilterBox: React.FC<Props> = ({ onFilter, zoomerIdEvents }: Props): JSX.Element => {
     const classes = useStyles();
     const { zoomers, categories } = useEventsPage ();
     const { setFieldValue, resetExtraFilter } = useFilterBox();
@@ -104,7 +104,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         variant="standard"
                                         inputProps={{ 'aria-label': 'Without label' }}
                                     >
-                                        { categories?.map((category: Category) => (<MenuItem className={classes.menuItem} value={category.name}>{category.name}</MenuItem>))}
+                                        { categories?.map((category: Category) => (<MenuItem className={classes.menuItem} value={category.id}>{category.name}</MenuItem>))}
                                     </Select>
                                 }
                             </FormControl>
@@ -167,9 +167,10 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                     />
                                 }              
                             </FormControl>
-                        </FormGroup>
+                        </FormGroup> 
                         <Divider className={classes.divider} orientation="vertical" />
-                        <FormGroup className={classes.leftSection}>
+                       <FormGroup className={classes.leftSection}>
+                       { !zoomerIdEvents &&
                             <FormControl className={classes.filed}>
                                 <FormControlLabel
                                     label="זומר"
@@ -201,7 +202,7 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
                                         { zoomers?.map((zoomer: User) => getZoomerItem(zoomer))}
                                     </Select>
                                 }
-                            </FormControl>
+                            </FormControl>}
                             <Button variant="contained" className={classes.filterBtn} onClick={() => onFilter()}> עדכן סינונים </Button>
                         </FormGroup>
                     </CardContent>
@@ -212,7 +213,8 @@ const FilterBox: React.FC<Props> = ({ onFilter }: Props): JSX.Element => {
 }
 
 interface Props {
-    onFilter: Function
+    onFilter: Function,
+    zoomerIdEvents ?: string 
 }
 
 export default FilterBox;
