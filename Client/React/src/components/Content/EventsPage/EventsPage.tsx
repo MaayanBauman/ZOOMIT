@@ -31,8 +31,8 @@ const EventsPage: React.FC = (): JSX.Element => {
                 </div>
                 {
                     events.length ? 
-                        categories?.map((category: Category) => eventsByCategories[category.name] && 
-                            (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.name]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>))
+                        categories?.map((category: Category) => eventsByCategories[category.id] && 
+                            (<EventCategoryRow key={category.id} categoryId={category.id} events={eventsByCategories[category.id]} title={category.name} isFavorite={user.favorite_categories.includes(category.id)}/>))
                     :
                     <Typography className={classes.noEventsMsg} variant="subtitle1" gutterBottom>
                         לא נמצאו זומים מתאימים
