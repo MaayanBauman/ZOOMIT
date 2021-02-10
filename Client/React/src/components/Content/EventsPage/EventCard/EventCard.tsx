@@ -24,7 +24,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                     </Typography>
                     <div className={classes.zoomer}>
                         <img alt={'userpic'} src={userpic}></img>
-                        <Typography variant="subtitle1">{event.description}</Typography>
+                        <Typography variant="subtitle1">{event.description.length > 25 ? `${event.description.slice(0,25)}...`: event.description}</Typography>
                     </div>
                     <div className={classes.details}>
                         <Typography variant="body1">
