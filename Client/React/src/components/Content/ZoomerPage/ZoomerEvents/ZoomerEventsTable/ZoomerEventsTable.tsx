@@ -1,32 +1,36 @@
 import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import { TableContainer, Table, TableBody, TableRow, Typography,
          TableCell, TableHead, Paper, IconButton } from '@material-ui/core';
 import {EditOutlined, DeleteOutlineOutlined, AddCircle} from '@material-ui/icons';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+
+import User from 'models/User/User';
 import Event from 'models/Event/Event';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
+import { contentRoute } from 'utils/Routes/Routes';
 import {formatDate, formatTime} from 'utils/DatesUtil/DatesUtil';
 import {categoryNameById} from 'utils/CategoryUtil/CategoryUtil';
-import { contentRoute } from 'utils/Routes/Routes';
+import FilterBox from 'components/Content/EventsPage/FilterBox/FilterBox';
 
 import useStyles from './ZoomerEventsTableStyles'; 
 import useZoomerEventsTable from './useZoomerEventsTable';
 import EventEditorDialog from '../EventEditorDialog/EventEditorDialog';
-import FilterBox from 'components/Content/EventsPage/FilterBox/FilterBox';
-import { useHistory } from 'react-router-dom';
+
 
 const ZoomerEventsTable: React.FC = (): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
 
+    const zoomer = useSelector<StoreStateType, User>(state=> state.user);
     const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     const [isEventEditorOpen, setIsEventEditorOpen] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const [chosenEvent, setChosenEvent] = useState<Event>();
-    const { zoomerEvents, deleteEvent } = useZoomerEventsTable({isEventEditorOpen});
+    const { zoomerEvents, deleteEvent, getEventByFilters } = useZoomerEventsTable({isEventEditorOpen});
 
     return (
         <>
@@ -36,7 +40,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
         }} event={chosenEvent}/>
         <div className={classes.searchAndAdd}>
             <Typography>{`${zoomerEvents.length} אירועים`}</Typography>
-            <FilterBox onFilter={()=> {}} />
+            <FilterBox onFilter={getEventByFilters} zoomerIdEvents={zoomer._id}/>
             <IconButton onClick={() => {
                 setIsEditMode(false);
                 setIsEventEditorOpen(true);

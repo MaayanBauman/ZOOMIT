@@ -7,6 +7,7 @@ import User from 'models/User/User';
 import Event from 'models/Event/Event'; 
 import theme from 'assets/styles/theme';
 import StoreStateType from 'redux/storeStateType';
+import EventsFilter from 'models/Event/EventsFilter';
 import {setUser}  from 'redux/User/userActionCreator';
 import {convertEvent} from 'utils/EventsUtil/EventsUtil';
 
@@ -16,8 +17,10 @@ const useZoomerEventsTable  = ({isEventEditorOpen}: Props) : useZoomerPageOutCom
 
     const classes = useStyles();
     const zoomer = useSelector<StoreStateType, User>(state => state.user);
+    const eventsFilters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters); 
     const [zoomerEvents, setZoomerEvents] = useState<Event[]>([]); 
     const zoomerEventsRef = useRef(zoomer.owned_events);
+    const eventsFiltersRef = useRef(eventsFilters);
 
     const getZoomerEvents = () => {
         axios.get(`/users/zoomer/${zoomer._id}/events`)
@@ -54,9 +57,16 @@ const useZoomerEventsTable  = ({isEventEditorOpen}: Props) : useZoomerPageOutCom
           })
     }
 
-    useEffect(()=> {
-        getZoomerEvents();
-    }, [])
+    const getEventByFilters = () => {
+        if(eventsFiltersRef.current !== eventsFilters){
+            axios.post(`/events/getByFilters`,{ data: {...eventsFilters, zoomer_id: zoomer._id}}).then((result : any) => {
+                const eventsResult = result.data.map(convertEvent);
+                setZoomerEvents(eventsResult);
+             }).catch((error: any)=> (
+                console.log(error)
+            ));
+        }
+    }
 
     useEffect(()=> {
         if(zoomerEventsRef.current !== zoomer.owned_events) 
@@ -70,13 +80,15 @@ const useZoomerEventsTable  = ({isEventEditorOpen}: Props) : useZoomerPageOutCom
 
     return {
         zoomerEvents,
-        deleteEvent
+        deleteEvent,
+        getEventByFilters
     }
 }
 
 interface useZoomerPageOutCome {
     zoomerEvents: Event[],
-    deleteEvent: Function
+    deleteEvent: Function,
+    getEventByFilters: Function
 }
 
 interface Props {
