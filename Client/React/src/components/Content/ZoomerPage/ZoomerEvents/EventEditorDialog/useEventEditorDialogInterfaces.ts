@@ -1,3 +1,4 @@
+import Event from 'models/Event/Event';
 export interface useZoomerPageOutCome {
     startDate: Date | null, 
     setStartDate: Function,
@@ -18,5 +19,10 @@ export interface useZoomerPageOutCome {
     setMaxRegisters: Function,
     zoomPass: string,
     setZoomPass: Function,
-    createEvent: Function
+    createEvent: Function,
+    updateEvent: Function
+}
+
+export interface useZoomerPageInCome {
+    currEvent? : Event
 }

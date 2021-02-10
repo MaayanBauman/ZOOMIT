@@ -9,21 +9,28 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         margin: 'auto',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        maxHeight: '50vh'
     },
     icon:{
         color: theme.palette.secondary.main
     },
     tableTitles: {
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: theme.palette.secondary.main,
+        position: '-webkit-sticky',
+        top: 0
+    },
+    tableRow: {
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.light,
+        }
     },
     eventActions: {
         display: 'flex',
         flexDirection: 'row', 
     },
     table: {
-        margin: '1vh',
-        scroll: 'auto'
+        margin: '1vh'
     },
     addEventButton: {
         color: theme.palette.primary.main,
@@ -35,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'row',
         margin: 'auto',
         justifyContent: 'space-around'
+    },
+    swal: {
+        fontFamily: 'Assistant'
     }
 }));
 

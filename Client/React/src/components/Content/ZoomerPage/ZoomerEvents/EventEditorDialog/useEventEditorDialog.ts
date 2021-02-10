@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import axios from 'utils/axios';
@@ -6,31 +6,33 @@ import User from 'models/User/User';
 import Event from 'models/Event/Event';
 import StoreStateType from 'redux/storeStateType';
 import {setUser} from 'redux/User/userActionCreator';
-import {useZoomerPageOutCome} from './useEventEditorDialogInterfaces';
+import {useZoomerPageOutCome, useZoomerPageInCome} from './useEventEditorDialogInterfaces';
 
-const useEventEditorDialog  = () : useZoomerPageOutCome  => {
+const defaultPrice = 0;
+const defaultMaxRegisters = 100;
+
+const useEventEditorDialog = ({currEvent}: useZoomerPageInCome) : useZoomerPageOutCome  => {
 
     const zoomer = useSelector<StoreStateType, User>(state=> state.user);
-    const [startDate, setStartDate] = React.useState<Date | null>(new Date());
-    const [endDate, setEndDate] = React.useState<Date | null>(new Date());
+
+    const [link, setLink] = React.useState<string>('');
+    const [zoomPass, setZoomPass] = React.useState<string>('');
     const [eventName, setEventName] = React.useState<string>('');
     const [categoryId, setCategoryId] = React.useState<string>();
     const [description, setDescription] = React.useState<string>('');
-    const [link, setLink] = React.useState<string>('');
-    const [price, setPrice] = React.useState<number>(0);
-    const [maxRegisters, setMaxRegisters] = React.useState<number>(100);
-    const [zoomPass, setZoomPass] = React.useState<string>('');
-
+    const [endDate, setEndDate] = React.useState<Date | null>(new Date());
+    const [startDate, setStartDate] = React.useState<Date | null>(new Date());
+    const [price, setPrice] = React.useState<number>(defaultPrice);
+    const [maxRegisters, setMaxRegisters] = React.useState<number>(defaultMaxRegisters);
 
     const handleDateChange = (date: Date | null) => {
         setStartDate(date);
         setEndDate(date);
     };
-    
-    const createEvent = () => {
 
-        const newEvent : Event = {
-            id: '',
+    const setEventFromForm = () : Event => {
+        return  {
+            id: currEvent? currEvent.id : '',
             title: eventName,
             description: description,
             zoomer_id: zoomer._id,
@@ -44,9 +46,10 @@ const useEventEditorDialog  = () : useZoomerPageOutCome  => {
             price: price,
             source_id: ''
         }
-
-        axios.post('/events/zoomer', {event: newEvent}).then((res)=> {
-            console.log(res.data.ops[0]._id);
+    }
+    
+    const createEvent = () => {
+        axios.post('/events/zoomer', {event: setEventFromForm()}).then((res)=> {
             setUser({
                 ...zoomer,
                 owned_events: [...zoomer.owned_events, res.data.ops[0]._id]
@@ -55,6 +58,38 @@ const useEventEditorDialog  = () : useZoomerPageOutCome  => {
             console.log(err);
         })
     }
+
+    const updateEvent = () => {
+        axios.put(`/events/${currEvent?.id}`, {event: setEventFromForm()}).then((res)=> {
+            
+        }).catch((err)=> {
+            console.log(err);
+        })
+    }
+
+    useEffect(()=> {
+        if(currEvent) {
+            setStartDate(new Date(currEvent.start_time));
+            setEndDate(new Date(currEvent.end_time));
+            setEventName(currEvent.title);
+            setCategoryId(currEvent.category);
+            setDescription(currEvent.description);
+            setLink(currEvent.zoom_link);
+            setPrice(currEvent.price);
+            setMaxRegisters(currEvent.max_registers);
+            setZoomPass(currEvent.password);
+        } else {
+            setStartDate(new Date());
+            setEndDate(new Date());
+            setEventName('');
+            setCategoryId(undefined);
+            setDescription('');
+            setLink('');
+            setPrice(defaultPrice);
+            setMaxRegisters(defaultMaxRegisters);
+            setZoomPass('');
+        }
+    }, [currEvent])
 
     return {
         startDate,
@@ -76,7 +111,8 @@ const useEventEditorDialog  = () : useZoomerPageOutCome  => {
         setMaxRegisters,
         zoomPass,
         setZoomPass,
-        createEvent
+        createEvent,
+        updateEvent
     }
 }
 
