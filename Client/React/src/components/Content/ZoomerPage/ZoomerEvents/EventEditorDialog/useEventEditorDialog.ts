@@ -61,7 +61,7 @@ const useEventEditorDialog = ({currEvent}: useZoomerPageInCome) : useZoomerPageO
 
     const updateEvent = () => {
         axios.put(`/events/${currEvent?.id}`, {event: setEventFromForm()}).then((res)=> {
-            console.log('updated')
+            
         }).catch((err)=> {
             console.log(err);
         })

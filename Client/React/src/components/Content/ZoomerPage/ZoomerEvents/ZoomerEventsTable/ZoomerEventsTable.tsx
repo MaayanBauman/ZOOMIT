@@ -22,7 +22,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
     const [isEventEditorOpen, setIsEventEditorOpen] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const [chosenEvent, setChosenEvent] = useState<Event>();
-    const { zoomerEvents } = useZoomerEventsTable({isEventEditorOpen});
+    const { zoomerEvents, deleteEvent } = useZoomerEventsTable({isEventEditorOpen});
 
     return (
         <>
@@ -42,9 +42,9 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
         </div>
         <div className={classes.tableContainer}>
             <TableContainer component={Paper} className={classes.table}>
-                <Table size="small" dir='rtl' >
-                    <TableHead>
-                    <TableRow className={classes.tableTitles}>
+                <Table size="small" dir='rtl'>
+                    <TableHead className={classes.tableTitles}>
+                    <TableRow>
                         <TableCell>כותרת</TableCell>
                         <TableCell align="right">קטגוריה</TableCell>
                         <TableCell align="right">מועד</TableCell>
@@ -55,9 +55,9 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                         <TableCell align="right">פעולות</TableCell>
                     </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody >
                     {zoomerEvents.map((event: Event) => (
-                        <TableRow key={event.id}>
+                        <TableRow key={event.id} className={classes.tableRow}>
                             <TableCell component="th" scope="row">
                                 {event.title}
                             </TableCell>
@@ -76,7 +76,9 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                                     setIsEditMode(true);
                                     setIsEventEditorOpen(true);
                                 }}><EditOutlined  className={classes.icon}/></IconButton>
-                                <IconButton><DeleteOutlineOutlined className={classes.icon}/></IconButton>
+                                <IconButton onClick={() => {
+                                    deleteEvent(event.id);
+                                }}><DeleteOutlineOutlined className={classes.icon}/></IconButton>
                             </TableCell>
                         </TableRow>
                     ))}

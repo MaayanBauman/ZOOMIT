@@ -1,7 +1,7 @@
+import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 import axios from 'utils/axios';
 import User from 'models/User/User';
