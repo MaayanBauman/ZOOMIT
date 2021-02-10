@@ -30,7 +30,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
 
     return (
         <>
-        <EventEditorDialog isViewMode={true} isOpen={isEventEditorOpen} isEditMode={isEditMode} handleClose={()=> {
+        <EventEditorDialog isOpen={isEventEditorOpen} isEditMode={isEditMode} handleClose={()=> {
             setIsEventEditorOpen(false);
             setChosenEvent(undefined);
         }} event={chosenEvent}/>
