@@ -5,16 +5,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     zoomerDetailes: {
         display: 'flex', 
         flexDirection: 'column',
-        marginRight: '5vw',
-        height: '45vh',
+        marginRight: '2vw',
+        height: '43vh',
         overflowY: 'auto'
     },
     zoomerImg: {
-        width: '7vw',
-        height: '7vw'
+        width: theme.spacing(10),
+        height: theme.spacing(10),
     }, 
     zoomerHead: {
-        marginTop: '7vh',
+        marginTop: '3vh',
         display: 'flex',
         flexDirection: 'row'
     }, 
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     zoomerApprovedDate: {
 
     },
-    zoomerTitle:{
-        
+    zoomerTitle: {
+        marginRight: '2vw',
     },
     zoomerEditDesc: {
         display: 'flex',

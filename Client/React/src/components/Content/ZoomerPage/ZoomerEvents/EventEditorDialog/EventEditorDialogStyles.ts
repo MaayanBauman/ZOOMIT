@@ -31,7 +31,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     dialogButton: {
         marginRight: '1vw',
         width: '8vw'
-    }
+    },
+    number: {
+        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+          "-webkit-appearance": "none",
+          margin: 0
+        }
+    },
 }));
 
 export default useStyles;

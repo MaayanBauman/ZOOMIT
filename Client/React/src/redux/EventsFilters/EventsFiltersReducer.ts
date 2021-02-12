@@ -7,7 +7,7 @@ export const initialState: EventsFilter = {
         start_time: new Date(),
         category: '',
         min_price: 0,
-        max_price: 100,
+        max_price: 1000,
 }
 
 const EventsFiltersReducer = (state = initialState, action: Actions.EventsFiltersAction): EventsFilter => {

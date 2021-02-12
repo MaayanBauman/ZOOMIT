@@ -21,7 +21,7 @@ const convertEvent = (event: any)=> {
         max_registers: event.max_registers,
         registered_users: event.registered_users,
         category: event.category,
-        price: +event.price.$numberDecimal,
+        price: event.price,
         source_id: event.source_id
     }
 };

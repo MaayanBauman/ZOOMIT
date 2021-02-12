@@ -20,8 +20,7 @@ const ZoomerPage: React.FC = (): JSX.Element => {
     const zoomer = useSelector<StoreStateType, User>(state => state.user);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-    const {handleDescriptonChange, updateZoomer} = useZoomerPage();
-    const zoomerFrom = zoomer.approved_date ? `זומר/ית מ- ${formatDate(zoomer.approved_date)}` : '';
+    const { handleDescriptonChange, updateZoomer } = useZoomerPage();
     
     return (
         <>
@@ -33,7 +32,9 @@ const ZoomerPage: React.FC = (): JSX.Element => {
                             <Avatar alt="Remy Sharp" src={zoomer.photograph} className={classes.zoomerImg} />
                             <div className={classes.zoomerTitle}>
                                 <Typography className={classes.zoomerName} >{zoomer.full_name}</Typography>
-                                <Typography className={classes.zoomerApprovedDate} >{zoomerFrom}</Typography>
+                                { zoomer.approved_date &&
+                                    <Typography className={classes.zoomerApprovedDate} >{`זומר/ית מ- ${formatDate(zoomer.approved_date)}`}</Typography>
+                                }
                             </div>
                         </div>
                         <div  className={classes.zoomerEditDesc}>
