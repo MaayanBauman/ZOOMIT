@@ -1,0 +1,63 @@
+<div class="spinner-wrapper" *ngIf="showSpinner">
+    <mat-spinner></mat-spinner>
+</div>
+<div class='hello' *ngIf="!showSpinner">
+    <div>
+        <h1 class="zoomer-num-title">
+            {{zoomerRequesters.length}} זומרים מחכים לאישור
+        </h1>
+        <table mat-table [dataSource]="zoomerRequesters" class="mat-elevation-z4 table table-zoomers-request" dir="rtl">
+            <ng-container matColumnDef="full_name">
+                <th mat-header-cell *matHeaderCellDef>שם</th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.full_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>אימייל</th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="func">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let zoomerRequester">  
+                    <button mat-icon-button (click)="approveZoomer(zoomerRequester)">
+                        <span class="material-icons color">done</span> 
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="zoomerDisplayedColumns" class="table-title"></tr>
+            <tr mat-row *matRowDef="let row; columns: zoomerDisplayedColumns"></tr>
+        </table>
+    </div>
+    <div>
+        <h1 class="zoomer-num-title">
+            {{zoomers.length}} זומרים
+        </h1>
+        <table mat-table [dataSource]="zoomers" class="mat-elevation-z4 table-zoomers" dir="rtl">
+            <ng-container matColumnDef="full_name">
+                <th mat-header-cell *matHeaderCellDef>שם </th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.full_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> אימייל </th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="approvedDate">
+                <th mat-header-cell *matHeaderCellDef>זמן קבלת הרשאה </th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.approved_date | date:"dd-MM-YYYY HH:mm"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="zoomsCount">
+                <th mat-header-cell *matHeaderCellDef> מס זומים </th>
+                <td mat-cell *matCellDef="let zoomerRequester"> {{zoomerRequester.owned_events.length}} </td>
+            </ng-container>
+            <ng-container matColumnDef="func">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let zoomerRequester"> 
+                    <button mat-icon-button (click)="cancelZoomer(zoomerRequester)">
+                        <span class="material-icons color">not_interested</span>
+                    </button> 
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="zoomerRequesterDisplayedColumns" class="table-title"></tr>
+            <tr mat-row *matRowDef="let row; columns: zoomerRequesterDisplayedColumns;"></tr>
+        </table>
+    </div>
+</div>
