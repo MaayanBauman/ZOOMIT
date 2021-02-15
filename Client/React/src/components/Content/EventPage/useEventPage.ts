@@ -2,6 +2,9 @@ import { useState } from 'react';
 
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
+import User from 'models/User/User';
+import Swal from 'sweetalert2';
+import useStyles from './EventPageStyles';
 
 const convertEvent = (event: any)=> {
     return {
@@ -23,6 +26,7 @@ const convertEvent = (event: any)=> {
 
 const useEventPage = () : useEventPageOutCome  => {
     const [event, setEvent] = useState<Event>();
+    const classes = useStyles();
 
     const getEventById = (id:string) => {
         axios.get(`/events/${id}`).then((result : any) => {
@@ -31,10 +35,33 @@ const useEventPage = () : useEventPageOutCome  => {
             console.log(error)
         ));
     }
+
+    const registerToEvent = (user: User, event: Event) => {
+        axios.put(`/users/${user._id}/events/${event.id}`, {})
+        .then((result : any) => {
+            Swal.fire({
+                title: 'איזה כיף שנרשמת!',
+                text: ',תמשיך הלאה לכל האירועים',
+                icon: 'success',
+                confirmButtonText: 'יאלה קח אותי',
+                customClass: {
+                    title: classes.swal,
+                    content: classes.swal,
+                    container: classes.swal
+                },
+              }).then(()=> {
+                
+              })   
+        })
+        .catch((error: any)=> (
+            console.log(error)
+        ))
+    }
     
     return {
         event,
-        getEventById
+        getEventById,
+        registerToEvent
     }
 }
 
@@ -42,6 +69,7 @@ const useEventPage = () : useEventPageOutCome  => {
 interface useEventPageOutCome {
     event: Event | undefined,
     getEventById: Function,
+    registerToEvent: Function,
 }
 
 export default useEventPage;

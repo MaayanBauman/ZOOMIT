@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       iconButton: {
           padding: 10,
-          color: '#0C63CE',
+          color: theme.typography.body2.color,
       },
       divider: {
           height: 28,

@@ -35,7 +35,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                         </Typography>
                         <Typography variant="body1">
                             {event.price} &#8362;
-                    </Typography>
+                        </Typography>
                     </div>
                 </CardContent>
                 <CardActions className={classes.cardActions}>

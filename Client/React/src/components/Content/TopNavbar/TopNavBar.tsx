@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import{ AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/core';
 
 import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
 import StoreStateType from 'redux/storeStateType';
 import logo from 'assets/images/zoomit_small_logo.png';
-import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} from 'utils/Routes/Routes';
+import { eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute } from 'utils/Routes/Routes';
 
 
 const TopNavBar: React.FC = (): JSX.Element => {
@@ -22,33 +22,33 @@ const TopNavBar: React.FC = (): JSX.Element => {
                 <Toolbar variant="dense">
                     <div className={classes.rightSection}>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${eventsPageRoute}`}>
-                            <img alt='logo' src={logo}  />
+                            <img alt='logo' src={logo} />
                         </NavLink>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${eventsPageRoute}`}>
-                            <Typography variant="h6" color="inherit" className={classes.menuTypog}> 
+                            <Typography variant="h6" color="inherit" className={classes.menuTypog}>
                                 זומים
                             </Typography>
-                        </NavLink> 
+                        </NavLink>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
-                            <Typography variant="h6" color="inherit" className={classes.menuTypog}> 
-                                    הפרופיל שלי
+                            <Typography variant="h6" color="inherit" className={classes.menuTypog}>
+                                הפרופיל שלי
                             </Typography>
-                        </NavLink> 
+                        </NavLink>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${zoomerPageRoute}`}>
                             <Typography variant="h6" color="inherit" className={classes.menuTypog}>
                                 אני זומר
                             </Typography>
-                        </NavLink> 
-                    </div> 
+                        </NavLink>
+                    </div>
                     <div className={classes.leftSection}>
-                        <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
-                           {`שלום ${user.full_name}`}
+                        <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}>
+                            {`שלום ${user.full_name}`}
                         </Typography>
                         <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${managePageRoute}`}>
-                            <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}> 
-                            ניהול המערכת
+                            <Typography variant="h6" color="inherit" className={classes.menuTypog + ' ' + classes.admin}>
+                                ניהול המערכת
                             </Typography>
-                        </NavLink> 
+                        </NavLink>
                         <IconButton edge="start" color="inherit" aria-label="menu" >
                             <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
                                 <Avatar alt={user.full_name} src={user.photograph} />

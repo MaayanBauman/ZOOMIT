@@ -12,7 +12,6 @@ const useStyles = makeStyles({
         alignItems: 'center'
     },
     count:{
-        color: '#868692',
         fontSize: 18,
     },
 });

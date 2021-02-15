@@ -3,7 +3,7 @@ import { Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
     appBar: {
-        color: '#0C63CE',
+        color: theme.typography.body2.color,
         backgroundColor: '#FFFFFF'
     },
     rightSection: {
@@ -22,16 +22,16 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.spacing(1)
     },
     menuTypog: {
-        color: '#0C63CE',
+        color: theme.typography.body2.color,
         marginRight: theme.spacing(2.8),
         fontSize: 16
     },
     admin: {
-        color: '#868692',
+        color: theme.typography.body1.color,
     },
     activeItem: {
         textDecorationLine: 'underline!important',
-        color: '#0C63CE'
+        color: theme.typography.body2.color
     },
     menuLink: {
         textDecoration: 'none'
