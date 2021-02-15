@@ -22,7 +22,7 @@ const EventsPage: React.FC = (): JSX.Element => {
         <>
             <div className={classes.container}>
                 <div className={classes.topbar}>
-                    <Typography className={classes.count} variant="subtitle1" gutterBottom>
+                    <Typography className={classes.count} variant="body1" gutterBottom>
                         {events.length} זומים
                     </Typography>
                     <span className={classes.filterBox}>
