@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'space-around'
     },
     swal: {
-        fontFamily: 'Assistant'
+        fontFamily: 'Assistant',
+        direction: 'rtl'
     }
 }));
 

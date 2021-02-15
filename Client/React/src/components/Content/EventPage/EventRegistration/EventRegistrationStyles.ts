@@ -3,7 +3,8 @@ import theme from 'assets/styles/theme';
 
 const useStyles = makeStyles({
     swal: {
-        fontFamily: 'Assistant'
+        fontFamily: 'Assistant',
+        direction: 'rtl'
     },
 });
 

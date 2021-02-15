@@ -13,7 +13,7 @@ import EventRegistration from './EventRegistration/EventRegistration';
 
 const EventPage: React.FC = (): JSX.Element => {
 
-    const { event, getEventById, registerToEvent } = useEventPage();
+    const { event, getEventById, isRegistered } = useEventPage();
     const classes = useStyles();
     const { id } = useParams<{ id: string }>();
 
@@ -22,14 +22,6 @@ const EventPage: React.FC = (): JSX.Element => {
     useEffect(() => {
         getEventById(id);
     }, [])
-
-    const numRegistersText =
-        (event?.registered_users.length == 0) ?
-            'היו הראשונים להירשם!'
-            : (event?.registered_users.length == 1) ?
-                'נרשם כבר משתמש אחד'
-                : `נרשמו כבר ${event?.registered_users.length} משתמשים!`;
-
 
     return (
         <>
@@ -62,15 +54,22 @@ const EventPage: React.FC = (): JSX.Element => {
                     <div className={classes.descContainer}>
                         <Typography variant="body1">
                             {event?.description}
-                            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. סת אלמנקום ניסי נון ניבאה. דס איאקוליס וולופטה דיאם. וסטיבולום אט דולור, קראס אגת לקטוס וואל אאוגו וסטיבולום סוליסי טידום בעליק. לורם איפסום דולור סיט אמט, קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף נולום ארווס סאפיאן - פוסיליס קוויס, אקווזמן קוואזי במר מודוף. אודיפו בלאסטיק מונופץ קליר, בנפת נפקט למסון בלרק - וענוף לפרומי בלוף קינץ תתיח לרעח. לת צשחמי מוסן מנת. להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורך. להאמית קרהשק סכעיט דז מא, מנכם למטכין נשואי מנורךגולר.
                         </Typography>
                     </div>
                 </div>
             </div>
             <div className={classes.registerLine}>
                 <div className={classes.registerAction}>
-                    <EventRegistration eventId={event?.id} userId={user._id}></EventRegistration>
-                    <Typography variant="subtitle1" gutterBottom>{numRegistersText}</Typography>
+                    <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById}></EventRegistration>
+                    <Typography variant="subtitle1" gutterBottom>
+                        {
+                            (event?.registered_users.length == 0) ?
+                                'היו הראשונים להירשם!'
+                                : (event?.registered_users.length == 1) ?
+                                    'נרשם כבר משתמש אחד'
+                                    : `נרשמו כבר ${event?.registered_users.length} משתמשים!`
+                        }
+                    </Typography>
                 </div>
                 <div className={classes.registerDesc}>
                     <Typography variant="subtitle1">
