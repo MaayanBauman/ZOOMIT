@@ -9,8 +9,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { StylesProvider, MuiThemeProvider } from '@material-ui/core/styles';
 
 import App from 'components/App';
-import './assets/styles/fonts.css';
 import theme from './assets/styles/theme';
+import './assets/styles/fonts.css';
 import {store, persistor} from 'redux/store';
 
 ReactDOM.render(

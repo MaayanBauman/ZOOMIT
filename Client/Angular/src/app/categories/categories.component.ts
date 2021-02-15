@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css'],
   encapsulation: ViewEncapsulation.None
+
 })
 
 export class CategoriesComponent implements OnInit {

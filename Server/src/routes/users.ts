@@ -14,6 +14,5 @@ router.put('/:id/events/:event', users.addEventToUser);
 router.delete('/:id/events/:event', users.removeEventFromUser);
 router.put('/:id', users.updateUser);
 router.delete('/:id', users.deleteeUser);
-router.get('/zoomer/requesters', users.getAllZoomerRequesters);
 
 export default router;

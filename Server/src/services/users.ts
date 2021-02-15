@@ -30,10 +30,6 @@ export const getZoomerEvents = async (id: string) => {
     return getEventsById(user.owned_events);
 }
 
-export const getZoomerRequesters = () => {
-    return usersOperationBuilder.getObjectsBySubsetFiled(collectionName, 'is_waiting_for_approval', [true]);
-}
-
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
 
@@ -65,4 +61,3 @@ export const updateUser = (id: string, sourceToUpdate: IUser) =>
 
 export const deleteUser = (id: string) => 
     usersOperationBuilder.deleteObject(collectionName, id);
-

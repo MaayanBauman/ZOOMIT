@@ -1,46 +1,42 @@
-import { useState } from 'react';
-
+import { useEffect, useState, useRef } from 'react';
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
+import User from 'models/User/User';
+import { useSelector } from 'react-redux';
+import StoreStateType from 'redux/storeStateType';
+import { convertEvent } from 'utils/EventsUtil/EventsUtil'
 
-const convertEvent = (event: any)=> {
-    return {
-        id: event._id,
-        title: event.title,
-        description: event.description,
-        zoomer_id: event.zoomer_id,
-        zoom_link: event.zoom_link,
-        password: event.password,
-        start_time: new Date(event.start_time),
-        end_time: new Date(event.end_time),
-        max_registers: event.max_registers,
-        registered_users: event.registered_users,
-        category: event.category,
-        price: +event.price.$numberDecimal,
-        source_id: event.source_id
-    }
-};
+const useEventPage = (): useEventPageOutCome => {
 
-const useEventPage = () : useEventPageOutCome  => {
+    const user = useSelector<StoreStateType, User>(state => state.user);
     const [event, setEvent] = useState<Event>();
+    const [isRegistered, setIsRegistered] = useState<boolean | undefined>();
+    const userRegisterdEventsRef = useRef(user.registerd_events);
 
-    const getEventById = (id:string) => {
-        axios.get(`/events/${id}`).then((result : any) => {
-           setEvent(convertEvent(result.data));
-         }).catch((error: any)=> (
+    useEffect(() => {
+        if (event && userRegisterdEventsRef.current != user.registerd_events) {
+            setIsRegistered(user.registerd_events.includes(event?.id));
+        }
+    }, [event, user]);
+
+    const getEventById = (id: string) => {
+        axios.get(`/events/${id}`).then((result: any) => {
+            setEvent(convertEvent(result.data));
+        }).catch((error: any) => (
             console.log(error)
         ));
     }
-    
+
     return {
         event,
-        getEventById
+        isRegistered,
+        getEventById,
     }
 }
 
-
 interface useEventPageOutCome {
     event: Event | undefined,
+    isRegistered: boolean | undefined,
     getEventById: Function,
 }
 

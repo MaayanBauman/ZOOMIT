@@ -7,24 +7,7 @@ import { useSelector } from 'react-redux';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import EventsFilter from 'models/Event/EventsFilter';
-
-const convertEvent = (event: any)=> {
-    return {
-        id: event._id,
-        title: event.title,
-        description: event.description,
-        zoomer_id: event.zoomer_id,
-        zoom_link: event.zoom_link,
-        password: event.password,
-        start_time: new Date(event.start_time),
-        end_time: new Date(event.end_time),
-        max_registers: event.max_registers,
-        registered_users: event.registered_users,
-        category: event.category,
-        price: event.price,
-        source_id: event.source_id
-    }
-};
+import { convertEvent } from 'utils/EventsUtil/EventsUtil'
 
 const useEventsPage = () : useEventsPageOutCome  => {
 

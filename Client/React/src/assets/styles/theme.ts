@@ -34,7 +34,9 @@ const theme = createMuiTheme({
         body2: {
             color: '#0C63CE'
         },
-
+        caption: {
+            color: '#46AEA2'
+        }
     },
     backgrounds: {
         bg1: '#FFFFFF',
