@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction, Handler } from 'express';
 import { users } from '../services';
 
-
 export const getAllUsers: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.getAllUsers());
@@ -33,6 +32,14 @@ export const getUsersByEmail: Handler = async (req: Request, res: Response, next
         next(err);
     }
 };
+
+export const getAllZoomerRequesters: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.getZoomerRequesters());
+    } catch (err) {
+        next(err);
+    }
+}
 
 export const getUserEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
