@@ -11,6 +11,7 @@ import logo from 'assets/images/zoomit_small_logo.png';
 import SignOutPopover from './SignOutPopover/SignOutPopover';
 import {eventsPageRoute, zoomerPageRoute, profilePageRoute, managePageRoute} from 'utils/Routes/Routes';
 
+
 const TopNavBar: React.FC = (): JSX.Element => {
     const classes = useStyles();
     const { path } = useRouteMatch();
