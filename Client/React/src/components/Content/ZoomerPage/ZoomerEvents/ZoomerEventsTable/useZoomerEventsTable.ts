@@ -43,7 +43,8 @@ const useZoomerEventsTable  = ({isEventEditorOpen}: Props) : useZoomerPageOutCom
             customClass: {
                 title: classes.swal,
                 content: classes.swal,
-                container: classes.swal
+                container: classes.swal,
+                confirmButton: classes.swal,
             },
           }).then(({isConfirmed})=> {
               if (isConfirmed){
