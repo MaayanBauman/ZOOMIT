@@ -1,0 +1,8 @@
+.mat-form-field {
+    text-align: right;
+    direction: rtl;
+}
+
+mat-dialog-content {
+    text-align: right;
+}

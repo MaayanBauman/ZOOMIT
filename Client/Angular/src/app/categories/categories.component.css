@@ -13,10 +13,6 @@
     margin-top: 20%;
 }
 
-.mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #F26D21;
-}
-
 .categories-list {
     display: block;
 }
@@ -30,12 +26,7 @@
     margin-top: 10px;
 }
 
-.add-category button {
-    background-color: #F26D21;
-}
-
 .mat-list-base .mat-list-item {
-    color: black;
     font-size: 14px;
 }
 
@@ -50,4 +41,20 @@
 
 mat-icon {
     cursor: pointer;
+}
+
+.notif-success {
+    background-color: rgb(10, 126, 10)
+}
+
+.notif-error {
+    background-color: rgba(182, 11, 19, 0.87);
+}
+
+.notif-info {
+    background-color: #0C63CE;
+}
+
+.mat-snack-bar-container {
+    min-width: 200px !important;
 }

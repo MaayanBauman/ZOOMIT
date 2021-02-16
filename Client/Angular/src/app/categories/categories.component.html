@@ -1,22 +1,23 @@
-<div class="spinner-wrapper" *ngIf="showSpinner || !isChartLoad">
+<div class="spinner-wrapper" *ngIf="showSpinner">
     <mat-spinner></mat-spinner>
 </div>
-<div class="categories-container" [style.display]="(!showSpinner && isChartLoad) ? 'flex' : 'none'">
+<div class="categories-container" [style.display]="!showSpinner ? 'flex' : 'none'">
     <div lass="categories-list">
         <mat-list role="list">
-            <mat-list-item role="listitem"  *ngFor="let category of categories">
-                <mat-icon (click)="deleteCategory(category)">delete</mat-icon>
-                <mat-icon (click)="editCategory(category)">edit</mat-icon>
+            <mat-list-item role="listitem" *ngFor="let category of categories">
+                <button mat-icon-button (click)="deleteCategory(category)" [disabled]="category.events !== undefined">
+                    <mat-icon>delete</mat-icon>
+                </button>
                 <div class="category-name">{{category.name}}</div>
             </mat-list-item>
         </mat-list>
         <div class="add-category">
-            <button mat-mini-fab color="#F26D21" (click)="addCategory()">
+            <button mat-mini-fab color="primary" (click)="addCategory()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
     </div>
     <div class="categories-char">
-        <chart [(isChartLoad)]="isChartLoad"></chart>
+        <chart [categories]="categories"></chart>
     </div>
 </div>

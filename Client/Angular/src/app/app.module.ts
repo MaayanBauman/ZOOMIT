@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ChartComponent } from './categories/chart/chart.component';
+import { AddCategoryDialog } from './categories/addCategoryDialog/addCategoryDialog.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
@@ -13,8 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,13 +28,13 @@ const config: SocketIoConfig = { url: /*config.ANGULAR_APP_SERVER_URL*/ 'http://
   declarations: [
     AppComponent,
     CategoriesComponent,
-    ChartComponent
+    ChartComponent,
+    AddCategoryDialog
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
-    ToastrModule.forRoot(),
     BrowserAnimationsModule,
     MatTabsModule,
     MatListModule,
@@ -38,7 +42,11 @@ const config: SocketIoConfig = { url: /*config.ANGULAR_APP_SERVER_URL*/ 'http://
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

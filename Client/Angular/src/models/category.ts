@@ -3,7 +3,13 @@ export interface Category {
     name: string;
 };
 
-export interface CategoryChart {
+export interface CategoryWithEventsCount {
+    _id: string;
+    name: string;
+    events: number | undefined;
+};
+
+export interface EventsCount {
     _id: string;
     count: number;
 };

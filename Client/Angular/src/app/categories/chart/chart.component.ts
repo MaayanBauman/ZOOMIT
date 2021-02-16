@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { CategoryChart } from '../../../models/category';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CategoryWithEventsCount } from '../../../models/category';
 import * as d3 from 'd3';
 
 @Component({
@@ -8,9 +8,8 @@ import * as d3 from 'd3';
   styleUrls: ['./chart.component.scss']
 })
 
-export class ChartComponent implements AfterViewInit {
-  @Input() isChartLoad: boolean;
-  @Output() isChartLoadChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+export class ChartComponent implements OnChanges {
+  @Input() categories: CategoryWithEventsCount[];
 
   private svg: any;
   private margin: number;
@@ -18,19 +17,17 @@ export class ChartComponent implements AfterViewInit {
   private height: number;
 
   constructor() {
-    this.isChartLoad = false;
+    this.categories = [];
     this.margin = 100;
     this.width = 750 - (this.margin * 2);
     this.height = 400 - (this.margin * 2);
   }
 
-  ngAfterViewInit(): void {
-    this.createSvg();
-    d3.json('http://localhost:8080/events/categories/count').then((data: any) => {
-      this.isChartLoad = true; 
-      this.isChartLoadChange.emit(this.isChartLoad);
-      return this.drawBars(data)
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.categories && this.categories.length) {
+      this.createSvg();
+      this.drawBars(this.categories.filter(category => category.events !== undefined));
+    }
   }
 
   private createSvg(): void {
@@ -43,11 +40,11 @@ export class ChartComponent implements AfterViewInit {
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawBars(data: CategoryChart[]): void {
+  private drawBars(data: any[]): void {
     // Add X axis
     const x = d3.scaleBand()
     .range([0, this.width])
-    .domain(data.map(d => d._id))
+    .domain(data.map(d => d.name))
     .padding(0.2);
 
     this.svg.append("g")
@@ -59,7 +56,7 @@ export class ChartComponent implements AfterViewInit {
 
     // Add Y axis
     const y = d3.scaleLinear()
-    .domain([0, Math.max(...data.map(d => d.count))])
+    .domain([0, Math.max(...data.map(d => d.events))])
     .range([this.height, 0]);
 
     this.svg.append("g")
@@ -72,10 +69,10 @@ export class ChartComponent implements AfterViewInit {
     .data(data)
     .enter()
     .append("rect")
-    .attr("x", (d: CategoryChart) => x(d._id))
-    .attr("y", (d: CategoryChart) => y(d.count))
+    .attr("x", (d: any) => x(d.name))
+    .attr("y", (d: any) => y(d.events))
     .attr("width", x.bandwidth())
-    .attr("height", (d: CategoryChart) => this.height - y(d.count))
+    .attr("height", (d: any) => this.height - y(d.events))
     .attr("fill", "#F26D21");
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { ToastrService } from 'ngx-toastr';
-import { Category } from '../../models/category';
+import { HttpClient } from '@angular/common/http';
+import { Category, EventsCount, CategoryWithEventsCount } from '../../models/category';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { AddCategoryDialog } from './addCategoryDialog/addCategoryDialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'categories',
@@ -13,57 +13,98 @@ import { Observable } from 'rxjs';
 })
 
 export class CategoriesComponent implements OnInit {
-  public categories: Category[];
+  public categories: CategoryWithEventsCount[];
   public showSpinner: boolean;
-  public isChartLoad: boolean;
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(private http: HttpClient, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.categories = [];
     this.showSpinner = true;
-    this.isChartLoad = false;
   }
 
   ngOnInit() {
-    this.getAllCategories().subscribe((res) => {
-      this.categories = res;
-      this.showSpinner = false;
+    this.getAllCategories();
+  }
+
+  private getAllCategories(): void {
+    this.showSpinner = true;
+
+    this.http.get<any[]>('http://localhost:8080/categories').subscribe((res: Category[]) => {
+      this.getCategoriesEventNumber().subscribe(
+        (countRes: EventsCount[]) => {
+          this.categories = res.map((category): CategoryWithEventsCount => {
+            const eventsNumber: EventsCount | undefined = countRes.find(
+              (eventsCount: EventsCount) => eventsCount._id === category._id);
+
+            return {
+              _id: category._id,
+              name: category.name,
+              events: eventsNumber?.count
+            };
+          });
+
+          this.showSpinner = false;
+        },
+        (err) => {
+          this._snackBar.open("ניראה שיש לנו בעיה קטנה :( תנסו שוב יותר מאוחר...", undefined, {
+            panelClass: 'notif-error',
+            horizontalPosition: 'left'
+          });
+        }
+      );
     });
   }
 
-  private getAllCategories(): Observable<Category[]> {
-    return this.http.get<any[]>('http://localhost:8080/categories');
+  private getCategoriesEventNumber() {
+    return this.http.get<any[]>('http://localhost:8080/events/categories/count');
   }
 
-  public deleteCategory(category: Category) {
-    const dialogRef = this.dialog.open(DialogElementsExampleDialog);
+  public deleteCategory(category: CategoryWithEventsCount) {
+    this.http.delete<any[]>(`http://localhost:8080/categories/${category._id}`).subscribe(
+      (res) => {
+        this._snackBar.open(`הקטגוריה ${category.name} נמחקה`, undefined, {
+          duration: 2000,
+          panelClass: 'notif-success',
+          horizontalPosition: 'left'
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-
-    // this.http.delete<any[]>(`http://localhost:8080/categories/${category._id}`).subscribe((res) => {
-    //   alert('delete!' + category.name);
-    // });
-  }
-
-  public editCategory(category: any) {
-    alert('edit!' + category._id);
+        const index = this.categories.indexOf(category);
+        this.categories.splice(index, 1);
+      },
+      (err) => {
+        this._snackBar.open("אויי משהו השתבש במחיקה אולי ננסה שוב?", undefined, {
+          duration: 2000,
+          panelClass: 'notif-error',
+          horizontalPosition: 'left'
+        });
+      }
+    );
   }
 
   public addCategory() {
-    const category = {
-      _id: "5ffe0a39c4b60b6c63b1f4d1",
-      name: 'נגרות'
-    }
+    const dialogRef = this.dialog.open(AddCategoryDialog);
 
-    this.http.post<any[]>('http://localhost:8080/categories', { category }).subscribe((res) => {
-      alert('add!' + category.name);
-    });;
+    dialogRef.afterClosed().subscribe(result => {
+      this.http.post<any[]>(
+          'http://localhost:8080/categories',
+          { category: { name: result } }
+        ).subscribe(
+          (res: any) => {
+            this._snackBar.open(`יששש נוספה קטגוריה חדשה- ${result}!`, undefined, {
+              duration: 2000,
+              panelClass: 'notif-success',
+              horizontalPosition: 'left'
+            });
+
+            this.categories.push({ _id: res.ops[0]._id, name: res.ops[0].name, events: undefined});
+          },
+          (err) => {
+            this._snackBar.open("אופס ניראה שהייתה בעיה והקטגוריה לא נוצרה", undefined, {
+              duration: 2000,
+              panelClass: 'notif-error',
+              horizontalPosition: 'left'
+            });
+          }
+        );
+    });
   }
 }
-
-@Component({
-  selector: 'dialog-elements-example-dialog',
-  template: '<div></div>',
-})
-export class DialogElementsExampleDialog {}
