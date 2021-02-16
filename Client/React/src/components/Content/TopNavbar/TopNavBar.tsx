@@ -60,7 +60,7 @@ const TopNavBar: React.FC = (): JSX.Element => {
                                 ניהול המערכת
                             </Typography>}
                         </NavLink> 
-                        <IconButton edge="start" color="inherit" aria-lhandleAvatarMouseOverl="menu" >
+                        <IconButton edge="start" color="inherit">
                             <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
                                 <span>
                                     <Avatar alt={user.full_name} 

@@ -11,7 +11,7 @@ import StoreStateType from 'redux/storeStateType';
 import {setUser} from 'redux/User/userActionCreator';
 import {eventsPageRoute, contentRoute} from 'utils/Routes/Routes';
 
-const useSignUpDialog  = ({handleClose} : useEventPageInCome) : useEventPageOutCome  => {
+const useSignUpDialog  = ({ handleClose } : useEventPageInCome) : useEventPageOutCome  => {
     
     const [userName, setUserName] = useState<string>('');
     const [favoriteCategories, setFavoriteCategories] = useState<string[]>([]);

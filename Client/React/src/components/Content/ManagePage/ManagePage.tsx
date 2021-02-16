@@ -12,9 +12,10 @@ const ManagePage: React.FC = (): JSX.Element => {
     const classes = useStyles();
 
     const user = useSelector<StoreStateType, User>(state => state.user);
+    
     return (
         <>
-            {!(user.user_type === UserType.ADMIN) ?  
+            { user.user_type !== UserType.ADMIN ?  
                 <Unauthorized /> :
                 <Iframe url={process.env.REACT_APP_MANAGE_URL || ""}
                   width="100%"

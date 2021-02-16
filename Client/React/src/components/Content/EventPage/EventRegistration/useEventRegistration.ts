@@ -13,7 +13,7 @@ const useEventRegistration = ({ getEventById }: Props): useEventRegistrationOutC
     const classes = useStyles();
 
     const registerToEvent = (userId: string, eventId: string) => {
-        if (userId && userId != "" && eventId && eventId != "") {
+        if (userId && userId !== "" && eventId && eventId !== "") {
             axios.put(`/users/${userId}/events/${eventId}`, {})
                 .then(() => {
                     Swal.fire({
@@ -54,7 +54,7 @@ const useEventRegistration = ({ getEventById }: Props): useEventRegistrationOutC
     }
 
     const cancelEventRegistration = (userId: string, eventId: string) => {
-        if (userId && userId != "" && eventId && eventId != "") {
+        if (userId && userId !== "" && eventId && eventId !== "") {
             axios.delete(`/users/${userId}/events/${eventId}`)
                 .then(() => {
                     Swal.fire({
@@ -70,7 +70,7 @@ const useEventRegistration = ({ getEventById }: Props): useEventRegistrationOutC
                             confirmButton: classes.swal,
                         },
                     }).then(() => {
-                        const newRegisteredEvents = user.registerd_events.filter((id) => id != eventId);
+                        const newRegisteredEvents = user.registerd_events.filter((id) => id !== eventId);
                         setUser({ ...user, registerd_events: newRegisteredEvents });
                         getEventById(eventId)
                     })
