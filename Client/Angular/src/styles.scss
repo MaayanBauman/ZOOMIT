@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/theming';
+@import './assets/style/fonts.css';
 
 @include mat-core();
 
@@ -89,6 +90,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     color: black;
     direction: rtl;
+    font-family: 'Assistant'!important;
 }
 
 #toast-container > div {
