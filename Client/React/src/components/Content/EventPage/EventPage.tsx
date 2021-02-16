@@ -4,12 +4,13 @@ import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
 import { useParams } from 'react-router-dom';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
-import { Divider, Link } from '@material-ui/core';
+import { Button, Divider, Link } from '@material-ui/core';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import { useSelector } from 'react-redux';
 import User from 'models/User/User';
 import StoreStateType from 'redux/storeStateType';
 import EventRegistration from './EventRegistration/EventRegistration';
+import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
 
 const EventPage: React.FC = (): JSX.Element => {
 
@@ -18,6 +19,13 @@ const EventPage: React.FC = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
 
     const user = useSelector<StoreStateType, User>(state => state.user);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
+
+    const handleLogoutMouseOver = (event: any) => {
+        setIsPopoverOpen(true);
+        setAnchorEl(event.currentTarget);
+    };
 
     useEffect(() => {
         getEventById(id);
@@ -63,9 +71,9 @@ const EventPage: React.FC = (): JSX.Element => {
                     <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById}></EventRegistration>
                     <Typography variant="subtitle1" gutterBottom>
                         {
-                            (event?.registered_users.length === 0) ?
+                            (event?.registered_users.length == 0) ?
                                 'היו הראשונים להירשם!'
-                                : (event?.registered_users.length === 1) ?
+                                : (event?.registered_users.length == 1) ?
                                     'נרשם כבר משתמש אחד'
                                     : `נרשמו כבר ${event?.registered_users.length} משתמשים!`
                         }
@@ -79,7 +87,8 @@ const EventPage: React.FC = (): JSX.Element => {
                         אחרי ההרשמה יתקבל למייל שלך ({user.email}) לינק לזום או לאתר של הזומר לקניית כרטיס לאירוע.
                     </Typography>
                     <Typography variant="body1">
-                        לא המייל הנכון? <Link href="#" onClick={() => { }} variant="body2">לחצו כאן להחלפת חשבון!</Link>
+                        לא המייל הנכון? <Link href="#" onClick={(event: any) => handleLogoutMouseOver(event)} variant="body2">לחצו כאן להחלפת חשבון!</Link>
+                        <SignOutPopover anchorEl={anchorEl} isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen} />
                     </Typography>
                 </div>
             </div>
