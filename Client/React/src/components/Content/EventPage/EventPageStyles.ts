@@ -37,7 +37,6 @@ const useStyles = makeStyles({
     zoomer: {
         fontWeight: 'bold',
         fontSize: 20,
-        height: '6vh',
     },
     detailsLine: {
         display: 'flex',
