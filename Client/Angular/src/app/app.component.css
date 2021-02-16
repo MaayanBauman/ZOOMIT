@@ -11,6 +11,11 @@
     background-color: transparent;
     color: black;
     font-weight: 700;
+    font-family: 'Assistant'
+}
+
+.mat-tab-group {
+    font-family: 'Assistant';
 }
 
 /* Styles for the active tab label */
@@ -19,4 +24,5 @@
     background-color: transparent;
     color: #0C63CE;
     font-weight: 700;
+    font-family: 'Assistant'
 }

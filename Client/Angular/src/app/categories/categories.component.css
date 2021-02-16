@@ -6,6 +6,11 @@
     height: 100%;
 }
 
+.mat-list-item {
+    font-family: 'Assistant';
+    font-weight: 500;
+}
+
 .spinner-wrapper {
     display: flex;
     justify-content: center;
@@ -36,7 +41,7 @@
 }
 
 .categories-char {
-    width: 60%;
+    width: 40%;
 }
 
 mat-icon {

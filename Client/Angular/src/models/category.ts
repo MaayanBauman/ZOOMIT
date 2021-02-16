@@ -6,7 +6,8 @@ export interface Category {
 export interface CategoryWithEventsCount {
     _id: string;
     name: string;
-    events: number | undefined;
+    events?: number | undefined;
+    prices?: number | undefined;
 };
 
 export interface EventsCount {
@@ -14,3 +15,7 @@ export interface EventsCount {
     count: number;
 };
 
+export interface EventsPriceSum {
+    _id: string;
+    value: number;
+};

@@ -1,14 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CategoryWithEventsCount } from '../../../models/category';
+import { CategoryWithEventsCount } from '../../../../models/category';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  selector: 'bar-chart',
+  templateUrl: './barChart.component.html'
 })
 
-export class ChartComponent implements OnChanges {
+export class BarChartComponent implements OnChanges {
   @Input() categories: CategoryWithEventsCount[];
 
   private svg: any;
@@ -31,7 +30,7 @@ export class ChartComponent implements OnChanges {
   }
 
   private createSvg(): void {
-    this.svg = d3.select("#chart")
+    this.svg = d3.select("#barChart")
     .append("svg")
     .attr("width", "100%")
     .attr("height", "100%")
@@ -52,7 +51,9 @@ export class ChartComponent implements OnChanges {
     .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-15,0)rotate(0)")
-    .style("text-anchor", "end");
+    .style("text-anchor", "end")
+    .style("font-family", "Assistant")
+    .style("font-weight", "700");
 
     // Add Y axis
     const y = d3.scaleLinear()

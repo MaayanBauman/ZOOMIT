@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { ZoomersComponent } from './zoomers/zoomers.component';
-import { ChartComponent } from './categories/chart/chart.component';
+import { BarChartComponent } from './categories/chart/barChart/barChart.component';
+import { PieChartComponent } from './categories/chart/pieChart/pieChart.component';
 import { AddCategoryDialog } from './categories/addCategoryDialog/addCategoryDialog.component';
 import { CategoriesComponent } from './categories/categories.component';
 
@@ -31,7 +32,8 @@ const config: SocketIoConfig = { url: environment.serverUrl, options: {} };
   declarations: [
     AppComponent,
     CategoriesComponent,
-    ChartComponent,
+    BarChartComponent,
+    PieChartComponent,
     AddCategoryDialog,
     ZoomersComponent
   ],
