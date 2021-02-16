@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import useStyles from './FilterBoxStyles';
@@ -20,7 +20,7 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 const FilterBox: React.FC<Props> = ({ onFilter, zoomerIdEvents }: Props): JSX.Element => {
     const classes = useStyles();
-    const { zoomers, categories } = useEventsPage ();
+    const { zoomers, categories } = useEventsPage();
     const { setFieldValue, resetExtraFilter } = useFilterBox();
     const filters = useSelector<StoreStateType, EventsFilter> (state => state.eventsFilters);
     
@@ -36,6 +36,7 @@ const FilterBox: React.FC<Props> = ({ onFilter, zoomerIdEvents }: Props): JSX.El
             {zoomer.full_name}
         </MenuItem>
     )
+
     useEffect(() => {
         if (!isExtraFilterOpen){
             onFilter()
