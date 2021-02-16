@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import {useSelector} from 'react-redux';
-import React, {useEffect, useState, useRef} from 'react';
+import {useEffect, useState, useRef} from 'react';
 
 import axios from 'utils/axios';
 import User from 'models/User/User'; 

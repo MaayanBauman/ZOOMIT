@@ -1,19 +1,31 @@
 import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
-import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
 import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
+import useEventCard from './useEventCard';
+import User from 'models/User/User';
 
 const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-
+    const { getUserById } = useEventCard();
+    const [zoomerPic, setZoomerPic] = useState('');
+    
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
     }
+
+    useEffect(() => {
+        const getZoomer = async() => {
+            const zoomer: User = await getUserById(event.zoomer_id);
+            setZoomerPic(zoomer.photograph);
+        };
+        getZoomer();
+    }, [event.zoomer_id, getUserById]);
 
     return (
         <div >
@@ -23,7 +35,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                         {event.title}
                     </Typography>
                     <div className={classes.zoomer}>
-                        <img alt={'userpic'} src={userpic}></img>
+                        <img alt={'zoomer'} src={zoomerPic}></img>
                         <Typography variant="subtitle1">{event.description.length > 25 ? `${event.description.slice(0,25)}...`: event.description}</Typography>
                     </div>
                     <div className={classes.details}>

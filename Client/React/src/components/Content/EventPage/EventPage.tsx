@@ -4,7 +4,7 @@ import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
 import { useParams } from 'react-router-dom';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
-import { Button, Divider, Link } from '@material-ui/core';
+import { Divider, Link } from '@material-ui/core';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import { useSelector } from 'react-redux';
 import User from 'models/User/User';
@@ -63,9 +63,9 @@ const EventPage: React.FC = (): JSX.Element => {
                     <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById}></EventRegistration>
                     <Typography variant="subtitle1" gutterBottom>
                         {
-                            (event?.registered_users.length == 0) ?
+                            (event?.registered_users.length === 0) ?
                                 'היו הראשונים להירשם!'
-                                : (event?.registered_users.length == 1) ?
+                                : (event?.registered_users.length === 1) ?
                                     'נרשם כבר משתמש אחד'
                                     : `נרשמו כבר ${event?.registered_users.length} משתמשים!`
                         }

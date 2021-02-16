@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
-import { Button, Divider, Link, Typography } from '@material-ui/core';
-import StoreStateType from 'redux/storeStateType';
+import React  from 'react';
+import { Button } from '@material-ui/core';
 import useEventRegistration from './useEventRegistration';
-import useStyles from './EventRegistrationStyles';
 
 const EventRegistration: React.FC<Props> = ({ eventId, userId, isRegistered, getEventById }: Props): JSX.Element => {
 
     const { registerToEvent, cancelEventRegistration } = useEventRegistration({getEventById});
-    const classes = useStyles();
 
     return (
         <>
