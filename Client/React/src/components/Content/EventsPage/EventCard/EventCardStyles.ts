@@ -22,6 +22,7 @@ const useStyles = makeStyles({
     padding: '7px',
     marginBottom: '0.35em',
     borderRadius: '4px',
+    height: '6vh',
     '& img': {
       height: '36px',
       borderRadius: '100%',
