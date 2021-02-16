@@ -36,6 +36,9 @@ export const getEventByCategory = (category: string) =>
 export const getCountEventsByCategory = () => 
     eventsOperationBuilder.getCountObjectsByFiled(collectionName, 'category');
 
+export const getSumEventsPriceByCategor = () => 
+    eventsOperationBuilder.getSumByFiled(collectionName, 'price', 'category');
+
 export const getEventByTitle = (title: string) => 
     eventsOperationBuilder.getObjectsRegexFiled(collectionName, 'title', title);
 

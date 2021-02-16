@@ -2,6 +2,8 @@ import { ObjectID } from 'mongodb';
 import doOperation from '../../repositories/mongo/operation';
 import { IOperationBuilder } from './types';
 
+declare function emit(k: undefined, v: any | undefined): any;
+
 const getAllObjects = (collectionName: string) => 
     doOperation(collectionName, collection => collection.find({}).toArray(), 
                 `Fail to get all the objects from ${collectionName}`);
@@ -25,6 +27,21 @@ const getCountObjectsByFiled = (collectionName: string, objField: string) =>
     doOperation(collectionName, collection => collection.aggregate([
         { $group: { _id: `$${objField}`, count: { $sum: 1 }} }
     ]).toArray(), `Fail to get the count objects with ${objField} from ${collectionName}`);
+    
+const getSumByFiled = (collectionName: string, sumField: string, objField: string) => {
+    var mapper = function() { 
+        emit(this.category, this.price);
+    };
+    var reducer = function(obj: any, sumValues: any) { 
+        return sumValues.reduce((total: number, sum: number) => total + sum) ;
+    };
+
+    return doOperation(collectionName, collection => collection.mapReduce(
+        mapper, 
+        reducer, 
+        { out: { inline: 1 } }
+    ), `Fail to get the sum of ${sumField} by ${objField} from ${collectionName}`)
+};
 
 const getObjectsRegexFiled = (collectionName: string, objField: string, regex: string) =>
     doOperation(collectionName, collection => collection.find(
@@ -87,6 +104,7 @@ export default <T>(): IOperationBuilder<T> => ({
     getObjectsBySubsetFiled,
     getObjectsInSubsetFiled,
     getCountObjectsByFiled,
+    getSumByFiled,
     getObjectsRegexFiled,
     getObjectById,
     getObjectsById,
