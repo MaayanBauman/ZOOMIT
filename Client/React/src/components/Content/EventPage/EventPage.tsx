@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
 import { useParams } from 'react-router-dom';
-import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
-import { Button, Divider, Link } from '@material-ui/core';
+import { Divider, Link } from '@material-ui/core';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import { useSelector } from 'react-redux';
 import User from 'models/User/User';
 import StoreStateType from 'redux/storeStateType';
 import EventRegistration from './EventRegistration/EventRegistration';
 import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
+import useEventCard from '../EventsPage/EventCard/useEventCard';
 
 const EventPage: React.FC = (): JSX.Element => {
 
     const { event, getEventById, isRegistered } = useEventPage();
     const classes = useStyles();
+    const { getUserById } = useEventCard();
     const { id } = useParams<{ id: string }>();
-
+    const [zoomer, setZoomer] = useState<User|undefined>();
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
@@ -28,6 +29,11 @@ const EventPage: React.FC = (): JSX.Element => {
     };
 
     useEffect(() => {
+        const zoomer: User = getUserById(event?.zoomer_id);
+        setZoomer(zoomer);
+    }, [event, getUserById]);
+
+    useEffect(() => {
         getEventById(id);
     }, [])
 
@@ -35,15 +41,14 @@ const EventPage: React.FC = (): JSX.Element => {
         <>
             <div className={classes.container}>
                 <div className={classes.headLine}>
-                    <img src={userpic}></img>
+                <img alt={'zoomer'} src={zoomer && zoomer.photograph}></img>
                     <div className={classes.headDetails}>
                         <Typography variant="subtitle1" className={classes.eventName}>
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
-                        <Typography variant="caption" className={classes.zoomer}>
-                            זהר עוזיאלי{/* {event?.title} */}
-                        </Typography>
+                        <Typography variant="caption" className={classes.zoomer}>{zoomer && zoomer.full_name}</Typography>
+    
                     </div>
                 </div>
                 <div className={classes.detailsLine}>
@@ -55,7 +60,7 @@ const EventPage: React.FC = (): JSX.Element => {
                             {formatTime(event?.end_time)}-{formatTime(event?.start_time)}
                         </Typography>
                         <Typography variant="subtitle1">
-                            {event?.price} &#8362;
+                            {event?.price !== 0 ? `₪${event?.price}` : '⭐חינם!⭐' }
                         </Typography>
                     </div>
                     <Divider orientation="vertical" flexItem />
