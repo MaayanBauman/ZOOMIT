@@ -33,6 +33,14 @@ export const getCountEventsByCategory: Handler = async (req: Request, res: Respo
     }
 };
 
+export const getSumEventsPriceByCategor: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await events.getSumEventsPriceByCategor());
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const getEventByTitle: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.getEventByTitle(req.params.title));

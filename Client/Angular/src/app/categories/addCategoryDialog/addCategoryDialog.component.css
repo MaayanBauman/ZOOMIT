@@ -1,0 +1,18 @@
+.mat-form-field {
+    text-align: right;
+    direction: rtl;
+    font-family: 'Assistant';
+    font-weight: 500;
+}
+
+h3 {
+    font-family: 'Assistant';
+}
+
+.mat-raised-button {
+    font-family: 'Assistant' !important;
+}
+
+mat-dialog-content {
+    text-align: right;
+}

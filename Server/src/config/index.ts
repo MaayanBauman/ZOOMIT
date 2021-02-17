@@ -7,6 +7,7 @@ export default {
     clientAngolarUrl: process.env.ANGULAR_APP_CLIENT_URL,
     mongoConfig: {
         connectionString: process.env.CONNECTION_STRING,
+        localConnectionString: 'mongodb://localhost:27017',
         dbName: 'zoomit'
     },
     collections: {

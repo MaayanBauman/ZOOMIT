@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'utils/axios';
 import Event from 'models/Event/Event';
 import User from 'models/User/User';
@@ -11,10 +11,9 @@ const useEventPage = (): useEventPageOutCome => {
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [event, setEvent] = useState<Event>();
     const [isRegistered, setIsRegistered] = useState<boolean | undefined>();
-    const userRegisterdEventsRef = useRef(user.registerd_events);
 
     useEffect(() => {
-        if (event && userRegisterdEventsRef.current !== user.registerd_events) {
+        if (event) {
             setIsRegistered(user.registerd_events.includes(event?.id));
         }
     }, [event, user]);

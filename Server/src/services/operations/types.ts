@@ -11,6 +11,7 @@ export interface IOperationBuilder<T> {
     getObjectsBySubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
     getObjectsInSubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
     getCountObjectsByFiled: (collectionName: string, objField: string) => Promise<T[]>;
+    getSumByFiled: (collectionName: string, sumField: string,  objField: string) => Promise<T[]>;
     getObjectsRegexFiled: (collectionName: string, objField: string, regex: string) => Promise<T[]>;
     getObjectById: (collectionName: string, id: string) => Promise<T>;
     getObjectsById: (collectionName: string, id: Array<string>) => Promise<T>;

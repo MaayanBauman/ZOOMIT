@@ -6,7 +6,10 @@ const doOperation = async (collectionName: string, operation: IOperation, logMes
     let client: MongoClient;
     
     try {
-        client = await MongoClient.connect(config.mongoConfig.connectionString);
+        client = await MongoClient.connect(config.mongoConfig.connectionString, {
+            useUnifiedTopology: true
+        });
+        
         const dbClient: Db = client.db(config.mongoConfig.dbName);
         const collection: Collection = dbClient.collection(collectionName);
         return await operation(collection);

@@ -1,34 +1,36 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { CategoryChart } from '../../../models/category';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CategoryWithEventsCount } from '../../../../models/category';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  selector: 'bar-chart',
+  templateUrl: './barChart.component.html'
 })
 
-export class ChartComponent implements AfterViewInit {
+export class BarChartComponent implements OnChanges {
+  @Input() categories: CategoryWithEventsCount[];
+
   private svg: any;
   private margin: number;
-  private width: number
-  private height: number
-  private maxIndex: number;
+  private width: number;
+  private height: number;
 
   constructor() {
+    this.categories = [];
     this.margin = 100;
     this.width = 750 - (this.margin * 2);
     this.height = 400 - (this.margin * 2);
-    this.maxIndex = 15;
   }
 
-  ngAfterViewInit(): void {
-    this.createSvg();
-    d3.json('http://localhost:8080/events/categories/count').then((data: any) => this.drawBars(data));
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.categories && this.categories.length) {
+      this.createSvg();
+      this.drawBars(this.categories.filter(category => category.events !== undefined));
+    }
   }
 
   private createSvg(): void {
-    this.svg = d3.select("#chart")
+    this.svg = d3.select("#barChart")
     .append("svg")
     .attr("width", "100%")
     .attr("height", "100%")
@@ -37,11 +39,11 @@ export class ChartComponent implements AfterViewInit {
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawBars(data: CategoryChart[]): void {
+  private drawBars(data: any[]): void {
     // Add X axis
     const x = d3.scaleBand()
     .range([0, this.width])
-    .domain(data.map(d => d._id))
+    .domain(data.map(d => d.name))
     .padding(0.2);
 
     this.svg.append("g")
@@ -49,11 +51,13 @@ export class ChartComponent implements AfterViewInit {
     .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-15,0)rotate(0)")
-    .style("text-anchor", "end");
+    .style("text-anchor", "end")
+    .style("font-family", "Assistant")
+    .style("font-weight", "700");
 
     // Add Y axis
     const y = d3.scaleLinear()
-    .domain([0, Math.max(...data.map(d => d.count))])
+    .domain([0, Math.max(...data.map(d => d.events))])
     .range([this.height, 0]);
 
     this.svg.append("g")
@@ -66,10 +70,10 @@ export class ChartComponent implements AfterViewInit {
     .data(data)
     .enter()
     .append("rect")
-    .attr("x", (d: CategoryChart) => x(d._id))
-    .attr("y", (d: CategoryChart) => y(d.count))
+    .attr("x", (d: any) => x(d.name))
+    .attr("y", (d: any) => y(d.events))
     .attr("width", x.bandwidth())
-    .attr("height", (d: CategoryChart) => this.height - y(d.count))
+    .attr("height", (d: any) => this.height - y(d.events))
     .attr("fill", "#F26D21");
   }
 }

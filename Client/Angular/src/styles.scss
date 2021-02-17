@@ -1,0 +1,99 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import './assets/style/fonts.css';
+
+@include mat-core();
+
+$md-f26d21: (
+  50 : #fdede4,
+  100 : #fbd3bc,
+  200 : #f9b690,
+  300 : #f69964,
+  400 : #f48342,
+  500 : #f26d21,
+  600 : #f0651d,
+  700 : #ee5a18,
+  800 : #ec5014,
+  900 : #e83e0b,
+  A100 : #ffffff,
+  A200 : #ffe5e0,
+  A400 : #ffbcad,
+  A700 : #ffa793,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$md-0c63ce: (
+    50 : #e2ecf9,
+    100 : #b6d0f0,
+    200 : #86b1e7,
+    300 : #5592dd,
+    400 : #307ad5,
+    500 : #0c63ce,
+    600 : #0a5bc9,
+    700 : #0851c2,
+    800 : #0647bc,
+    900 : #0335b0,
+    A100 : #dae2ff,
+    A200 : #a7bbff,
+    A400 : #7493ff,
+    A700 : #5a80ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$zoomit-app-primary: mat-palette($md-f26d21);
+$zoomit-app-accent:  mat-palette($md-0c63ce);
+$zoomit-app-warn:    mat-palette($mat-red);
+
+$zoomit-app-theme: mat-light-theme((
+  color: (
+    primary: $zoomit-app-primary,
+    accent: $zoomit-app-accent,
+    warn: $zoomit-app-warn,  
+  )
+));
+
+@include angular-material-theme($zoomit-app-theme);
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    color: black;
+    direction: rtl;
+    font-family: 'Assistant' !important;
+    font: 400 14px/20px 'Assistant' !important;
+}
+
+#toast-container > div {
+    opacity: 1;
+}
