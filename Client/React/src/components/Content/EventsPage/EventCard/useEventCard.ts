@@ -6,20 +6,14 @@ import StoreStateType from 'redux/storeStateType';
 const useEventCard = () : useEventCardOutCome  => {
     const categories = useSelector<StoreStateType, Category[]>(state=> state.categories);
 
-    const getSourceById = (sourceId: string) => {
-        axios.get(`/sources/${sourceId}`).then((result : any) => {
-            return(result.data);
-         }).catch((error: any) => (
-            console.log(error)
-        ));
+    const getSourceById = async (sourceId: string) => {
+        const { data } = await axios.get(`/sources/${sourceId}`);
+        return data;
     }
     
-    const getUserById = (userId: string) => {
-        axios.get(`/users/${userId}`).then((result : any) => {
-            return(result.data);
-         }).catch((error: any) => (
-            console.log(error)
-        ));
+    const getUserById = async (userId: string) => {
+        const { data } = await axios.get(`/users/${userId}`);
+        return data;
     }
     return {
         getUserById,

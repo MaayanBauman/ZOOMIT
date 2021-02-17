@@ -18,13 +18,16 @@ const EventPage: React.FC = (): JSX.Element => {
     const history = useHistory();
     const { event, getEventById, isRegistered } = useEventPage();
     const classes = useStyles();
-    const { getUserById } = useEventCard();
+    const { getUserById, getSourceById } = useEventCard();
     const { id } = useParams<{ id: string }>();
-    const [zoomer, setZoomer] = useState<User | undefined>();
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
 
+    const [authorPhoto, setAuthorPhoto] = useState('');
+    const [authorName, setAuthorName] = useState('');
+    const [isAuthortypeZoomer, setIsAuthortypeZoomer] = useState(false);
+    
     const handleLogoutMouseOver = (event: any) => {
         setIsPopoverOpen(true);
         setAnchorEl(event.currentTarget);
@@ -35,9 +38,25 @@ const EventPage: React.FC = (): JSX.Element => {
     }
 
     useEffect(() => {
-        const zoomer: User = getUserById(event?.zoomer_id);
-        setZoomer(zoomer);
-    }, [event, getUserById]);
+        const setAuthorData = async() => {
+            if(event?.zoomer_id) {
+                const zoomer = await getUserById(event?.zoomer_id);
+                if (zoomer){
+                    setAuthorPhoto(zoomer.photograph);
+                    setAuthorName(zoomer.full_name);
+                setIsAuthortypeZoomer(true);
+
+                } 
+            } else if(event?.source_id){
+                const source = await getSourceById(event?.source_id);
+                if (source) {
+                    setAuthorPhoto(source.photograph);
+                    setAuthorName(source.name);
+                } 
+            }
+        }
+        setAuthorData();
+    }, [event, getSourceById, getUserById]);
 
     useEffect(() => {
         getEventById(id);
@@ -47,13 +66,13 @@ const EventPage: React.FC = (): JSX.Element => {
         <>
             <div className={classes.container}>
                 <div className={classes.headLine}>
-                    <img alt={'zoomer'} src={zoomer && zoomer.photograph} onClick={() => handleZoomerClick()}></img>
+                    <img alt={'zoomer'} src={authorPhoto} onClick={() => isAuthortypeZoomer && handleZoomerClick()}></img>
                     <div className={classes.headDetails}>
                         <Typography variant="subtitle1" className={classes.eventName}>
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
-                        <Typography variant="caption" className={classes.zoomer} onClick={() => handleZoomerClick()}>{zoomer && zoomer.full_name}</Typography>
+                        <Typography variant="caption" className={classes.zoomer} onClick={() => isAuthortypeZoomer && handleZoomerClick()}>{authorName}</Typography>
                     </div>
                 </div>
                 <div className={classes.detailsLine}>
@@ -81,9 +100,9 @@ const EventPage: React.FC = (): JSX.Element => {
                     <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById}></EventRegistration>
                     <Typography variant="subtitle1" gutterBottom>
                         {
-                            (event?.registered_users.length == 0) ?
+                            (event?.registered_users.length === 0) ?
                                 'היו הראשונים להירשם!'
-                                : (event?.registered_users.length == 1) ?
+                                : (event?.registered_users.length === 1) ?
                                     'נרשם כבר משתמש אחד'
                                     : `נרשמו כבר ${event?.registered_users.length} משתמשים!`
                         }

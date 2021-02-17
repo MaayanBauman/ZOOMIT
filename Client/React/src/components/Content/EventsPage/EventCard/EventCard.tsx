@@ -25,19 +25,22 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     }
 
     useEffect(() => {
-        if(event.zoomer_id) {
-            const zoomer = getUserById(event.zoomer_id);
-            if (zoomer){
-                setAuthorPhoto(zoomer.photograph);
-                setAuthorName(zoomer.full_name);
-            } 
-        } else if(event.source_id){
-            const source = getSourceById(event.source_id);
-            if (source) {
-                setAuthorPhoto(source.photograph);
-                setAuthorName(source.name);
-            } 
+        const setAuthorData = async() => {
+            if(event.zoomer_id) {
+                const zoomer = await getUserById(event.zoomer_id);
+                if (zoomer){
+                    setAuthorPhoto(zoomer.photograph);
+                    setAuthorName(zoomer.full_name);
+                } 
+            } else if(event.source_id){
+                const source = await getSourceById(event.source_id);
+                if (source) {
+                    setAuthorPhoto(source.photograph);
+                    setAuthorName(source.name);
+                } 
+            }
         }
+        setAuthorData();
     }, [event.source_id, event.zoomer_id, getSourceById, getUserById]);
 
     return (
