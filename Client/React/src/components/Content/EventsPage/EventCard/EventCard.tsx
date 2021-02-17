@@ -13,18 +13,15 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
     const { getUserById } = useEventCard();
-    const [zoomerPic, setZoomerPic] = useState('');
+    const [zoomer, setZoomer] = useState<User|undefined>();
     
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
     }
 
     useEffect(() => {
-        const getZoomer = async() => {
-            const zoomer: User = await getUserById(event.zoomer_id);
-            setZoomerPic(zoomer.photograph);
-        };
-        getZoomer();
+        const zoomer: User = getUserById(event.zoomer_id);
+        setZoomer(zoomer);
     }, [event.zoomer_id, getUserById]);
 
     return (
@@ -35,8 +32,8 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                         {event.title}
                     </Typography>
                     <div className={classes.zoomer}>
-                        <img alt={'zoomer'} src={zoomerPic}></img>
-                        <Typography variant="subtitle1">{event.description.length > 25 ? `${event.description.slice(0,25)}...`: event.description}</Typography>
+                        <img alt={'zoomer'} src={zoomer && zoomer.photograph}></img>
+                        <Typography variant="subtitle1">{zoomer && zoomer.full_name}</Typography>
                     </div>
                     <div className={classes.details}>
                         <Typography variant="body1">
@@ -46,7 +43,7 @@ const EventCard: React.FC<Props> = ({ event }: Props): JSX.Element => {
                             {formatTime(event.end_time)}-{formatTime(event.start_time)}
                         </Typography>
                         <Typography variant="body1">
-                            {event.price} &#8362;
+                            {event.price !== 0 ? `₪${event.price}` : '⭐חינם!⭐' }
                         </Typography>
                     </div>
                 </CardContent>
