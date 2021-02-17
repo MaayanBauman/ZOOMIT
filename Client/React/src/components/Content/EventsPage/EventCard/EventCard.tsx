@@ -7,15 +7,14 @@ import useStyles from './EventCardStyles';
 import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
-import User from 'models/User/User';
-import Category from 'models/Category/Category';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { getUserById, categories } = useEventCard();
-    const [zoomer, setZoomer] = useState<User | undefined>();
+    const { getUserById, getSourceById, categories } = useEventCard();
+    const [authorPhoto, setAuthorPhoto] = useState('');
+    const [authorName, setAuthorName] = useState('');
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
@@ -26,23 +25,34 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     }
 
     useEffect(() => {
-        const zoomer: User = getUserById(event.zoomer_id);
-        setZoomer(zoomer);
-    }, [event.zoomer_id, getUserById]);
+        if(event.zoomer_id) {
+            const zoomer = getUserById(event.zoomer_id);
+            if (zoomer){
+                setAuthorPhoto(zoomer.photograph);
+                setAuthorName(zoomer.full_name);
+            } 
+        } else if(event.source_id){
+            const source = getSourceById(event.source_id);
+            if (source) {
+                setAuthorPhoto(source.photograph);
+                setAuthorName(source.name);
+            } 
+        }
+    }, [event.source_id, event.zoomer_id, getSourceById, getUserById]);
 
     return (
         <div >
             <Card className={classes.root}>
                 <CardContent className={classes.cardContentt}>
                     <Typography className={classes.title} variant="subtitle1" gutterBottom>
-                        {event.title}
+                        {event.title.length > 20 ? `${event.title.slice(0,20)}...`: event.title}
                     </Typography>
                     <div className={classes.zoomer}>
                         {showZoomer &&
-                            <img alt={'zoomer'} src={zoomer && zoomer.photograph} onClick={() => handleZoomerClick()} className={classes.clickable}></img>
+                            <img alt={'Author'} src={authorPhoto} onClick={() => handleZoomerClick()} className={classes.clickable}></img>
                         }
                         <div>
-                            {showZoomer && <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={classes.clickable}>{zoomer && zoomer.full_name}</Typography>}
+                            {showZoomer && <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={classes.clickable}>{authorName}</Typography>}
                             {showCategory && <Typography variant="body1" className={classes.category}>{categoryNameById(categories, event.category)}</Typography>}
                         </div>
                     </div>
