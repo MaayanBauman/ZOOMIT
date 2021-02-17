@@ -58,7 +58,7 @@ export class CategoriesComponent implements OnInit {
         this.showSpinner = false;
       },
       (err) => {
-        this._snackBar.open("ניראה שיש לנו קצת בעיה תחזרו מאוחר יותר יהיה בסדר", undefined, {
+        this._snackBar.open("נראה שיש לנו קצת בעיה תחזרו מאוחר יותר שתו קפה או משהו", undefined, {
           panelClass: 'notif-error',
           horizontalPosition: 'left'
         });
@@ -119,7 +119,7 @@ export class CategoriesComponent implements OnInit {
               this.categories.push({ _id: res.ops[0]._id, name: res.ops[0].name, events: undefined});
             },
             (err) => {
-              this._snackBar.open("אופס ניראה שהייתה בעיה והקטגוריה לא נוצרה", undefined, {
+              this._snackBar.open("אופס נראה שהייתה בעיה והקטגוריה לא נוצרה", undefined, {
                 duration: 2000,
                 panelClass: 'notif-error',
                 horizontalPosition: 'left'
