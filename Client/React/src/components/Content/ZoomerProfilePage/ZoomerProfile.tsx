@@ -31,7 +31,7 @@ const ZoomerProfile: React.FC = (): JSX.Element => {
                 </div>
                 <Typography className={classes.zoomerDescription}>{zoomer?.description}</Typography>
             </div>
-            <div>
+            <div className={classes.zoomerEvents}>
                 <ZoomerProfileEvents zoomer={zoomer}></ZoomerProfileEvents>
             </div>
         </>

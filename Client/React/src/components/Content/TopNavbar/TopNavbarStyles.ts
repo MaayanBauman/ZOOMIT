@@ -4,7 +4,9 @@ import { Theme } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) => ({
     appBar: {
         color: theme.typography.body2.color,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        height: '65px',
+        position: 'sticky',
     },
     rightSection: {
         display: 'flex',

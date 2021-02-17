@@ -23,7 +23,7 @@ const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
                 chunks(events, EventsInRow).map((eventArray)=>{
                     return (
                         <div className={classes.eventRow}>
-                            { eventArray?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
+                            { eventArray?.map((event: Event) => (<EventCard event={event} showZoomer={true} showCategory={false}> </EventCard>))}
                         </div>  
                     )
                 })

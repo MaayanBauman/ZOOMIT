@@ -24,12 +24,14 @@ const ZoomerEvents: React.FC<Props> = ({ zoomer }: Props): JSX.Element => {
                 <Typography className={classes.crowdTitle}>לזומר הזה עדיין לא פרסם זומים</Typography>
                 :
                 <div>
-                    <div className={classes.search}>
-                        <Typography>{`${zoomerEvents.length} אירועים`}</Typography>
-                        <FilterBox onFilter={getEventByFilters} zoomerIdEvents={zoomer?._id} />
+                    <div className={classes.searchArea}>
+                        <Typography>{`${zoomerEvents.length} זומים`}</Typography>
+                        <div className={classes.filter}>
+                            <FilterBox onFilter={getEventByFilters} zoomerIdEvents={zoomer?._id} />
+                        </div>
                     </div>
                     <div className={classes.eventsContainer}>
-                        {zoomerEvents?.map((event: Event) => (<EventCard event={event}> </EventCard>))}
+                        {zoomerEvents?.map((event: Event) => (<EventCard event={event} showZoomer={false} showCategory={true}> </EventCard>))}
                     </div>
                 </div>
             }

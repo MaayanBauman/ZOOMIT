@@ -39,7 +39,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
             setChosenEvent(undefined);
         }} event={chosenEvent}/>
         <div className={classes.searchAndAdd}>
-            <Typography>{`${zoomerEvents.length} אירועים`}</Typography>
+            <Typography>{`${zoomerEvents.length} זומים`}</Typography>
             <FilterBox onFilter={getEventByFilters} zoomerIdEvents={zoomer._id}/>
             <IconButton onClick={() => {
                 setIsEditMode(false);

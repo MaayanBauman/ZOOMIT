@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         width: '50vw'
     }, 
     zoomerEvents: {
-        
+        marginTop: '8vh',
     }
 });
 

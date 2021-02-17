@@ -32,7 +32,7 @@ const Content: React.FC = (): JSX.Element => {
                 user._id !== initialState._id ?
                     <div className={classes.content} >
                         <TopNavBar />
-                        <>
+                        <div className={classes.pageContent}>
                             <Switch>
                                 <Route path={`${path}${zoomerPageRoute}`} component={ZoomerPage} />
                                 <Route path={`${path}${eventsPageRoute}`} component={EventsPage} />
@@ -42,7 +42,7 @@ const Content: React.FC = (): JSX.Element => {
                                 <Route path={`${path}${managePageRoute}`} component={ManagePage} />
                                 <Route path={path} exact component={EventsPage} />
                             </Switch>
-                        </>
+                        </div>
                         <Alert />
                     </div> :
                     <Redirect to={landingPageRoute} />

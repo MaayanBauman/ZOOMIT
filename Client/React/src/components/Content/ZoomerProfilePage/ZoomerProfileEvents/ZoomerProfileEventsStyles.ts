@@ -6,11 +6,19 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: 25,
         color: theme.typography.subtitle1.color
     },
-    search: {
+    searchArea: {
         display: 'flex',
         flexDirection: 'row',
-        margin: 'auto',
-        justifyContent: 'space-around'
+        justifyContent: 'start',
+        alignItems: 'center',
+        margin: '0 2vw',
+    },
+    filter: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     eventsContainer: {
         display: 'flex',
