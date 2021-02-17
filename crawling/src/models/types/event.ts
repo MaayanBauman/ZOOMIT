@@ -1,17 +1,14 @@
-import { Decimal128, ObjectId } from "mongodb";
+import { Schema } from 'mongoose';
 
-export interface IEvent {
-    //_id: ObjectId;
-    title: string;
-    description: string;
-    //zoomer_id: ObjectId;
-    zoom_link: string;
-    password: string
-    start_time: Date;
-    end_time: string;
-    max_registers: number;
-    //registered_users: Array<string>
-    category: string;
-    price: number;
-    source_id: string;
-}
+export const eventSchema = new Schema({
+    title:  String,
+    description: String,
+    zoom_link:   String,
+    password: String,
+    start_time: Date,
+    end_time: Date,
+    max_registers: Number,
+    price: Number,
+    source_id: String,
+    category: String
+  }, {collection: 'events'});

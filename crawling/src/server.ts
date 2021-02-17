@@ -1,5 +1,4 @@
 import cors from 'cors';
-import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import http, { Server as httpServer } from 'http';
 import express, { Request, Response, NextFunction, Express } from 'express';
@@ -12,7 +11,6 @@ import config from './config/index';
 require('dotenv').config();
 
 const app: Express = express();
-mongoose.connect(process.env.CONNECTION_STRING);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
