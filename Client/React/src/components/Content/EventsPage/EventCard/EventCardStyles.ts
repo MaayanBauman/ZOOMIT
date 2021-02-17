@@ -29,6 +29,12 @@ const useStyles = makeStyles({
       marginLeft: '7px'
     }
   },
+  clickable: {
+    cursor: 'pointer',
+  },
+  category: {
+    lineHeight: 1,
+  },
   details: {
     '& p': {
       lineHeight: '1.8',
