@@ -2,18 +2,20 @@ import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import userpic from 'assets/images/userpic.jpg'; /* for now couse i dont have a zoomer */
-import { Button, Divider, Link } from '@material-ui/core';
+import { Divider, Link } from '@material-ui/core';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import { useSelector } from 'react-redux';
 import User from 'models/User/User';
 import StoreStateType from 'redux/storeStateType';
 import EventRegistration from './EventRegistration/EventRegistration';
 import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
+import { contentRoute } from 'utils/Routes/Routes';
 
 const EventPage: React.FC = (): JSX.Element => {
 
+    const history = useHistory();
     const { event, getEventById, isRegistered } = useEventPage();
     const classes = useStyles();
     const { id } = useParams<{ id: string }>();
@@ -27,6 +29,10 @@ const EventPage: React.FC = (): JSX.Element => {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleZoomerClick = () => {
+        history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
+    }
+
     useEffect(() => {
         getEventById(id);
     }, [])
@@ -35,13 +41,13 @@ const EventPage: React.FC = (): JSX.Element => {
         <>
             <div className={classes.container}>
                 <div className={classes.headLine}>
-                    <img src={userpic}></img>
+                    <img src={userpic} onClick={() => handleZoomerClick()}></img>
                     <div className={classes.headDetails}>
                         <Typography variant="subtitle1" className={classes.eventName}>
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
-                        <Typography variant="caption" className={classes.zoomer}>
+                        <Typography variant="caption" className={classes.zoomer} onClick={() => handleZoomerClick()}>
                             זהר עוזיאלי{/* {event?.title} */}
                         </Typography>
                     </div>

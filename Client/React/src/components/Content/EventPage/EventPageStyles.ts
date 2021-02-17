@@ -18,7 +18,8 @@ const useStyles = makeStyles({
         '& img': {
             borderRadius: '30px',
             height: '136px',
-            marginLeft: '20px'
+            marginLeft: '20px',
+            cursor: 'pointer',
         },
     },
     headDetails: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles({
     zoomer: {
         fontWeight: 'bold',
         fontSize: 20,
+        cursor: 'pointer',
     },
     detailsLine: {
         display: 'flex',
