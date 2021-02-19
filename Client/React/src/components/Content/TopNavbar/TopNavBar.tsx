@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import{ AppBar, Toolbar, Typography, IconButton, Avatar } from '@material-ui/core';
+import{ AppBar, Toolbar, Typography, Avatar } from '@material-ui/core';
 
 import User from 'models/User/User';
 import useStyles from './TopNavbarStyles';
@@ -60,16 +60,11 @@ const TopNavBar: React.FC = (): JSX.Element => {
                                 ניהול המערכת
                             </Typography>}
                         </NavLink> 
-                        <IconButton edge="start" color="inherit">
-                            <NavLink className={classes.menuLink} activeClassName={classes.activeItem} to={`${path}${profilePageRoute}`}>
-                                <span>
-                                    <Avatar alt={user.full_name} 
-                                            src={user.photograph} 
-                                            onMouseOver={(event)=> handleAvatarMouseOver(event)}/>
-                                    <SignOutPopover anchorEl={anchorEl} isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen}/>
-                                </span>                               
-                            </NavLink>
-                        </IconButton>
+                        <Avatar alt={user.full_name} 
+                                src={user.photograph} 
+                                className={classes.menuLink}
+                                onMouseOver={(event)=> handleAvatarMouseOver(event)}/>
+                        <SignOutPopover anchorEl={anchorEl} isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen}/>
                     </div>
                 </Toolbar>
             </AppBar>
