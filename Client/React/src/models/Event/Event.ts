@@ -41,8 +41,8 @@ export interface FullEvent {
     category: string;
     price: number;
     source_id: string;
-    source_detailes: sourceDetailesEvent[];
-    zoomer_detailes: zoomerDetailesEvent[];
+    source_detailes: sourceDetailesEvent;
+    zoomer_detailes: zoomerDetailesEvent;
 };
 
 export default Event;

@@ -48,8 +48,8 @@ const useEventsPage = () : useEventsPageOutCome  => {
     }
 
     const getEventByFilters = () => {
-        axios.post(`/events/getByFilters`,{ data: eventsFilters }).then((result : any) => {
-            const eventsResult = result.data.map(convertEvent);
+        axios.post(`/events/getByFilters/join`,{ data: eventsFilters }).then((result : any) => {
+            const eventsResult = result.data.map(convertFullEvent);
            setEvents(eventsResult);
          }).catch((error: any)=> (
             console.log(error)

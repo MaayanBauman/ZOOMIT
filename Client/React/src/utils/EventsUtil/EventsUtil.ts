@@ -32,15 +32,15 @@ export const convertFullEvent = (event: any)=> {
         price: isNaN(event.price?.$numberDecimal) ? +event.price: +event.price?.$numberDecimal,
         source_id: event.source_id,
         source_detailes: {
-            _id: event.source_detailes._id,
-            name: event.source_detailes.name,
-            url:  event.source_detailes.url,
-            photograph: event.source_detailes.photograph
+            _id: event.source_detailes[0]?._id,
+            name: event.source_detailes[0]?.name,
+            url:  event.source_detailes[0]?.url,
+            photograph: event.source_detailes[0]?.photograph
         },
         zoomer_detailes: {
-            _id: event.zoomer_detailes._id,
-            full_name: event.zoomer_detailes.full_name,
-            photograph: event.zoomer_detailes.photograph
+            _id: event.zoomer_detailes[0]?._id,
+            full_name: event.zoomer_detailes[0]?.full_name,
+            photograph: event.zoomer_detailes[0]?.photograph
         },
     }
 };

@@ -8,6 +8,7 @@ import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
+import { getFullEventsByCatgory } from 'utils/Event';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
@@ -25,12 +26,15 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     }
 
     useEffect(() => {
-        if(event.zoomer_id) {
-            setAuthorPhoto(event.zoomer_detailes[0].photograph);
-            setAuthorName(event.zoomer_detailes[0].full_name);
-        } else if(event.source_id){
-            setAuthorPhoto(event.source_detailes[0].photograph);
-            setAuthorName(event.source_detailes[0].name);
+        if(showZoomer) {
+            const fullEvent = event as FullEvent
+            if(event.zoomer_id) {
+                setAuthorPhoto(fullEvent.zoomer_detailes.photograph);
+                setAuthorName(fullEvent.zoomer_detailes.full_name);
+            } else if(event.source_id){
+                setAuthorPhoto(fullEvent.source_detailes.photograph);
+                setAuthorName(fullEvent.source_detailes.name);
+            }
         }
     }, [event.source_id, event.zoomer_id]);
 
@@ -71,7 +75,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
 }
 
 interface Props {
-    event: FullEvent;
+    event: FullEvent | Event;
     showZoomer: boolean,
     showCategory: boolean,
 }
