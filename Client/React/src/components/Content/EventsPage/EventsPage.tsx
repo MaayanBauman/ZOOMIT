@@ -4,8 +4,8 @@ import useEventsPage from './useEventsPage';
 import useStyles from './EventsPageStyles';
 import EventCategoryRow from './EventCategoryRow/EventCategoryRow';
 import FilterBox from './FilterBox/FilterBox';
-import EventsByCategories from 'models/Event/EventsByCategories';
-import { getEventsByCatgory } from 'utils/Event';
+import {EventsByFullCategories} from 'models/Event/EventsByCategories';
+import { getFullEventsByCatgory } from 'utils/Event';
 import StoreStateType from 'redux/storeStateType';
 import User from 'models/User/User';
 import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const EventsPage: React.FC = (): JSX.Element => {
     
     const classes = useStyles();
     const { events, categories, getEventByFilters} = useEventsPage();
-    const eventsByCategories: EventsByCategories = getEventsByCatgory(events);
+    const eventsByCategories: EventsByFullCategories = getFullEventsByCatgory(events);
     
     return (
         <>

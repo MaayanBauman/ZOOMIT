@@ -13,7 +13,7 @@ export const getAllEvents = () =>
     eventsOperationBuilder.getAllObjects(collectionName);
 
 export const getAllEventsJoined = () => 
-    eventsOperationBuilder.getAllObjectsWithJoin(collectionName, 'sources', 'source_id', '_id' , 'source_details', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+    eventsOperationBuilder.getAllObjectsWithJoin(collectionName, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
 
 
 export const getEventsByFilters = (filters: EventsFilter) => {
@@ -38,7 +38,7 @@ export const getEventsByFiltersJoined = (filters: EventsFilter) => {
     if(!!filters.title) query = { ...query, title: { $regex: filters.title }};
     if(!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
     if(!!filters.category) query = { ...query, category: filters.category };
-    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(collectionName, query, 'sources', 'source_id', '_id' , 'source_details', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(collectionName, query, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
 }
 
 
