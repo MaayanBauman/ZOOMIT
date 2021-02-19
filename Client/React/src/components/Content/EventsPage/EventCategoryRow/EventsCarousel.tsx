@@ -10,7 +10,7 @@ export const EventsInRow = 6;
 const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
     const classes = useStyles();
 
-    const chunks = (events: FullEvent[], size: number) => {
+    const chunks = (events: FullEvent[] | Event[], size: number) => {
         let results = [];
         let eventsData= [...(events || [])];
         while (eventsData.length) {
@@ -25,7 +25,7 @@ const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
                 chunks(events, EventsInRow).map((eventArray)=>{
                     return (
                         <div className={classes.eventRow}>
-                            { eventArray?.map((event: FullEvent) => (<EventCard event={event} showZoomer={true} showCategory={false}> </EventCard>))}
+                            { eventArray?.map((event: FullEvent| Event) => (<EventCard event={event} showZoomer={true} showCategory={false}> </EventCard>))}
                         </div>  
                     )
                 })
@@ -34,7 +34,7 @@ const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
     );
 }
 interface Props {
-    events: FullEvent[];
+    events: FullEvent[] | Event[];
 }
 
 export default EventsCarousel;

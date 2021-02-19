@@ -173,6 +173,45 @@ const getAllObjectsWithJoinByQuery = (collectionName: string,  query: object,
         `Fail to get all the objects from ${collectionName}`);
 }
 
+const getObjectsByIdWithJoin =  (collectionName: string, ids: Array<string> 
+    ,firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+    secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => { 
+        return doOperation(collectionName, (collection) => {
+            return collection.aggregate([
+                {
+                    $match: { '_id': { $in: ids.map((id) => new ObjectID(id)) } }
+                },
+                {
+                    $addFields: {
+                      source_id: {          
+                        $toObjectId: `$${firstLocalField}`
+                      },
+                      zoomer_id: {          
+                        $toObjectId: `$${secondLocalField}`
+                      }
+                    }
+                },
+                { $lookup:
+                   {
+                     from: firstFromCollection,
+                     localField: firstLocalField,
+                     foreignField: firstForeignField,
+                     as: firstAsFieldName
+                   }
+                 },
+                 { $lookup:
+                    {
+                      from: secondFromCollection,
+                      localField: secondLocalField,
+                      foreignField: secondForeignField,
+                      as: secondAsFieldName
+                    }
+                  },
+                ]).toArray()
+        }, 
+            `Fail to get all the objects from ${collectionName}`)
+}
+ 
 export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,
     getAllObjectsByQuery,
@@ -191,5 +230,6 @@ export default <T>(): IOperationBuilder<T> => ({
     deleteValuesFromArray,
     updateObject,
     getAllObjectsWithJoin,
-    getAllObjectsWithJoinByQuery
+    getAllObjectsWithJoinByQuery,
+    getObjectsByIdWithJoin
 });

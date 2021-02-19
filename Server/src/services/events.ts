@@ -48,6 +48,11 @@ export const getEventById = (id: string) =>
 export const getEventsById = (ids: Array<string>) => 
     eventsOperationBuilder.getObjectsById(collectionName, ids);
 
+    
+export const getEventsByIdJoined = (ids: Array<string>) => 
+    eventsOperationBuilder.getObjectsByIdWithJoin(collectionName, ids, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+
+
 export const getEventByCategory = (category: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
 

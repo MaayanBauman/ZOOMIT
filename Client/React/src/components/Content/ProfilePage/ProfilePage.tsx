@@ -59,12 +59,12 @@ const ProfilePage: React.FC = (): JSX.Element => {
             </Typography>
             <Typography className={classes.linked_events_section}>
                 הזומים שנרשמתי אליהם:
-                {/* {
+                {
                     events.length ? 
                         (<EventsCarousel events={events}/> )
                     : 
                         (<Typography className={classes.noEventsMsg}>אינך רשום לזומים :(</Typography>)
-                } */}
+                }
             </Typography>
         </div>
     );
