@@ -1,11 +1,7 @@
-import Event, {FullEvent} from "./Event";
+import Event from "./Event";
 
-export interface EventsByFullCategories  { 
-    [key: string]: FullEvent[], 
-}
-export interface EventsByCategories  { 
+interface EventsByCategories  { 
     [key: string]: Event[], 
 }
-
 
 export default EventsByCategories;

@@ -1,15 +1,5 @@
-import Event, {FullEvent} from "models/Event/Event";
-import {EventsByCategories, EventsByFullCategories} from "models/Event/EventsByCategories";
-
-export const getFullEventsByCatgory = (events: FullEvent[]) => {
-    let eventsByCatgory : EventsByFullCategories = {};
-
-    events.forEach((event: FullEvent) => {
-        eventsByCatgory[event.category] ? eventsByCatgory[event.category].push(event) : eventsByCatgory[event.category] = [event] ;
-    })
-    return eventsByCatgory;
-}
-
+import Event from "models/Event/Event";
+import EventsByCategories from "models/Event/EventsByCategories";
 
 export const getEventsByCatgory = (events: Event[]) => {
     let eventsByCatgory : EventsByCategories = {};

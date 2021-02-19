@@ -3,13 +3,13 @@ import {useSelector} from 'react-redux';
 
 import axios from 'utils/axios';
 import User from 'models/User/User';
+import Event from 'models/Event/Event';
 import { socket } from 'components/useApp';
 import Category from 'models/Category/Category';
 import { getEventsByCatgory } from 'utils/Event';
 import StoreStateType from 'redux/storeStateType';
-import Event, {FullEvent} from 'models/Event/Event';
 import { setUser } from 'redux/User/userActionCreator';
-import {convertEvent, convertFullEvent} from 'utils/EventsUtil/EventsUtil';
+import {convertEvent} from 'utils/EventsUtil/EventsUtil';
 import EventsByCategories from 'models/Event/EventsByCategories';
 
 const useProfilePage = () : useEventsPageOutCome  => {
@@ -17,12 +17,12 @@ const useProfilePage = () : useEventsPageOutCome  => {
     const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
-    const [events, setEvents] = useState<FullEvent[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
 
     const getUserEventsByCategories = (userId: string) => {
-        axios.get(`/users/${userId}/events/join`)
+        axios.get(`/users/${userId}/events`)
         .then((result : any)=> {
-            const eventsResult = result.data.map(convertFullEvent);
+            const eventsResult = result.data.map(convertEvent);
             setEvents(eventsResult);
             const eventsByCategories: EventsByCategories = getEventsByCatgory(eventsResult)
             setEventsByCategories(eventsByCategories);
@@ -92,7 +92,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
 
 interface useEventsPageOutCome {
     user: User,
-    events: FullEvent[],
+    events: Event[],
     categories: Category[],
     eventsByCategories: EventsByCategories,
     updateUserFavCategories: Function,

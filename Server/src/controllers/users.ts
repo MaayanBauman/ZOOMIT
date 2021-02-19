@@ -48,13 +48,6 @@ export const getUserEvents: Handler = async (req: Request, res: Response, next: 
         next(err);
     }
 };
-export const getUserEventsJoined: Handler = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        res.json(await users.getUserEventsJoined(req.params.id));
-    } catch (err) {
-        next(err);
-    }
-};
 export const getZoomerEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.getZoomerEvents(req.params.id));

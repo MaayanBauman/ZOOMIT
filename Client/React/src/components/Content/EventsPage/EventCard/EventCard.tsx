@@ -2,13 +2,12 @@ import { Typography, Card, CardContent, CardActions, Button } from '@material-ui
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
-import Event, {FullEvent} from 'models/Event/Event';
+import Event from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
-import { getFullEventsByCatgory } from 'utils/Event';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
@@ -26,17 +25,23 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     }
 
     useEffect(() => {
-        if(showZoomer) {
-            const fullEvent = event as FullEvent
+        const setAuthorData = async() => {
             if(event.zoomer_id) {
-                setAuthorPhoto(fullEvent.zoomer_detailes.photograph);
-                setAuthorName(fullEvent.zoomer_detailes.full_name);
+                const zoomer = await getUserById(event.zoomer_id);
+                if (zoomer){
+                    setAuthorPhoto(zoomer.photograph);
+                    setAuthorName(zoomer.full_name);
+                } 
             } else if(event.source_id){
-                setAuthorPhoto(fullEvent.source_detailes.photograph);
-                setAuthorName(fullEvent.source_detailes.name);
+                const source = await getSourceById(event.source_id);
+                if (source) {
+                    setAuthorPhoto(source.photograph);
+                    setAuthorName(source.name);
+                } 
             }
         }
-    }, [event.source_id, event.zoomer_id]);
+        setAuthorData();
+    }, [event.source_id, event.zoomer_id, getSourceById, getUserById]);
 
     return (
         <div >
@@ -75,7 +80,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
 }
 
 interface Props {
-    event: FullEvent | Event;
+    event: Event;
     showZoomer: boolean,
     showCategory: boolean,
 }

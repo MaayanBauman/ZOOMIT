@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IOperationBuilder } from './operations/types'
 import operationBuilder from './operations';
 import { IUser } from '../models/types/user';
-import { addUserToEvent, getEventsById, removeUserFromEvent, getEventsByIdJoined } from './events';
+import { addUserToEvent, getEventsById, removeUserFromEvent } from './events';
 import config from '../config';
 
 const collectionName = config.collections.users.name;
@@ -23,11 +23,6 @@ export const getUsersByEmail = (email: string) =>
 export const getUserEvents = async (id: string) => {
     const user = await getUserById(id);
     return getEventsById(user.registerd_events);
-}
-
-export const getUserEventsJoined = async (id: string) => {
-    const user = await getUserById(id);
-    return getEventsByIdJoined(user.registerd_events);
 }
 
 export const getZoomerEvents = async (id: string) => {

@@ -8,7 +8,6 @@ router.get('/:id', users.getUserById);
 router.get('/types/:type', users.getUsersByType);
 router.get('/email/:email', users.getUsersByEmail);
 router.get('/:id/events', users.getUserEvents);
-router.get('/:id/events/join', users.getUserEventsJoined);
 router.get('/zoomer/:id/events', users.getZoomerEvents);
 router.post('/', users.addUser);
 router.put('/:id/events/:event', users.addEventToUser);

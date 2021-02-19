@@ -9,25 +9,9 @@ export const getAllEvents: Handler = async (req: Request, res: Response, next: N
     }
 };
 
-export const getAllEventsJoined: Handler = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        res.json(await events.getAllEventsJoined());
-    } catch (err) {
-        next(err);
-    }
-};
-
 export const getEventsByFilters: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await events.getEventsByFilters(req.body.data));
-    } catch (err) {
-        next(err);
-    }
-};
-
-export const getEventsByFiltersJoined: Handler = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        res.json(await events.getEventsByFiltersJoined(req.body.data));
     } catch (err) {
         next(err);
     }
@@ -85,7 +69,6 @@ export const addEvent: Handler = async (req: Request, res: Response, next: NextF
     try {
         let event = req.body.event;
         delete event.id;
-        delete event.source_id;
         event.start_time = new Date(req.body.event.start_time);
         event.end_time = new Date(req.body.event.end_time);
         res.json(await events.addEvent(event));
@@ -98,7 +81,6 @@ export const addZoomerEvent: Handler = async (req: Request, res: Response, next:
     try {
         let event = req.body.event;
         delete event.id;
-        delete event.source_id;
         event.start_time = new Date(req.body.event.start_time);
         event.end_time = new Date(req.body.event.end_time);
         event.price = +req.body.event.price;
@@ -116,7 +98,6 @@ export const updateEvent: Handler = async (req: Request, res: Response, next: Ne
     try {
         let event = req.body.event;
         delete event.id;
-        delete event.source_id;
         event.start_time = new Date(req.body.event.start_time);
         event.end_time = new Date(req.body.event.end_time);
         event.price = +req.body.event.price;

@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { ZoomersComponent } from './zoomers/zoomers.component';
+import { EventsComponent } from './events/events.component';
 import { BarChartComponent } from './categories/chart/barChart/barChart.component';
 import { PieChartComponent } from './categories/chart/pieChart/pieChart.component';
 import { AddCategoryDialog } from './categories/addCategoryDialog/addCategoryDialog.component';
@@ -35,7 +36,8 @@ const config: SocketIoConfig = { url: environment.serverUrl, options: {} };
     BarChartComponent,
     PieChartComponent,
     AddCategoryDialog,
-    ZoomersComponent
+    ZoomersComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ const config: SocketIoConfig = { url: environment.serverUrl, options: {} };
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
