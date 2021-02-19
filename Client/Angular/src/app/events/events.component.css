@@ -1,0 +1,49 @@
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 20%;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #F26D21;
+}
+
+.events-area {
+    margin: 0 2vw;
+}
+
+.events-num-title {
+   margin-top: 2vh;
+   font-family: 'Assistant';
+}
+
+.table-container {
+    max-height: 81vh;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    height: 25vh;
+    max-height: 25vh;
+    overflow-y: auto;
+    font-family: 'Assistant';
+}
+
+.table-title {
+    background-color: #E4F7EB;
+}
+
+th {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.material-icons.color { 
+     color: #46AEA2; 
+}
+
+td.mat-cell:last-of-type:not(:only-of-type) {
+    padding: 0
+}

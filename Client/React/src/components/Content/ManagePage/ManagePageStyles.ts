@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
     iframe:{
-        height:'90vh',
+        height: 'calc(100vh - 65px)',
+        border: 'none',
     }
 });
 
