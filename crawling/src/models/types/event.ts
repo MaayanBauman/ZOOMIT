@@ -10,5 +10,6 @@ export const eventSchema = new Schema({
     max_registers: Number,
     price: Number,
     source_id: String,
-    category: String
+    category: String,
+    registered_users: [String]
   }, {collection: 'events'});

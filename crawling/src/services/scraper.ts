@@ -16,7 +16,7 @@ const baseURl: string = 'https://screenz.live';
 const scrape = async () => {
     let events= [];
   
-    let page = await axios.get('https://screenz.live/categories/psychology');   
+    let page = await axios.get('https://screenz.live/categories/relations');   
     let $ = cheerio.load(page.data);    
     const zooms = $('div[class^="eventsGrid"]');
     await zooms.each(async () => {
@@ -29,9 +29,10 @@ const scrape = async () => {
                     start_time: null,
                     end_time: null,
                     max_registers: 100,
-                    category: '602c1aef6908bb23ebfc8766',
+                    category: '5ff1ca584292da45f9673de4',
                     price: 0,
-                    source_id: '602c1b5048cf724be45cc78e'
+                    source_id: '602c1b5048cf724be45cc78e',
+                    registered_users: []
                 };
                 let parent: cheerio.TagElement =  e.parentNode as cheerio.TagElement;
                 parent = parent.parentNode as cheerio.TagElement;
