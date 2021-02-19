@@ -8,21 +8,23 @@ import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
-import { getFullEventsByCatgory } from 'utils/Event';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { getUserById, getSourceById, categories } = useEventCard();
+    const { categories } = useEventCard();
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
+    const [isZoomerActive, setIsZoomerActive] = useState(false);
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
     }
 
     const handleZoomerClick = () => {
-        history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
+        if (isZoomerActive) {
+            history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
+        }
     }
 
     useEffect(() => {
@@ -31,12 +33,13 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
             if(event.zoomer_id) {
                 setAuthorPhoto(fullEvent.zoomer_detailes.photograph);
                 setAuthorName(fullEvent.zoomer_detailes.full_name);
+                setIsZoomerActive(true);
             } else if(event.source_id){
                 setAuthorPhoto(fullEvent.source_detailes.photograph);
                 setAuthorName(fullEvent.source_detailes.name);
             }
         }
-    }, [event.source_id, event.zoomer_id]);
+    }, [event, event.source_id, event.zoomer_id, showZoomer]);
 
     return (
         <div >
@@ -47,11 +50,11 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                     </Typography>
                     <div className={classes.zoomer}>
                         {showZoomer &&
-                            <img alt={'Author'} src={authorPhoto} onClick={() => handleZoomerClick()} className={classes.clickable}></img>
+                            <img alt={'Author'} src={authorPhoto} onClick={() => handleZoomerClick()} className={`${isZoomerActive ? classes.clickable : ''}`}></img>
                         }
                         <div>
-                            {showZoomer && <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={classes.clickable}>{authorName}</Typography>}
-                            {showCategory && <Typography variant="body1" className={classes.category}>{categoryNameById(categories, event.category)}</Typography>}
+                            {showZoomer && <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={`${isZoomerActive ? classes.clickable : ''}`}>{authorName}</Typography>}
+                            {showCategory && <Typography variant="body1" className={classes.category}>{ categoryNameById(categories, event.category)}</Typography>}
                         </div>
                     </div>
                     <div className={classes.details}>
