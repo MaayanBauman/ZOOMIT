@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
-import { Typography, IconButton } from '@material-ui/core';
-
-import User from 'models/User/User';
-import StoreStateType from 'redux/storeStateType';
+import React from 'react';
+import { Typography } from '@material-ui/core';
 
 import useStyles from './ZoomerProfileEventsStyles';
 import FilterBox from 'components/Content/EventsPage/FilterBox/FilterBox';
 import useZoomerProfileEvents from './useZoomerProfileEvents';
 import EventCard from 'components/Content/EventsPage/EventCard/EventCard';
-import Category from 'models/Category/Category';
 import Event from 'models/Event/Event';
+import User from 'models/User/User';
+
 
 const ZoomerEvents: React.FC<Props> = ({ zoomer }: Props): JSX.Element => {
 
     const classes = useStyles();
-    const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     const { zoomerEvents, getEventByFilters } = useZoomerProfileEvents({ zoomer });
 
     return (

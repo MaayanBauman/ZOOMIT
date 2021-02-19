@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
-import Event, {FullEvent} from 'models/Event/Event';
+import {FullEvent} from 'models/Event/Event';
 import useEventCategoryRow from './useEventCategoryRow';
 import EventsCarousel from './EventsCarousel';
 import useStyles from './EventCategoryRowStyles';

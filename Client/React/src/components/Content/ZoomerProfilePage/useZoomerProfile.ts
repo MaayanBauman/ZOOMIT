@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'utils/axios';
 import User from 'models/User/User';
-import { useSelector } from 'react-redux';
-import StoreStateType from 'redux/storeStateType';
-import { convertEvent } from 'utils/EventsUtil/EventsUtil'
 
 const useZoomerProfile = (): useZoomerProfileOutCome => {
 
-    const user = useSelector<StoreStateType, User>(state => state.user);
     const [zoomer, setZoomer] = useState<User>();
 
     const getZoomerById = (id: string) => {

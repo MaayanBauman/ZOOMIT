@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import axios from 'utils/axios';
 import User from 'models/User/User';
-import Event, {FullEvent} from 'models/Event/Event';
+import {FullEvent} from 'models/Event/Event';
 import { useSelector } from 'react-redux';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';

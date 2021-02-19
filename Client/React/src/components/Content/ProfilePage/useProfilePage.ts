@@ -7,9 +7,9 @@ import { socket } from 'components/useApp';
 import Category from 'models/Category/Category';
 import { getEventsByCatgory } from 'utils/Event';
 import StoreStateType from 'redux/storeStateType';
-import Event, {FullEvent} from 'models/Event/Event';
+import { FullEvent } from 'models/Event/Event';
 import { setUser } from 'redux/User/userActionCreator';
-import {convertEvent, convertFullEvent} from 'utils/EventsUtil/EventsUtil';
+import { convertFullEvent} from 'utils/EventsUtil/EventsUtil';
 import EventsByCategories from 'models/Event/EventsByCategories';
 
 const useProfilePage = () : useEventsPageOutCome  => {
