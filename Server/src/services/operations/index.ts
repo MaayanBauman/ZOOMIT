@@ -98,6 +98,81 @@ const updateObject = (collectionName: string, id: string, obj: any) =>
         { returnOriginal: false }
     ), `Fail to update ${id}- ${collectionName} to ${obj}`);
 
+const getAllObjectsWithJoin = (collectionName: string, 
+    firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+    secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => {   
+    return doOperation(collectionName, (collection) => {
+        return collection.aggregate([
+            {
+                $addFields: {
+                  source_id: {          
+                    $toObjectId: `$${firstLocalField}`
+                  },
+                  zoomer_id: {          
+                    $toObjectId: `$${secondLocalField}`
+                  }
+                }
+            },
+            { $lookup:
+               {
+                 from: firstFromCollection,
+                 localField: firstLocalField,
+                 foreignField: firstForeignField,
+                 as: firstAsFieldName
+               }
+             },
+             { $lookup:
+                {
+                  from: secondFromCollection,
+                  localField: secondLocalField,
+                  foreignField: secondForeignField,
+                  as: secondAsFieldName
+                }
+              },
+            ]).toArray()
+    }, 
+        `Fail to get all the objects from ${collectionName}`);
+}
+
+const getAllObjectsWithJoinByQuery = (collectionName: string,  query: object,
+    firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+    secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => {   
+    return doOperation(collectionName, (collection) => {
+        return collection.aggregate([
+            {
+                $match: query
+            },
+            {
+                $addFields: {
+                  source_id: {          
+                    $toObjectId: `$${firstLocalField}`
+                  },
+                  zoomer_id: {          
+                    $toObjectId: `$${secondLocalField}`
+                  }
+                }
+            },
+            { $lookup:
+               {
+                 from: firstFromCollection,
+                 localField: firstLocalField,
+                 foreignField: firstForeignField,
+                 as: firstAsFieldName
+               }
+             },
+             { $lookup:
+                {
+                  from: secondFromCollection,
+                  localField: secondLocalField,
+                  foreignField: secondForeignField,
+                  as: secondAsFieldName
+                }
+              },
+            ]).toArray()
+    }, 
+        `Fail to get all the objects from ${collectionName}`);
+}
+
 export default <T>(): IOperationBuilder<T> => ({
     getAllObjects,
     getAllObjectsByQuery,
@@ -114,5 +189,7 @@ export default <T>(): IOperationBuilder<T> => ({
     addValuesToArray,
     deleteObject,
     deleteValuesFromArray,
-    updateObject
+    updateObject,
+    getAllObjectsWithJoin,
+    getAllObjectsWithJoinByQuery
 });

@@ -12,6 +12,10 @@ const eventsOperationBuilder: IOperationBuilder<IEvent> = operationBuilder<IEven
 export const getAllEvents = () => 
     eventsOperationBuilder.getAllObjects(collectionName);
 
+export const getAllEventsJoined = () => 
+    eventsOperationBuilder.getAllObjectsWithJoin(collectionName, 'sources', 'source_id', '_id' , 'source_details', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+
+
 export const getEventsByFilters = (filters: EventsFilter) => {
     let query: object = {
         price: { $gte: filters.min_price, $lte: filters.max_price },
@@ -23,6 +27,20 @@ export const getEventsByFilters = (filters: EventsFilter) => {
     if(!!filters.category) query = { ...query, category: filters.category };
     return eventsOperationBuilder.getAllObjectsByQuery(collectionName, query);
 }
+
+
+export const getEventsByFiltersJoined = (filters: EventsFilter) => {
+    let query: object = {
+        price: { $gte: filters.min_price, $lte: filters.max_price },
+        start_time: { $gte: new Date(filters.start_time) },
+    };
+
+    if(!!filters.title) query = { ...query, title: { $regex: filters.title }};
+    if(!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
+    if(!!filters.category) query = { ...query, category: filters.category };
+    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(collectionName, query, 'sources', 'source_id', '_id' , 'source_details', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+}
+
 
 export const getEventById = (id: string) => 
     eventsOperationBuilder.getObjectById(collectionName, id);

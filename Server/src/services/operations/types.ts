@@ -7,6 +7,11 @@ import {
 
 export interface IOperationBuilder<T> {
     getAllObjects: (collectionName: string) => Promise<T[]>;
+    getAllObjectsWithJoin:  (collectionName: string, firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string, 
+        secondFromCollection: string, secondLocalField: string,secondForeignField:string, secondAsFieldName: string)=> Promise<T[]>;
+    getAllObjectsWithJoinByQuery: (collectionName: string, query: object,
+        firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+        secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string)=> Promise<T[]>;
     getAllObjectsByQuery: (collectionName: string, query: object) => Promise<T[]>;
     getObjectsBySubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
     getObjectsInSubsetFiled: (collectionName: string, objField: string, subset: any[]) => Promise<T[]>;
