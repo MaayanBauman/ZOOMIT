@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
-import Event from 'models/Event/Event';
+import Event, {FullEvent} from 'models/Event/Event';
 import useEventCategoryRow from './useEventCategoryRow';
 import EventsCarousel from './EventsCarousel';
 import useStyles from './EventCategoryRowStyles';
@@ -22,7 +22,7 @@ const EventCategotryRow: React.FC<Props> = ({ events, title, categoryId, isFavor
     );
 }
 interface Props {
-    events: Event[];
+    events: FullEvent[];
     title: string;
     isFavorite: Boolean;
     categoryId: string;

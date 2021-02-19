@@ -2,25 +2,25 @@ import { useState, useEffect } from 'react';
 
 import axios from 'utils/axios';
 import User from 'models/User/User';
-import Event from 'models/Event/Event';
+import Event, {FullEvent} from 'models/Event/Event';
 import { useSelector } from 'react-redux';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import EventsFilter from 'models/Event/EventsFilter';
-import { convertEvent } from 'utils/EventsUtil/EventsUtil'
+import { convertEvent, convertFullEvent } from 'utils/EventsUtil/EventsUtil'
 
 const useEventsPage = () : useEventsPageOutCome  => {
 
-    const [events, setEvents] = useState<Event[]>([]);
+    const [events, setEvents] = useState<FullEvent[]>([]);
     const [zoomers, setZoomers] = useState<User[]>([]);
 
     const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
     const eventsFilters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
     
     const getAllEvents = () => {
-        axios.get('/events')
+        axios.get('/events/join')
         .then((result : any) => {
-            const eventsResult = result.data.map(convertEvent);
+            const eventsResult = result.data.map(convertFullEvent);
            setEvents(eventsResult);
          })
         .catch((error: any)=> (
@@ -48,8 +48,8 @@ const useEventsPage = () : useEventsPageOutCome  => {
     }
 
     const getEventByFilters = () => {
-        axios.post(`/events/getByFilters`,{ data: eventsFilters }).then((result : any) => {
-            const eventsResult = result.data.map(convertEvent);
+        axios.post(`/events/getByFilters/join`,{ data: eventsFilters }).then((result : any) => {
+            const eventsResult = result.data.map(convertFullEvent);
            setEvents(eventsResult);
          }).catch((error: any)=> (
             console.log(error)
@@ -72,7 +72,7 @@ const useEventsPage = () : useEventsPageOutCome  => {
 }
 
 interface useEventsPageOutCome {
-    events: Event[],
+    events: FullEvent[],
     zoomers: User[],
     categories: Category[],
     getEventByTitle: Function,
