@@ -50,6 +50,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                         categories?.map((category: Category) => (
                             <FormControlLabel 
                                 key={Math.random()}
+                                className={classes.category}
                                 onChange={(e) => favoriteHandler(e, user)}
                                 control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category.id)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
                                 label={category.name}

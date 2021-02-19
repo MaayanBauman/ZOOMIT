@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '20vh',
             width: 'fit-content',
         },
+        category:{
+            width: '10vw',
+        },
         noEventsMsg: {
             marginRight: '2vw',
             marginTop: '2vh',
