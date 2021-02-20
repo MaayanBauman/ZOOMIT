@@ -49,10 +49,11 @@ const useStyles = makeStyles({
     marginTop: '-14px',
     padding: '4px',
     fontSize: '0.5em',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ccc',
     border: '#fafafa solid 1px',
     borderRadius: '15px',
     lineHeight: 0.8,
+    fontWeight: 'bold',
   },
   details: {
     '& p': {

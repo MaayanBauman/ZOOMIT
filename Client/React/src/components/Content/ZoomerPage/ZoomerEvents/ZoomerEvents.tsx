@@ -18,13 +18,15 @@ const ZoomerEvent: React.FC = (): JSX.Element => {
 
     return (
         <>
-           {(zoomer.owned_events.length === 0) ? 
-           <div className={classes.backgroundImage}>
-               <Typography className={classes.crowdTitle}>הקהל כבר מחכה לך!</Typography>
-               <IconButton onClick={() => setIsEventEditorOpen(true)}><AddCircleIcon className={classes.addEventButton}></AddCircleIcon></IconButton>
-               <EventEditorDialog isEditMode={false} isOpen={isEventEditorOpen} handleClose={()=> setIsEventEditorOpen(false)}/>
-           </div> : 
-           <ZoomerEventsTable />}
+           {zoomer.owned_events.length === 0 ? 
+                <div className={classes.backgroundImage}>
+                    <Typography className={classes.crowdTitle}>הקהל כבר מחכה לך!</Typography>
+                    <IconButton onClick={() => setIsEventEditorOpen(true)}><AddCircleIcon className={classes.addEventButton}></AddCircleIcon></IconButton>
+                    <EventEditorDialog isEditMode={false} isOpen={isEventEditorOpen} handleClose={()=> setIsEventEditorOpen(false)}/>
+                </div>
+                : 
+                <ZoomerEventsTable />
+            }
         </>
     );
 }

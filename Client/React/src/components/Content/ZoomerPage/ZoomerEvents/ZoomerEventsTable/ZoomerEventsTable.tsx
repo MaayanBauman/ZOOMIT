@@ -53,7 +53,7 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                 <Table size="small" dir='rtl'>
                     <TableHead className={classes.tableTitles}>
                     <TableRow>
-                        <TableCell>כותרת</TableCell>
+                        <TableCell align="right">כותרת</TableCell>
                         <TableCell align="right">קטגוריה</TableCell>
                         <TableCell align="right">מועד</TableCell>
                         <TableCell align="right">תיאור</TableCell>
@@ -66,14 +66,16 @@ const ZoomerEventsTable: React.FC = (): JSX.Element => {
                     <TableBody >
                     {zoomerEvents.map((event: Event) => (
                         <TableRow key={event.id} className={classes.tableRow} >
-                            <TableCell component="th" scope="row">
+                            <TableCell align="right" component="th" scope="row">
                                 {event.title}
                             </TableCell>
                             <TableCell align="right">{categoryNameById(categories, event.category)}</TableCell>
-                            <TableCell align="right">{
-                                formatDate(event.start_time) + ' ' + formatTime(event.start_time) + '-' +
-                                formatTime(event.end_time)
-                                }</TableCell>
+                            <TableCell align="right"> 
+                                {
+                                    formatDate(event.start_time) + ' ' + formatTime(event.start_time) + '-' +
+                                    formatTime(event.end_time)
+                                }
+                            </TableCell>
                             <TableCell align="right">{event.description.length > 25 ? `${event.description.slice(0,25)}...`: event.description}</TableCell>
                             <TableCell align="right">{event.price as number}</TableCell>
                             <TableCell align="right">{event.zoom_link.length > 25 ? `...${event.zoom_link.slice(0,25)}`: event.zoom_link}</TableCell>

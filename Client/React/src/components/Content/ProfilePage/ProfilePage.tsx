@@ -52,7 +52,7 @@ const ProfilePage: React.FC = (): JSX.Element => {
                                 key={Math.random()}
                                 className={classes.category}
                                 onChange={(e) => favoriteHandler(e, user)}
-                                control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category.id)} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
+                                control={<Checkbox value={category.id} checked={ user.favorite_categories.includes(category.id)} icon={<FavoriteBorder color='action' />} checkedIcon={<Favorite color='primary'/>} />}
                                 label={category.name}
                             />))
                     }  

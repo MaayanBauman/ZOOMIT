@@ -12,7 +12,7 @@ import Unauthorized from 'utils/Unauthorized/Unauthorized';
 
 import useStyles from './ZoomerPageStyles'; 
 import useZoomerPage from './useZoomerPage';
-import ZoomerEvent from './ZoomerEvents/ZoomerEvents';
+import ZoomerEvents from './ZoomerEvents/ZoomerEvents';
 
 const ZoomerPage: React.FC = (): JSX.Element => {
 
@@ -58,7 +58,7 @@ const ZoomerPage: React.FC = (): JSX.Element => {
                             }
                         </div>
                     </div>
-                    <ZoomerEvent />
+                    <ZoomerEvents />
                 </>
             }
         </>

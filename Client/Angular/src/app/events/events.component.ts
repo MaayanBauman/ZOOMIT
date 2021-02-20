@@ -112,7 +112,7 @@ export class EventsComponent implements OnInit {
     if (confirm("למחוק את האירוע " + event.title + "?")) {
       this.http.delete<any[]>(`${environment.serverUrl}/events/${event._id}`).subscribe(
         (res) => {
-          this._snackBar.open(`מחקנו את האירוע - ${event.title}`, undefined, {
+          this._snackBar.open(`האירוע ${event.title} נמחק בהצלחה!`, undefined, {
             duration: 2000,
             panelClass: 'notif-success',
             horizontalPosition: 'left'
