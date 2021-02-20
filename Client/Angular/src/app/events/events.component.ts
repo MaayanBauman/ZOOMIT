@@ -28,7 +28,7 @@ export class EventsComponent implements OnInit {
     //this.dataSource = this.dataSource = new MatTableDataSource(this.events);
     //this.dataSource = new MatTableDataSource(this.events);
   }
-  
+
   ngOnInit() {
     this.getExtendedEvents();
   }
@@ -41,8 +41,8 @@ export class EventsComponent implements OnInit {
     return this.http.get<any[]>(`${environment.serverUrl}/categories`);
   }
 
-  private getAllZoomers(): Observable<User[]> {
-    return this.http.get<any[]>(`${environment.serverUrl}/users/types/zoomer`);
+  private getAllUsers(): Observable<User[]> {
+    return this.http.get<any[]>(`${environment.serverUrl}/users`);
   }
 
   private getAllSources(): Observable<Source[]> {
@@ -55,7 +55,7 @@ export class EventsComponent implements OnInit {
     forkJoin([
       this.getAllEvents(),
       this.getAllCategories(),
-      this.getAllZoomers(),
+      this.getAllUsers(),
       this.getAllSources()
     ]).subscribe(
       (res) => {
@@ -69,9 +69,12 @@ export class EventsComponent implements OnInit {
             (category: Category) => category._id === event.category)?.name;
 
           let authorName: string | undefined = undefined;
+          let authorIsActive: boolean = true;
           if (event.zoomer_id) {
-            authorName = zoomers.find(
-              (zoomer: User) => zoomer._id === event.zoomer_id)?.full_name;
+            const zoomer = zoomers.find(
+              (zoomer: User) => zoomer._id === event.zoomer_id);
+            authorName = zoomer?.full_name;
+            authorIsActive = zoomer?.user_type === 'zoomer';
           } else if (event.source_id) {
             authorName = sources.find(
               (source: Source) => source._id === event.source_id)?.name;
@@ -90,6 +93,7 @@ export class EventsComponent implements OnInit {
             category_name: categoryName,
             price: event.price,
             author_name: authorName,
+            author_is_active: authorIsActive
           };
         });
 

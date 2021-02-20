@@ -36,7 +36,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: theme.typography.body2.color
     },
     menuLink: {
-        textDecoration: 'none'
+        textDecoration: 'none',
+    },
+    imgAvatar: {
+        marginRight: '1em',
     }
 }));
 

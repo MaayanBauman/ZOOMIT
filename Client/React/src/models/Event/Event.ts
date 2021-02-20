@@ -18,6 +18,7 @@ export interface zoomerDetailesEvent {
     _id: string;
     full_name: string;
     photograph: string;
+    zoomer_is_active: boolean;
 }
 
 export interface sourceDetailesEvent {

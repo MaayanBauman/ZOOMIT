@@ -62,7 +62,7 @@ const TopNavBar: React.FC = (): JSX.Element => {
                         </NavLink> 
                         <Avatar alt={user.full_name} 
                                 src={user.photograph} 
-                                className={classes.menuLink}
+                                className={classes.imgAvatar}
                                 onMouseOver={(event)=> handleAvatarMouseOver(event)}/>
                         <SignOutPopover anchorEl={anchorEl} isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen}/>
                     </div>

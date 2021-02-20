@@ -27,4 +27,5 @@ export interface ExtendedEvent {
     category_name: string | undefined;
     price: number;
     author_name: string | undefined;
+    author_is_active: boolean;
 }
