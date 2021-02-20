@@ -35,12 +35,23 @@ export const getEventsByFiltersJoined = (filters: EventsFilter) => {
         start_time: { $gte: new Date(filters.start_time) },
     };
 
-    if(!!filters.title) query = { ...query, title: { $regex: filters.title }};
-    if(!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
-    if(!!filters.category) query = { ...query, category: filters.category };
-    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(collectionName, query, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
+    if (!!filters.title) query = { ...query, title: { $regex: filters.title }};
+    if (!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
+    if (!!filters.category) query = { ...query, category: filters.category };
+    
+    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(
+        collectionName, 
+        query, 
+        'sources', 
+        'source_id', 
+        '_id' , 
+        'source_detailes', 
+        'users', 
+        'zoomer_id', 
+        '_id', 
+        'zoomer_detailes'
+    );
 }
-
 
 export const getEventById = (id: string) => 
     eventsOperationBuilder.getObjectById(collectionName, id);

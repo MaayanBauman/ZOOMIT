@@ -2,8 +2,15 @@ import { Request, Response } from 'express';
 import { IOperationBuilder } from './operations/types'
 import operationBuilder from './operations';
 import { IUser } from '../models/types/user';
-import { addUserToEvent, getEventsById, removeUserFromEvent, getEventsByIdJoined } from './events';
+import { 
+    addUserToEvent, 
+    getEventsById, 
+    removeUserFromEvent, 
+    getEventsByIdJoined, 
+    getEventById 
+} from './events';
 import config from '../config';
+import sendEmail from '../repositories/sendEmail';
 
 const collectionName = config.collections.users.name;
 const usersOperationBuilder: IOperationBuilder<IUser> = operationBuilder<IUser>();
@@ -46,7 +53,11 @@ export const addEventToUser = (id:string, event: string) =>
     Promise.all([
         addUserToEvent(event, id), 
         usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [event])
-    ]);
+    ]).then(async () => {
+        const user = await getUserById(id);
+        const fullEvent = await getEventById(event);
+        sendEmail(user, fullEvent);
+    });
 
 export const removeEventFromUser = (id:string, event: string) => 
     Promise.all([
