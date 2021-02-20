@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     padding: '4px',
     fontSize: '0.5em',
     backgroundColor: '#ffffff',
-    border: '#dadada solid 1px',
+    border: '#fafafa solid 1px',
     borderRadius: '15px',
     lineHeight: 0.8,
   },

@@ -19,7 +19,6 @@ const useStyles = makeStyles({
             borderRadius: '30px',
             height: '136px',
             marginLeft: '20px',
-            cursor: 'pointer',
         },
     },
     headDetails: {
@@ -38,7 +37,20 @@ const useStyles = makeStyles({
     zoomer: {
         fontWeight: 'bold',
         fontSize: 20,
+    },
+    clickable: {
         cursor: 'pointer',
+    },
+    unactive: {
+        position: 'absolute',
+        border: '#dadada solid 1px',
+        padding: '4px 11px',
+        fontSize: '1em',
+        marginTop: '123px',
+        marginRight: '28px',
+        lineHeight: 0.8,
+        borderRadius: '15px',
+        backgroundColor: '#fafafa',
     },
     detailsLine: {
         display: 'flex',

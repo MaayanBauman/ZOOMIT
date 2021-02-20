@@ -28,6 +28,13 @@ export interface sourceDetailesEvent {
     photograph: string;
 }
 
+export interface AuthoreDetailsEvent {
+    _id: string;
+    name: string;
+    photograph: string;
+    zoomer_is_active: boolean;
+}
+
 export interface FullEvent {
     id: string;
     title: string;

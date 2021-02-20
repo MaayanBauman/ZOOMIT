@@ -16,13 +16,14 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
+    const [authorIsZoomer, setAuthorIsZoomer] = useState(false);
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
     }
 
     const handleZoomerClick = () => {
-        if (isZoomerActive) {
+        if (isZoomerActive && authorIsZoomer) {
             history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
         }
     }
@@ -34,10 +35,12 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 setAuthorPhoto(fullEvent.zoomer_detailes.photograph);
                 setAuthorName(fullEvent.zoomer_detailes.full_name);
                 setIsZoomerActive(fullEvent.zoomer_detailes.zoomer_is_active);
+                setAuthorIsZoomer(true);
             } else if (event.source_id) {
                 setAuthorPhoto(fullEvent.source_detailes.photograph);
                 setAuthorName(fullEvent.source_detailes.name);
                 setIsZoomerActive(true);
+                setAuthorIsZoomer(false);
             }
         }
     }, [event, event.source_id, event.zoomer_id, showZoomer]);
@@ -46,13 +49,12 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
                 <Typography className={classes.title} variant="subtitle1" gutterBottom>
-                    {/* {event.title.length > 20 ? `${event.title.slice(0, 20)}...` : event.title} */}
                     {event.title}
                 </Typography>
                 <div className={classes.zoomer}>
                     {showZoomer &&
                         <div>
-                            <img alt={'Author'} src={authorPhoto} onClick={() => handleZoomerClick()} className={`${isZoomerActive ? classes.clickable : ''}`}></img>
+                            <img alt={'Author'} src={authorPhoto} onClick={() => handleZoomerClick()} className={`${(isZoomerActive && authorIsZoomer) ? classes.clickable : ''}`}></img>
                             {!isZoomerActive &&
                                 <Typography variant="subtitle1" className={classes.unactive}>לא פעיל</Typography>
                             }
@@ -60,7 +62,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                     }
                     <div>
                         {showZoomer &&
-                            <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={`${isZoomerActive ? classes.clickable : ''}`}>{authorName}</Typography>}
+                            <Typography variant="subtitle1" onClick={() => handleZoomerClick()} className={`${(isZoomerActive && authorIsZoomer) ? classes.clickable : ''}`}>{authorName}</Typography>}
                         {showCategory && <Typography variant="body1" className={classes.category}>{categoryNameById(categories, event.category)}</Typography>}
                     </div>
                 </div>
