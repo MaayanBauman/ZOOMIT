@@ -16,47 +16,23 @@ import { contentRoute } from 'utils/Routes/Routes';
 const EventPage: React.FC = (): JSX.Element => {
 
     const history = useHistory();
-    const { event, getEventById, isRegistered } = useEventPage();
+    const { event, getEventById, isRegistered, authorDetails, authorIsZoomer } = useEventPage();
     const classes = useStyles();
-    const { getUserById, getSourceById } = useEventCard();
     const { id } = useParams<{ id: string }>();
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
 
-    const [authorPhoto, setAuthorPhoto] = useState('');
-    const [authorName, setAuthorName] = useState('');
-    const [isAuthortypeZoomer, setIsAuthortypeZoomer] = useState(false);
-    
     const handleLogoutMouseOver = (event: any) => {
         setIsPopoverOpen(true);
         setAnchorEl(event.currentTarget);
     };
 
     const handleZoomerClick = () => {
-        history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
-    }
-
-    useEffect(() => {
-        const setAuthorData = async() => {
-            if(event?.zoomer_id) {
-                const zoomer = await getUserById(event?.zoomer_id);
-                if (zoomer){
-                    setAuthorPhoto(zoomer.photograph);
-                    setAuthorName(zoomer.full_name);
-                setIsAuthortypeZoomer(true);
-
-                } 
-            } else if(event?.source_id){
-                const source = await getSourceById(event?.source_id);
-                if (source) {
-                    setAuthorPhoto(source.photograph);
-                    setAuthorName(source.name);
-                } 
-            }
+        if (authorDetails?.zoomer_is_active && authorIsZoomer) {
+            history.push(`${contentRoute}/zoomerprofile/${event?.zoomer_id}`);
         }
-        setAuthorData();
-    }, [event, getSourceById, getUserById]);
+    }
 
     useEffect(() => {
         getEventById(id);
@@ -66,13 +42,16 @@ const EventPage: React.FC = (): JSX.Element => {
         <>
             <div className={classes.container}>
                 <div className={classes.headLine}>
-                    <img alt={'zoomer'} src={authorPhoto} onClick={() => isAuthortypeZoomer && handleZoomerClick()}></img>
+                    <img alt={'zoomer'} src={authorDetails?.photograph} onClick={() => handleZoomerClick()} className={`${(authorDetails?.zoomer_is_active && authorIsZoomer) ? classes.clickable : ''}`}></img>
+                    {!authorDetails?.zoomer_is_active &&
+                        <Typography variant="subtitle1" className={classes.unactive}>לא פעיל</Typography>
+                    }
                     <div className={classes.headDetails}>
                         <Typography variant="subtitle1" className={classes.eventName}>
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
-                        <Typography variant="caption" className={classes.zoomer} onClick={() => isAuthortypeZoomer && handleZoomerClick()}>{authorName}</Typography>
+                        <Typography variant="caption" className={`${classes.zoomer} ${(authorDetails?.zoomer_is_active && authorIsZoomer) ? classes.clickable : ''}`} onClick={() => handleZoomerClick()}>{authorDetails?.name}</Typography>
                     </div>
                 </div>
                 <div className={classes.detailsLine}>

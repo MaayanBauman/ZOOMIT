@@ -15,7 +15,7 @@ const useEventCard = (): useEventCardOutCome => {
         const { data } = await axios.get(`/users/${userId}`);
         return data;
     }
-    
+
     return {
         getUserById,
         categories,
