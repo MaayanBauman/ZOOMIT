@@ -15,7 +15,7 @@ const EventCategotryRow: React.FC<Props> = ({ events, title, categoryId, isFavor
         <div className={classes.container}>
             <Typography className={classes.title}>
                 {title} 
-                {isFavorite ? <Favorite onClick={() => removeFavoriteHandler(categoryId) } /> : <FavoriteBorder onClick={() => addFavoriteHandler(categoryId) }/>}
+                {isFavorite ? <Favorite onClick={() => removeFavoriteHandler(categoryId) } color='secondary' /> : <FavoriteBorder onClick={() => addFavoriteHandler(categoryId) } color='action'/>}
             </Typography> 
             <EventsCarousel events={events}/>
         </div>

@@ -3,16 +3,25 @@ import theme from 'assets/styles/theme';
 
 const useStyles = makeStyles({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '14vw',
     backgroundColor: theme.backgrounds.bg2,
     marginRight: '2vw',
     marginTop: '3vh',
   },
   cardContentt: {
-    padding: '16px 16px 0 16px'
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    padding: '16px 16px 0 16px',
   },
   title: {
     fontSize: 20,
+    lineHeight: 1.5,
+    flexGrow: 1,
+    marginBottom: '0.7em',
   },
   zoomer: {
     backgroundColor: theme.backgrounds.bg1,
@@ -34,6 +43,16 @@ const useStyles = makeStyles({
   },
   category: {
     lineHeight: 1,
+  },
+  unactive: {
+    position: 'absolute',
+    marginTop: '-14px',
+    padding: '4px',
+    fontSize: '0.5em',
+    backgroundColor: '#ffffff',
+    border: '#dadada solid 1px',
+    borderRadius: '15px',
+    lineHeight: 0.8,
   },
   details: {
     '& p': {
