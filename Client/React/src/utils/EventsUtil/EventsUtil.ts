@@ -41,7 +41,7 @@ export const convertFullEvent = (event: any) => {
             _id: event.zoomer_detailes[0]?._id,
             full_name: event.zoomer_detailes[0]?.full_name,
             photograph: event.zoomer_detailes[0]?.photograph,
-            zoomer_is_active: event.zoomer_detailes[0]?.user_type == 'zoomer',
+            zoomer_is_active: event.zoomer_detailes[0]?.user_type === 'zoomer',
         },
     }
 };

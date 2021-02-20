@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import useEventPage from './useEventPage';
 import useStyles from './EventPageStyles';
@@ -10,7 +10,6 @@ import User from 'models/User/User';
 import StoreStateType from 'redux/storeStateType';
 import EventRegistration from './EventRegistration/EventRegistration';
 import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
-import useEventCard from '../EventsPage/EventCard/useEventCard';
 import { contentRoute } from 'utils/Routes/Routes';
 
 const EventPage: React.FC = (): JSX.Element => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'utils/axios';
-import Event, { AuthoreDetailsEvent, FullEvent } from 'models/Event/Event';
+import Event, { AuthoreDetailsEvent } from 'models/Event/Event';
 import User from 'models/User/User';
 import { useSelector } from 'react-redux';
 import StoreStateType from 'redux/storeStateType';
@@ -32,7 +32,7 @@ const useEventPage = (): useEventPageOutCome => {
                         _id: zoomer._id,
                         name: zoomer.full_name,
                         photograph: zoomer.photograph,
-                        zoomer_is_active: zoomer.user_type == 'zoomer',
+                        zoomer_is_active: zoomer.user_type === 'zoomer',
                     })
                     setAuthorIsZoomer(true);
                 }
