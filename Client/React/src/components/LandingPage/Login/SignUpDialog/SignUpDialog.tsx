@@ -28,7 +28,7 @@ const SignUpDialog : React.FC<Props> = ({isOpen, handleClose}: Props): JSX.Eleme
                         {
                             categories.map((category: Category) => (
                                 <FormControlLabel onChange={favoriteHandler}
-                                control={<Checkbox value={category.id} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />}
+                                control={<Checkbox value={category.id} icon={<FavoriteBorder color='action'/>} checkedIcon={<Favorite color='primary'/>} />}
                                 label={category.name}
                             />))
                         }  
