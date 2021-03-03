@@ -11,7 +11,6 @@ import config from './config/index';
 require('dotenv').config();
 
 const app: Express = express();
-
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
