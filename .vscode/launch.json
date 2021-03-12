@@ -10,6 +10,15 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "Attach to Process",
+            "type": "node",
+            "request": "attach",
+            "restart": true,
+            "port": 5858,
+            "outFiles": [],
+            "sourceMaps": true
+          },
     ]
 }

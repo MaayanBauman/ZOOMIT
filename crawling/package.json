@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec ts-node src/server.ts"
+    "start": "nodemon --exec ts-node src/server.ts",
+    "watch:debug": "nodemon --inspect=5858 -e ts,tsx --exec node -r ts-node/register src/server.ts  "
   },
   "dependencies": {
     "@types/cheerio": "^0.22.24",
