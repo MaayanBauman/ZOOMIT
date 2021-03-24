@@ -21,7 +21,7 @@ const EventPage: React.FC = (): JSX.Element => {
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
-
+    const isPastEvent: boolean = event ? event.start_time < new Date() : true;
     const handleLogoutMouseOver = (event: any) => {
         setIsPopoverOpen(true);
         setAnchorEl(event.currentTarget);
@@ -47,6 +47,9 @@ const EventPage: React.FC = (): JSX.Element => {
                     }
                     <div className={classes.headDetails}>
                         <Typography variant="subtitle1" className={classes.eventName}>
+                            { !!isPastEvent &&
+                                <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
+                            }
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
@@ -75,7 +78,7 @@ const EventPage: React.FC = (): JSX.Element => {
             </div>
             <div className={classes.registerLine}>
                 <div className={classes.registerAction}>
-                    <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById}></EventRegistration>
+                    <EventRegistration eventId={event?.id} userId={user._id} isRegistered={isRegistered} getEventById={getEventById} isPastEvent={isPastEvent}></EventRegistration>
                     <Typography variant="subtitle1" gutterBottom>
                         {
                             (event?.registered_users.length === 0) ?
