@@ -81,6 +81,11 @@ const useStyles = makeStyles({
       fontSize: '0.7em',
       width: '97vw'
     }
+  },
+  likeBtn:{
+    width: '10vw',
+    marginRight: '0px',
+    marginLeft: '0px',
   }
 });
 

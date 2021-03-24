@@ -15,4 +15,5 @@ export interface User {
     description: string;
     is_waiting_for_approval: boolean;
     registerd_events: Array<string>;
+    liked_events: Array<string>;
 }

@@ -13,4 +13,5 @@ export interface IUser {
     is_waiting_for_approval: boolean;
     owned_events: Array<string>;
     registerd_events: Array<string>;
+    liked_events: Array<string>;
 }
