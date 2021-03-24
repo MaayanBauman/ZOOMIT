@@ -55,6 +55,19 @@ const useStyles = makeStyles({
     lineHeight: 0.8,
     fontWeight: 'bold',
   },
+  pastEvent: {
+    position: 'absolute',
+    padding: '4px',
+    fontSize: '0.5em',
+    backgroundColor: '#ccc',
+    border: '#fafafa solid 1px',
+    borderRadius: '15px',
+    lineHeight: 0.8,
+    fontWeight: 'bold',
+    transform: 'rotate(-25deg)',
+    marginTop: '-1vh',
+    marginRight: '9.4vw',
+  },
   details: {
     '& p': {
       lineHeight: '1.8',

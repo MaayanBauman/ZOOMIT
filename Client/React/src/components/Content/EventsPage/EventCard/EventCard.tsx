@@ -49,6 +49,9 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
                 <Typography className={classes.title} variant="subtitle1" gutterBottom>
+                    {event.start_time < new Date() &&
+                        <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר </Typography>
+                    }
                     {event.title}
                 </Typography>
                 <div className={classes.zoomer}>
