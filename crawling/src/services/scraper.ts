@@ -87,8 +87,6 @@ const scrape = async () => {
                 eventToSave.save((error)=>{
                     console.log(error);
                 })
-                // events.push(newEvent);
-                // console.log(newEvent);
             });
             })   
 };
