@@ -16,9 +16,9 @@ const baseURl: string = 'https://screenz.live';
 const scrape = async () => {
     let events= [];
   
-    let page = await axios.get('https://screenz.live/categories/relations');   
+    let page = await axios.get('https://screenz.live/he/categories/fashion');   
     let $ = cheerio.load(page.data);    
-    const zooms = $('div[class^="eventsGrid"]');
+    const zooms = $('div[class^="events-grid"]');
     await zooms.each(async () => {
             $('p[class*="live"]', this).each(async (num, e: cheerio.TagElement) => {
                 let newEvent = {
