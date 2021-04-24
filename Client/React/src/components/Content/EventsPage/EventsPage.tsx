@@ -27,8 +27,9 @@ const EventsPage: React.FC = (): JSX.Element => {
                     </Typography>
                     <span className={classes.filterBox}>
                         <FilterBox onFilter={getEventByFilters}/>
-                     </span>   
+                    </span>   
                 </div>
+                <div className="gcse-search"></div>
                 {
                     events.length ? 
                         categories?.map((category: Category) => eventsByCategories[category.id] && 
@@ -38,7 +39,7 @@ const EventsPage: React.FC = (): JSX.Element => {
                         לא נמצאו זומים מתאימים
                     </Typography>
                 }
-            </div>
+            </div>   
         </>
         
     );
