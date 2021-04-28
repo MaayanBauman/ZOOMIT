@@ -13,7 +13,8 @@ export const initialState: User = {
     approved_date: new Date(''),
     description: '',
     is_waiting_for_approval: false,
-    registerd_events:[]
+    registerd_events:[],
+    liked_events:[],
 }
 
 const userReducer = (state = initialState, action: Actions.userAction): User => {

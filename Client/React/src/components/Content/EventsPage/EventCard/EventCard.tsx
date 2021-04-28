@@ -1,7 +1,8 @@
-import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { Typography, Card, CardContent, CardActions, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
-
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Event, { FullEvent } from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import { contentRoute } from 'utils/Routes/Routes';
@@ -12,11 +13,12 @@ import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { categories } = useEventCard();
+    const { categories, currUser, setLike } = useEventCard();
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
     const [authorIsZoomer, setAuthorIsZoomer] = useState(false);
+    const isPastEvent: boolean = event ? event.start_time < new Date() : true;
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
@@ -49,6 +51,9 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
                 <Typography className={classes.title} variant="subtitle1" gutterBottom>
+                    {isPastEvent &&
+                        <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
+                    }
                     {event.title}
                 </Typography>
                 <div className={classes.zoomer}>
@@ -79,6 +84,14 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 </div>
             </CardContent>
             <CardActions className={classes.cardActions}>
+                { isPastEvent && currUser.registerd_events.includes(event.id) && 
+                    <FormControlLabel 
+                        className={classes.likeBtn}
+                        onChange={(e) => setLike(e)}
+                        control={<Checkbox value={event.id} checked={ currUser.liked_events?.includes(event.id) } icon={<ThumbUpOutlinedIcon color='action' />} checkedIcon={<ThumbUpIcon color='primary'/>} />}
+                        label=""
+                    />
+                }
                 <Button variant="contained" color="primary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
             </CardActions>
         </Card>

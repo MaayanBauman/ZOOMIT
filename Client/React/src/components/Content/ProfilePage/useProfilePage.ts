@@ -32,7 +32,7 @@ const useProfilePage = () : useEventsPageOutCome  => {
         });
     }
     
-     const favoriteHandler = (event : any, user: User,) => {
+    const favoriteHandler = (event : any, user: User) => {
         const newFav = event.target.value;
         const favoriteCategories = user.favorite_categories;
         let userFavCategories = [];
