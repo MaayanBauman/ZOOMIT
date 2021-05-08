@@ -14,7 +14,6 @@ export const initialState: User = {
     description: '',
     is_waiting_for_approval: false,
     registerd_events:[],
-    liked_events:[],
 }
 
 const userReducer = (state = initialState, action: Actions.userAction): User => {

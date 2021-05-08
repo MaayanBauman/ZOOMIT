@@ -1,8 +1,6 @@
 import { Typography, Card, CardContent, CardActions, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Event, { FullEvent } from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import { contentRoute } from 'utils/Routes/Routes';
@@ -13,7 +11,7 @@ import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { categories, currUser, setLike } = useEventCard();
+    const { categories, currUser } = useEventCard();
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
@@ -84,14 +82,15 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 </div>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                { isPastEvent && currUser.registerd_events.includes(event.id) && 
+                {/* { isPastEvent && currUser.registerd_events.includes(event.id) && 
                     <FormControlLabel 
-                        className={classes.likeBtn}
-                        onChange={(e) => setLike(e)}
-                        control={<Checkbox value={event.id} checked={ currUser.liked_events?.includes(event.id) } icon={<ThumbUpOutlinedIcon color='action' />} checkedIcon={<ThumbUpIcon color='primary'/>} />}
-                        label=""
+                         className={"classes.likeBtn"}
+                         onChange={(e) => setLike(e)}
+                         control={<Checkbox value={event.id} checked={ currUser.liked_events?.includes(event.id) } icon={<ThumbUpOutlinedIcon color='action' />} checkedIcon={<ThumbUpIcon color='primary'/>} />}
+                         label=""
                     />
-                }
+                 } */}
+                 
                 <Button variant="contained" color="primary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
             </CardActions>
         </Card>

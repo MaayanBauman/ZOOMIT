@@ -84,11 +84,6 @@ const useStyles = makeStyles({
       width: '97vw'
     }
   },
-  likeBtn:{
-    width: '10vw',
-    marginRight: '0px',
-    marginLeft: '0px',
-  }
 });
 
 export default useStyles;
