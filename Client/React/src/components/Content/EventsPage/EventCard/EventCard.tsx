@@ -1,4 +1,5 @@
-import { Typography, Card, CardContent, CardActions, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Event, { FullEvent } from 'models/Event/Event';
@@ -16,6 +17,8 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
     const [authorIsZoomer, setAuthorIsZoomer] = useState(false);
+    const [userRating, setUserRating] = useState<number | null>(2);
+
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
 
     const handleClickMoreDetails = () => {
@@ -48,6 +51,17 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     return (
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
+                { isPastEvent && currUser.registerd_events.includes(event.id) && 
+                    <Typography>
+                        <Rating
+                            size="medium"
+                            value={userRating}
+                            onChange={(e, newUserRating) => {
+                                setUserRating(newUserRating);
+                            }}
+                        />
+                    </Typography>
+                }
                 <Typography className={classes.title} variant="subtitle1" gutterBottom onClick={() => handleClickMoreDetails()}>
                     {isPastEvent &&
                         <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
@@ -82,15 +96,6 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 </div>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                {/* { isPastEvent && currUser.registerd_events.includes(event.id) && 
-                    <FormControlLabel 
-                         className={"classes.likeBtn"}
-                         onChange={(e) => setLike(e)}
-                         control={<Checkbox value={event.id} checked={ currUser.liked_events?.includes(event.id) } icon={<ThumbUpOutlinedIcon color='action' />} checkedIcon={<ThumbUpIcon color='primary'/>} />}
-                         label=""
-                    />
-                 } */}
-                 
                 <Button variant="contained" color="primary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
             </CardActions>
         </Card>
