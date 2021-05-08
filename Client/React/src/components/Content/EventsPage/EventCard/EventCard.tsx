@@ -50,7 +50,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     return (
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
-                <Typography className={classes.title} variant="subtitle1" gutterBottom>
+                <Typography className={classes.title} variant="subtitle1" gutterBottom onClick={() => handleClickMoreDetails()}>
                     {isPastEvent &&
                         <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
                     }

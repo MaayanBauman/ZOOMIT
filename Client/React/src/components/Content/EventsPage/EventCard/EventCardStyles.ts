@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     fontSize: 20,
     lineHeight: 1.5,
     flexGrow: 1,
+    cursor: 'pointer',
     marginBottom: '0.7em',
   },
   zoomer: {
@@ -45,7 +46,8 @@ const useStyles = makeStyles({
     lineHeight: 1,
   },
   unactive: {
-    position: 'absolute',
+    position: 'relative',
+    width: 'max-content',
     marginTop: '-14px',
     padding: '4px',
     fontSize: '0.5em',
@@ -56,7 +58,7 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
   },
   pastEvent: {
-    position: 'absolute',
+    width: 'max-content',
     padding: '4px',
     fontSize: '0.5em',
     backgroundColor: '#ccc',

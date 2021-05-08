@@ -42,7 +42,8 @@ const useStyles = makeStyles({
         cursor: 'pointer',
     },
     unactive: {
-        position: 'absolute',
+        width: 'max-content',
+        position: 'relative',
         border: '#dadada solid 1px',
         padding: '4px 11px',
         fontSize: '1em',
@@ -53,7 +54,7 @@ const useStyles = makeStyles({
         backgroundColor: '#fafafa',
     },
     pastEvent: {
-        position: 'absolute',
+        width: 'max-content',
         padding: '4px',
         fontSize: '0.5em',
         backgroundColor: '#ccc',
