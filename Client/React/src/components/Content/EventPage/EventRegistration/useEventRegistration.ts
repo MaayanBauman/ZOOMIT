@@ -1,4 +1,5 @@
 import theme from 'assets/styles/theme';
+import RegisterdEvent from 'models/Event/RegisterdEvent';
 import User from 'models/User/User';
 import { useSelector } from 'react-redux';
 import StoreStateType from 'redux/storeStateType';
@@ -29,8 +30,8 @@ const useEventRegistration = ({ getEventById }: Props): useEventRegistrationOutC
                             confirmButton: classes.swal,
                         },
                     }).then(() => {
-                        const newRegisteredEvents = [...user.registerd_events, eventId];
-                        setUser({ ...user, registerd_events: newRegisteredEvents });
+                        const newRegisteredEvent: RegisterdEvent = { eventId, rating: 0 };
+                        setUser({ ...user, registerd_events: [...user.registerd_events, newRegisteredEvent] });
                         getEventById(eventId)
                     })
                 })
@@ -70,7 +71,7 @@ const useEventRegistration = ({ getEventById }: Props): useEventRegistrationOutC
                             confirmButton: classes.swal,
                         },
                     }).then(() => {
-                        const newRegisteredEvents = user.registerd_events.filter((id) => id !== eventId);
+                        const newRegisteredEvents = user.registerd_events.filter((registerd_event) => registerd_event.eventId !== eventId);
                         setUser({ ...user, registerd_events: newRegisteredEvents });
                         getEventById(eventId)
                     })

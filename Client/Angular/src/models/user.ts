@@ -1,3 +1,5 @@
+import { RegisterdEvent } from "./event";
+
 export enum UserType{
     USER = 'user',
     ZOOMER = 'zoomer',
@@ -14,4 +16,4 @@ export interface User {
     approved_date: Date;
     description: string;
     is_waiting_for_approval: boolean;
-    registerd_events: Array<string>;}
+    registerd_events: Array<RegisterdEvent>;}
