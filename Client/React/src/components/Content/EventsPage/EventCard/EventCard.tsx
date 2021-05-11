@@ -8,6 +8,7 @@ import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
+import { englishSites } from 'utils/EventsUtil/EventsUtil';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
@@ -20,6 +21,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     const [userRating, setUserRating] = useState<number | null>(2);
 
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
+    const isEnglishText = englishSites.includes(authorName);
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
@@ -62,7 +64,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                         />
                     </Typography>
                 }
-                <Typography className={classes.title} variant="subtitle1" gutterBottom onClick={() => handleClickMoreDetails()}>
+                <Typography className={`${classes.title} ${isEnglishText ? classes.english : ''}`} variant="subtitle1" gutterBottom onClick={() => handleClickMoreDetails()}>
                     {isPastEvent &&
                         <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
                     }

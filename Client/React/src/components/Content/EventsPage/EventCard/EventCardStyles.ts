@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     marginBottom: '0.7em',
   },
+  english: {
+    direction: 'ltr',
+  },
   zoomer: {
     backgroundColor: theme.backgrounds.bg1,
     display: 'flex',

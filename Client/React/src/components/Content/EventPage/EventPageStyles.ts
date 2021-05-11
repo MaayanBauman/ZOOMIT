@@ -41,6 +41,9 @@ const useStyles = makeStyles({
     clickable: {
         cursor: 'pointer',
     },
+    english: {
+        direction: 'ltr',
+    },
     unactive: {
         width: 'max-content',
         position: 'relative',

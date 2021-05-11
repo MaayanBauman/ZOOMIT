@@ -45,3 +45,5 @@ export const convertFullEvent = (event: any) => {
         },
     }
 };
+
+export const englishSites = ['eventbrite'];

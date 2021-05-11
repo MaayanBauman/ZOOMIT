@@ -11,6 +11,7 @@ import StoreStateType from 'redux/storeStateType';
 import EventRegistration from './EventRegistration/EventRegistration';
 import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
 import { contentRoute } from 'utils/Routes/Routes';
+import { englishSites } from 'utils/EventsUtil/EventsUtil';
 
 const EventPage: React.FC = (): JSX.Element => {
 
@@ -22,6 +23,8 @@ const EventPage: React.FC = (): JSX.Element => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
+    const isEnglishText = authorDetails ? englishSites.includes(authorDetails.name) : false;
+    
     const handleLogoutMouseOver = (event: any) => {
         setIsPopoverOpen(true);
         setAnchorEl(event.currentTarget);
@@ -46,14 +49,14 @@ const EventPage: React.FC = (): JSX.Element => {
                         <Typography variant="subtitle1" className={classes.unactive}>לא פעיל</Typography>
                     }
                     <div className={classes.headDetails}>
-                        <Typography variant="subtitle1" className={classes.eventName}>
+                        <Typography variant="subtitle1" className={`${classes.eventName} ${isEnglishText ? classes.english : ''}`}>
                             { !!isPastEvent &&
                                 <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
                             }
                             {event?.title}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
-                        <Typography variant="caption" className={`${classes.zoomer} ${(authorDetails?.zoomer_is_active && authorIsZoomer) ? classes.clickable : ''}`} onClick={() => handleZoomerClick()}>{authorDetails?.name}</Typography>
+                        <Typography variant="caption" className={`${classes.zoomer} ${(authorDetails?.zoomer_is_active && authorIsZoomer) ? classes.clickable : ''} ${isEnglishText ? classes.english : ''}`} onClick={() => handleZoomerClick()}>{authorDetails?.name}</Typography>
                     </div>
                 </div>
                 <div className={classes.detailsLine}>
@@ -69,7 +72,7 @@ const EventPage: React.FC = (): JSX.Element => {
                         </Typography>
                     </div>
                     <Divider orientation="vertical" flexItem />
-                    <div className={classes.descContainer}>
+                    <div className={`${classes.descContainer} ${isEnglishText ? classes.english : ''}`}>
                         <Typography variant="body1">
                             {event?.description}
                         </Typography>
