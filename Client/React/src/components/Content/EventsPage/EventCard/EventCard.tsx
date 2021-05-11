@@ -54,6 +54,7 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 { isPastEvent && currUser.registerd_events.includes(event.id) && 
                     <Typography>
                         <Rating
+                            className={classes.rating}
                             size="medium"
                             value={userRating}
                             onChange={(e, newUserRating) => {
