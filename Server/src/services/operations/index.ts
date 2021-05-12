@@ -91,12 +91,27 @@ const deleteValuesFromArray = (collectionName: string, id: string, objField:stri
         { returnOriginal: false }
     ), `Fail to delete the values ${values} from the ${objField} in  ${collectionName}- ${id}`);
 
+const deleteValueFromArray = (collectionName: string, id: string, objField:string, value: any) =>
+    doOperation(collectionName, collection => collection.findOneAndUpdate(
+        { '_id': new ObjectID(id) },
+        { $pull: { [objField]: value } },
+        { returnOriginal: false },
+      ), `Fail to delete the values ${JSON.stringify(value)} from the ${objField} in  ${collectionName}- ${id}`);
+
 const updateObject = (collectionName: string, id: string, obj: any) =>
     doOperation(collectionName, collection => collection.findOneAndUpdate(
         { '_id': new ObjectID(id) },
         { $set: obj },
         { returnOriginal: false }
     ), `Fail to update ${id}- ${collectionName} to ${obj}`);
+
+const updateValueOnArrayByIndex = (collectionName: string, id: string, objField: string, value: any)  =>
+  doOperation(collectionName, collection => collection.findOneAndUpdate(
+    { '_id': new ObjectID(id) },
+    { $set: { [objField]:  value } }, 
+    { returnOriginal: false }
+  ), `Fail to update the value ${JSON.stringify(value)} to ${objField} in ${collectionName}- ${id}`);
+    
 
 const getAllObjectsWithJoin = (collectionName: string, 
     firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
@@ -228,7 +243,9 @@ export default <T>(): IOperationBuilder<T> => ({
     addValuesToArray,
     deleteObject,
     deleteValuesFromArray,
+    deleteValueFromArray,
     updateObject,
+    updateValueOnArrayByIndex,
     getAllObjectsWithJoin,
     getAllObjectsWithJoinByQuery,
     getObjectsByIdWithJoin

@@ -30,5 +30,7 @@ export interface IOperationBuilder<T> {
     addValuesToArray: (collectionName: string, id: string, objField: string, values: any[]) => Promise<FindAndModifyWriteOpResultObject<T>>;
     deleteObject: (collectionName: string, id: string) => Promise<DeleteWriteOpResultObject>;
     deleteValuesFromArray: (collectionName: string, id: string, objField:string, values: any[]) => Promise<FindAndModifyWriteOpResultObject<T>>;
+    deleteValueFromArray: (collectionName: string, id: string, objField:string, values: any) => Promise<FindAndModifyWriteOpResultObject<T>>;
     updateObject: (collectionName: string, id: string, obj: T) => Promise<FindAndModifyWriteOpResultObject<T>>;
+    updateValueOnArrayByIndex: (collectionName: string, id: string, objField: string, values: any) => Promise<FindAndModifyWriteOpResultObject<T>>;
 };

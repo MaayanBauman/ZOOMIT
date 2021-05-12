@@ -13,15 +13,16 @@ import { englishSites } from 'utils/EventsUtil/EventsUtil';
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { categories, currUser } = useEventCard();
+    const { categories, currUser, setUserRating } = useEventCard();
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
     const [authorIsZoomer, setAuthorIsZoomer] = useState(false);
-    const [userRating, setUserRating] = useState<number | null>(2);
 
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
     const isEnglishText = englishSites.includes(authorName);
+    const eventIndexInUserRegisteredList: number = currUser.registerd_events.findIndex(registerd_event => registerd_event.eventId === event.id);
+    const userRating: number = eventIndexInUserRegisteredList !== -1 ? currUser.registerd_events[eventIndexInUserRegisteredList].rating : 0;
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
@@ -53,13 +54,14 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     return (
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
-                { isPastEvent && currUser.registerd_events.includes(event.id) && 
+                { isPastEvent && eventIndexInUserRegisteredList !== -1 && 
                     <Typography>
                         <Rating
+                            className={classes.rating}
                             size="medium"
                             value={userRating}
                             onChange={(e, newUserRating) => {
-                                setUserRating(newUserRating);
+                                setUserRating(currUser._id, event.id, newUserRating);
                             }}
                         />
                     </Typography>

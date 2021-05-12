@@ -75,7 +75,7 @@ export const addUser: Handler = async (req: Request, res: Response, next: NextFu
 
 export const addEventToUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.addEventToUser(req.params.id, req.params.event));
+        res.json(await users.addEventToUser(req.params.id, req.params.eventid));
     } catch (err) {
         next(err);
     }
@@ -83,11 +83,20 @@ export const addEventToUser: Handler = async (req: Request, res: Response, next:
 
 export const removeEventFromUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(await users.removeEventFromUser(req.params.id, req.params.event));
+        res.json(await users.removeEventFromUser(req.params.id, req.params.eventid));
     } catch (err) {
         next(err);
     }
 };
+
+export const updateEventFromUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.updateEventFromUser(req.params.id, req.body.eventIndex, req.params.eventid, req.body.rating));
+    } catch (err) {
+        next(err);
+    }
+};
+
 
 export const updateUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -99,7 +108,7 @@ export const updateUser: Handler = async (req: Request, res: Response, next: Nex
     }
 };
 
-export const deleteeUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteUser: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         res.json(await users.deleteUser(req.params.id));
     } catch (err) {

@@ -18,7 +18,7 @@ const useEventPage = (): useEventPageOutCome => {
 
     useEffect(() => {
         if (event) {
-            setIsRegistered(user.registerd_events.includes(event?.id));
+            setIsRegistered(user.registerd_events.some(registerd_event => registerd_event["eventId"] === event.id));
         }
     }, [event, user]);
 

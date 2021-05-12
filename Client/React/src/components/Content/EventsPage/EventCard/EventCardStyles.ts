@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     cursor: 'pointer',
     marginBottom: '0.7em',
+    marginTop: '1vh',
   },
   english: {
     direction: 'ltr',
@@ -70,7 +71,7 @@ const useStyles = makeStyles({
     lineHeight: 0.8,
     fontWeight: 'bold',
     transform: 'rotate(-25deg)',
-    marginTop: '-1vh',
+    marginBottom: '-2vh',
     marginRight: '9.4vw',
   },
   details: {
@@ -87,6 +88,11 @@ const useStyles = makeStyles({
       width: '97vw'
     }
   },
+  rating:{
+    display: 'flex',
+    justifyContent:"space-between",
+  },
+  
 });
 
 export default useStyles;

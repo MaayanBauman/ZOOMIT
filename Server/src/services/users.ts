@@ -29,12 +29,15 @@ export const getUsersByEmail = (email: string) =>
 
 export const getUserEvents = async (id: string) => {
     const user = await getUserById(id);
-    return getEventsById(user.registerd_events);
+    const userEventsIds = user.registerd_events.map(registerd_event => registerd_event.eventId);
+    return getEventsById(userEventsIds);
 }
 
 export const getUserEventsJoined = async (id: string) => {
     const user = await getUserById(id);
-    return getEventsByIdJoined(user.registerd_events);
+    const userEventsIds = user.registerd_events.map(registerd_event => registerd_event.eventId);
+
+    return getEventsByIdJoined(userEventsIds);
 }
 
 export const getZoomerEvents = async (id: string) => {
@@ -49,20 +52,21 @@ export const getZoomerRequesters = () => {
 export const addUser = (newSource: IUser) => 
     usersOperationBuilder.createObject(collectionName, newSource);
 
-export const addEventToUser = (id:string, event: string) => 
+export const addEventToUser = (id: string, eventid: string) => 
     Promise.all([
-        addUserToEvent(event, id), 
-        usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [event])
+        addUserToEvent(eventid, id), 
+        usersOperationBuilder.addUniqueValuesToArray(collectionName, id, 'registerd_events', [{ eventId: eventid, rating: 0 }])
     ]).then(async () => {
         const user = await getUserById(id);
-        const fullEvent = await getEventById(event);
+        const fullEvent = await getEventById(eventid);
         sendEmail(user, fullEvent);
     });
 
-export const removeEventFromUser = (id:string, event: string) => 
+    //TODO!!!
+export const removeEventFromUser = (id: string, eventId: string) => 
     Promise.all([
-        removeUserFromEvent(event, id), 
-        usersOperationBuilder.deleteValuesFromArray(collectionName, id, 'registerd_events', [event])
+        removeUserFromEvent(eventId, id), 
+        usersOperationBuilder.deleteValueFromArray(collectionName, id, 'registerd_events', { eventId })
     ]);
 
 export const addEventToZoomer = (id:string, event: string) => 
@@ -78,6 +82,9 @@ export const deleteEventFromZoomer = (id:string, event: string) =>
 
 export const updateUser = (id: string, sourceToUpdate: IUser) => 
     usersOperationBuilder.updateObject(collectionName, id, sourceToUpdate);
+
+export const updateEventFromUser = (id: string, eventIndex: number, eventId: string, rating: number) => 
+    usersOperationBuilder.updateValueOnArrayByIndex(collectionName, id, `registerd_events.${eventIndex}`, { eventId, rating })
 
 export const deleteUser = (id: string) => 
     usersOperationBuilder.deleteObject(collectionName, id);
