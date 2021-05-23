@@ -4,7 +4,7 @@ import http, { Server as httpServer } from 'http';
 import express, { Request, Response, NextFunction, Express } from 'express';
 
 import scraperScreenz from './services/scraperScreenz';
-import scraperFunzing from './services/scraperFunzing';
+import scraperFunzing from './services/scraperEventbrite';
 
 import router from './routes';
 import config from './config/index';
