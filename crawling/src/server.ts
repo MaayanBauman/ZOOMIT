@@ -3,7 +3,8 @@ import bodyParser from 'body-parser';
 import http, { Server as httpServer } from 'http';
 import express, { Request, Response, NextFunction, Express } from 'express';
 
-import scrape from './services/scraper';
+import scraperScreenz from './services/scraperScreenz';
+import scraperFunzing from './services/scraperFunzing';
 
 import router from './routes';
 import config from './config/index';
@@ -40,4 +41,5 @@ server.listen(config.port, () => {
   console.log( `server started on port ${config.port}`);
 });
 
-scrape();
+//scraperScreenz();
+scraperFunzing();
