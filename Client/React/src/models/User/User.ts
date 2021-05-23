@@ -1,4 +1,5 @@
 import UserType from 'models/Enums/UserType';
+import RegisterdEvent from 'models/Event/RegisterdEvent';
 
 interface User {
     _id: string;
@@ -11,8 +12,7 @@ interface User {
     approved_date: Date;
     description: string;
     is_waiting_for_approval: boolean;
-    registerd_events: Array<string>;
-    liked_events: Array<string>;
+    registerd_events: Array<RegisterdEvent>;
 };
 
 export default User;

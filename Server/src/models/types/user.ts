@@ -1,5 +1,5 @@
-import { Binary, ObjectId } from "mongodb";
-import { ICategory } from "./category";
+import { ObjectId } from "mongodb";
+import { IRegisterdEvent } from "./Registerd_event";
 
 export interface IUser {
     _id: ObjectId;
@@ -12,6 +12,5 @@ export interface IUser {
     description: string;
     is_waiting_for_approval: boolean;
     owned_events: Array<string>;
-    registerd_events: Array<string>;
-    liked_events: Array<string>;
+    registerd_events: Array<IRegisterdEvent>;
 }

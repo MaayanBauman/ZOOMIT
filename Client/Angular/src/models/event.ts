@@ -14,6 +14,11 @@ export interface Event {
     source_id: string;
 }
 
+export interface RegisterdEvent {
+    eventId: string;
+    rating: number;
+};
+
 export interface ExtendedEvent {
     _id: string;
     title: string;

@@ -21,7 +21,12 @@ const useStyles = makeStyles({
     fontSize: 20,
     lineHeight: 1.5,
     flexGrow: 1,
+    cursor: 'pointer',
     marginBottom: '0.7em',
+    marginTop: '1vh',
+  },
+  english: {
+    direction: 'ltr',
   },
   zoomer: {
     backgroundColor: theme.backgrounds.bg1,
@@ -45,7 +50,8 @@ const useStyles = makeStyles({
     lineHeight: 1,
   },
   unactive: {
-    position: 'absolute',
+    position: 'relative',
+    width: 'max-content',
     marginTop: '-14px',
     padding: '4px',
     fontSize: '0.5em',
@@ -56,7 +62,7 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
   },
   pastEvent: {
-    position: 'absolute',
+    width: 'max-content',
     padding: '4px',
     fontSize: '0.5em',
     backgroundColor: '#ccc',
@@ -65,7 +71,7 @@ const useStyles = makeStyles({
     lineHeight: 0.8,
     fontWeight: 'bold',
     transform: 'rotate(-25deg)',
-    marginTop: '-1vh',
+    marginBottom: '-2vh',
     marginRight: '9.4vw',
   },
   details: {
@@ -82,11 +88,11 @@ const useStyles = makeStyles({
       width: '97vw'
     }
   },
-  likeBtn:{
-    width: '10vw',
-    marginRight: '0px',
-    marginLeft: '0px',
-  }
+  rating:{
+    display: 'flex',
+    justifyContent:"space-between",
+  },
+  
 });
 
 export default useStyles;

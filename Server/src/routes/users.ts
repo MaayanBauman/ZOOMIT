@@ -11,10 +11,11 @@ router.get('/:id/events', users.getUserEvents);
 router.get('/:id/events/join', users.getUserEventsJoined);
 router.get('/zoomer/:id/events', users.getZoomerEvents);
 router.post('/', users.addUser);
-router.put('/:id/events/:event', users.addEventToUser);
-router.delete('/:id/events/:event', users.removeEventFromUser);
+router.put('/:id/events/:eventid', users.addEventToUser);
+router.delete('/:id/events/:eventid', users.removeEventFromUser);
+router.put('/:id/event/:eventid/rating', users.updateEventFromUser);
 router.put('/:id', users.updateUser);
-router.delete('/:id', users.deleteeUser);
+router.delete('/:id', users.deleteUser);
 router.get('/zoomer/requesters', users.getAllZoomerRequesters);
 
 export default router;

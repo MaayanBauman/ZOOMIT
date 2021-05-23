@@ -1,24 +1,28 @@
-import { Typography, Card, CardContent, CardActions, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Event, { FullEvent } from 'models/Event/Event';
 import useStyles from './EventCardStyles';
 import { contentRoute } from 'utils/Routes/Routes';
 import formatDate, { formatDayName, formatTime } from 'utils/DatesUtil/DatesUtil';
 import useEventCard from './useEventCard';
 import { categoryNameById } from 'utils/CategoryUtil/CategoryUtil';
+import { englishSites } from 'utils/EventsUtil/EventsUtil';
 
 const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props): JSX.Element => {
     const classes = useStyles();
     const history = useHistory();
-    const { categories, currUser, setLike } = useEventCard();
+    const { categories, currUser, setUserRating } = useEventCard();
     const [authorPhoto, setAuthorPhoto] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [isZoomerActive, setIsZoomerActive] = useState(false);
     const [authorIsZoomer, setAuthorIsZoomer] = useState(false);
+
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
+    const isEnglishText = englishSites.includes(authorName);
+    const eventIndexInUserRegisteredList: number = currUser.registerd_events.findIndex(registerd_event => registerd_event.eventId === event.id);
+    const userRating: number = eventIndexInUserRegisteredList !== -1 ? currUser.registerd_events[eventIndexInUserRegisteredList].rating : 0;
 
     const handleClickMoreDetails = () => {
         history.push(`${contentRoute}/event/${event.id}`);
@@ -50,7 +54,19 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
     return (
         <Card className={classes.root}>
             <CardContent className={classes.cardContentt}>
-                <Typography className={classes.title} variant="subtitle1" gutterBottom>
+                { isPastEvent && eventIndexInUserRegisteredList !== -1 && 
+                    <Typography>
+                        <Rating
+                            className={classes.rating}
+                            size="medium"
+                            value={userRating}
+                            onChange={(e, newUserRating) => {
+                                setUserRating(currUser._id, event.id, newUserRating);
+                            }}
+                        />
+                    </Typography>
+                }
+                <Typography className={`${classes.title} ${isEnglishText ? classes.english : ''}`} variant="subtitle1" gutterBottom onClick={() => handleClickMoreDetails()}>
                     {isPastEvent &&
                         <Typography variant="subtitle1" className={classes.pastEvent}>האירוע עבר</Typography>
                     }
@@ -84,14 +100,6 @@ const EventCard: React.FC<Props> = ({ event, showZoomer, showCategory }: Props):
                 </div>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                { isPastEvent && currUser.registerd_events.includes(event.id) && 
-                    <FormControlLabel 
-                        className={classes.likeBtn}
-                        onChange={(e) => setLike(e)}
-                        control={<Checkbox value={event.id} checked={ currUser.liked_events?.includes(event.id) } icon={<ThumbUpOutlinedIcon color='action' />} checkedIcon={<ThumbUpIcon color='primary'/>} />}
-                        label=""
-                    />
-                }
                 <Button variant="contained" color="primary" onClick={() => handleClickMoreDetails()}>עוד פרטים</Button>
             </CardActions>
         </Card>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import User from 'models/User/User';
+import RegisterdEvent from 'models/Event/RegisterdEvent';
 import { setUser } from 'redux/User/userActionCreator';
 
 const useEventCard = (): useEventCardOutCome => {
@@ -18,41 +19,34 @@ const useEventCard = (): useEventCardOutCome => {
         const { data } = await axios.get(`/users/${userId}`);
         return data;
     }
-
-    const setLike = (event : any) => {
-        const EventId = event.target.value;
-        const likedEvents = currUser.liked_events || [];
-        let userLikedEvents = [];
-        if (!likedEvents?.find((value) => value === EventId)) {
-            userLikedEvents = [...likedEvents, event.target.value];
-        } else {
-            userLikedEvents = likedEvents.filter((item: string) => item !== EventId);
+    const setUserRating = async (userId: string, eventId: string, rating: number) => {
+        const eventIndexInUserRegisteredList: number = currUser.registerd_events.findIndex(registerd_event => registerd_event.eventId === eventId);
+        if (eventIndexInUserRegisteredList !== -1){
+            axios.put(`/users/${userId}/event/${eventId}/rating`,{ rating, eventIndex: eventIndexInUserRegisteredList})
+            .then(() => {
+                const newRegisteredEvent: RegisterdEvent = { eventId, rating };
+                let newRegisteredEvents = [...currUser.registerd_events];
+                newRegisteredEvents[eventIndexInUserRegisteredList] = newRegisteredEvent
+                setUser({ ...currUser, registerd_events: [...newRegisteredEvents] });
+            })
         }
-        const updatedUser = { ...currUser, liked_events: userLikedEvents }
-        axios.put(`/users/${currUser._id}`, { user: updatedUser })
-        .then((result : any) => {
-            setUser(result.data.value)
-        })
-        .catch((error: any)=> (
-            console.log(error)
-        ))
     }
 
     return {
         getUserById,
         getSourceById,
+        setUserRating,
         categories,
         currUser,
-        setLike,
     }
 }
 
 interface useEventCardOutCome {
     getUserById: Function,
     getSourceById: Function,
+    setUserRating: Function,
     categories: Category[],
     currUser: User,
-    setLike: Function,
 }
 
 export default useEventCard;
