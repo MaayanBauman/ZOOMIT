@@ -16,7 +16,7 @@ const baseURl: string = 'https://il.funzing.com/';
 const scrape = async () => {
     let events= [];
   
-    let page = await axios.get('https://www.eventbrite.com/d/online/free--fashion--events--next-month/tel-aviv/?page=1');   
+    let page = await axios.get('https://www.eventbrite.com/d/online/free--food-and-drink--events--next-month/?page=1');   
     let $ = cheerio.load(page.data);
 
     const zooms = $('div.search-main-content').find('ul').find('article').find('div.eds-event-card-content__primary-content');
@@ -30,7 +30,7 @@ const scrape = async () => {
                 start_time: new Date(element.childNodes[1].childNodes[0].data),
                 end_time: null,
                 max_registers: 100,
-                category: '60aa9474d874a74294485476',
+                category: '5ffe096bc4b60b6c63b1f4d0',
                 price: 0,
                 source_id: '609987b4c8bdff2acc6844dd',
                 registered_users: []
