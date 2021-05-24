@@ -19,6 +19,7 @@ import {
 
 import useStyles from './ContentStyles';
 import Alert from './Alert/Alert';
+import Bot from './Bot/Bot';
 
 const Content: React.FC = (): JSX.Element => {
 
@@ -47,6 +48,7 @@ const Content: React.FC = (): JSX.Element => {
                     </div> :
                     <Redirect to={landingPageRoute} />
             }
+        <Bot />
         </>
     );
 }
