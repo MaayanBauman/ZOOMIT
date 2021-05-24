@@ -4,6 +4,7 @@ import * as Actions from './EventsFiltersActionTypes';
 export const initialState: EventsFilter = {
         title: '',
         zoomer_id: '',
+        source_id: '',
         start_time: new Date(),
         category: '',
         min_price: 0,

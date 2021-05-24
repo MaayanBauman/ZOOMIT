@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import axios from 'utils/axios';
 import User from 'models/User/User';
 import { FullEvent } from 'models/Event/Event';
@@ -8,12 +7,14 @@ import Category from 'models/Category/Category';
 import StoreStateType from 'redux/storeStateType';
 import EventsFilter from 'models/Event/EventsFilter';
 import { convertEvent, convertFullEvent } from 'utils/EventsUtil/EventsUtil'
+import Source from 'models/Source/Source';
 
 const useEventsPage = (): useEventsPageOutCome => {
 
     const [events, setEvents] = useState<FullEvent[]>([]);
     const [zoomers, setZoomers] = useState<User[]>([]);
-
+    const [sources, setSources] = useState<Source[]>([]);
+    
     const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     const eventsFilters = useSelector<StoreStateType, EventsFilter>(state => state.eventsFilters);
 
@@ -32,6 +33,16 @@ const useEventsPage = (): useEventsPageOutCome => {
         axios.get('/users/types/zoomer')
             .then((result: any) => {
                 setZoomers(result.data);
+            })
+            .catch((error: any) => (
+                console.log(error)
+            ));
+    }
+
+    const getAllSources = () => {
+        axios.get('/sources')
+            .then((result: any) => {
+                setSources(result.data);
             })
             .catch((error: any) => (
                 console.log(error)
@@ -58,12 +69,14 @@ const useEventsPage = (): useEventsPageOutCome => {
 
     useEffect(() => {
         getAllZoomers();
+        getAllSources();
         getEventByFilters();
     }, []);
 
     return {
         events,
         zoomers,
+        sources,
         categories,
         getEventByTitle,
         getAllEvents,
@@ -74,6 +87,7 @@ const useEventsPage = (): useEventsPageOutCome => {
 interface useEventsPageOutCome {
     events: FullEvent[],
     zoomers: User[],
+    sources: Source[],
     categories: Category[],
     getEventByTitle: Function,
     getAllEvents: Function,

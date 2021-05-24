@@ -4,4 +4,5 @@ export interface ISource {
     _id: ObjectId;
     name: string;
     url: string;
+    photograph: string;
 }
