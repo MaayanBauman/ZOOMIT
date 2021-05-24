@@ -20,7 +20,7 @@ const EventsCarousel: React.FC<Props> = ({ events }: Props): JSX.Element => {
     };
     
     return (
-        <Carousel navButtonsAlwaysVisible={true} indicators={true} animation='slide' autoPlay={false}>
+        <Carousel navButtonsAlwaysVisible={true} fullHeightHover={false} indicators={true} animation='slide' autoPlay={false}>
             {
                 chunks(events, EventsInRow).map((eventArray)=>{
                     return (
