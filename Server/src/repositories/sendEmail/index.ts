@@ -38,7 +38,7 @@ const htmlTemplate = (user: IUser, event: IEvent) =>
         <a href="mailto:zoomitEvents@gmail.com">zoomitEvents@gmail.com</a>
     </p>
      <p style="text-align:center">
-        <a href="http://localhost:3000">
+        <a href="http://zoomit.cs.colman.ac.il/">
             <img alt="" src="cid:zoomit" style="height:60px; width:205px" />
         </a>
     </p>`;
