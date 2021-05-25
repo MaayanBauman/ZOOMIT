@@ -13,7 +13,10 @@ export interface IOperationBuilder<T> {
     getAllObjectsWithJoinByQuery: (collectionName: string, query: object,
         firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
         secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string)=> Promise<T[]>;
-    getObjectsByIdWithJoin: (collectionName: string, id: Array<string>, 
+    getAllObjectsSortedWithJoinByQuery: (collectionName: string, query: object, sortedBy: string,
+        firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+        secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string)=> Promise<T[]>;
+    getEventsByIdJoinedAndSorted: (collectionName: string, id: Array<string>, sortedBy: string,
         firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
         secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => Promise<T>;
     getAllObjectsByQuery: (collectionName: string, query: object) => Promise<T[]>;

@@ -187,9 +187,47 @@ const getAllObjectsWithJoinByQuery = (collectionName: string,  query: object,
     }, 
         `Fail to get all the objects from ${collectionName}`);
 }
+const getAllObjectsSortedWithJoinByQuery = (collectionName: string,  query: object, sortedBy: string,
+  firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+  secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => {   
+  return doOperation(collectionName, (collection) => {
+      return collection.aggregate([
+          {
+              $match: query
+          },
+          {
+              $addFields: {
+                source_id: {          
+                  $toObjectId: `$${firstLocalField}`
+                },
+                zoomer_id: {          
+                  $toObjectId: `$${secondLocalField}`
+                }
+              }
+          },
+          { $lookup:
+             {
+               from: firstFromCollection,
+               localField: firstLocalField,
+               foreignField: firstForeignField,
+               as: firstAsFieldName
+             }
+           },
+           { $lookup:
+              {
+                from: secondFromCollection,
+                localField: secondLocalField,
+                foreignField: secondForeignField,
+                as: secondAsFieldName
+              }
+            },
+          ]).sort({[sortedBy]: 1}).toArray()
+  }, 
+      `Fail to get all the objects from ${collectionName}`);
+}
 
-const getObjectsByIdWithJoin =  (collectionName: string, ids: Array<string> 
-    ,firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
+const getEventsByIdJoinedAndSorted =  (collectionName: string, ids: Array<string>, sortedBy: string,
+    firstFromCollection: string, firstLocalField: string, firstForeignField:string, firstAsFieldName: string,
     secondFromCollection: string, secondLocalField: string, secondForeignField:string, secondAsFieldName: string) => { 
         return doOperation(collectionName, (collection) => {
             return collection.aggregate([
@@ -222,7 +260,7 @@ const getObjectsByIdWithJoin =  (collectionName: string, ids: Array<string>
                       as: secondAsFieldName
                     }
                   },
-                ]).toArray()
+                ]).sort({[sortedBy]: 1}).toArray()
         }, 
             `Fail to get all the objects from ${collectionName}`)
 }
@@ -248,5 +286,6 @@ export default <T>(): IOperationBuilder<T> => ({
     updateValueOnArrayByIndex,
     getAllObjectsWithJoin,
     getAllObjectsWithJoinByQuery,
-    getObjectsByIdWithJoin
+    getAllObjectsSortedWithJoinByQuery,
+    getEventsByIdJoinedAndSorted
 });

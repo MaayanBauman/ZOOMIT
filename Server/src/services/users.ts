@@ -6,7 +6,7 @@ import {
     addUserToEvent, 
     getEventsById, 
     removeUserFromEvent, 
-    getEventsByIdJoined, 
+    getEventsByIdJoinedAndSorted,
     getEventById 
 } from './events';
 import config from '../config';
@@ -36,8 +36,9 @@ export const getUserEvents = async (id: string) => {
 export const getUserEventsJoined = async (id: string) => {
     const user = await getUserById(id);
     const userEventsIds = user.registerd_events.map(registerd_event => registerd_event.eventId);
+    const sortedBy = 'start_time';
 
-    return getEventsByIdJoined(userEventsIds);
+    return getEventsByIdJoinedAndSorted(userEventsIds, sortedBy);
 }
 
 export const getZoomerEvents = async (id: string) => {

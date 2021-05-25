@@ -39,10 +39,11 @@ export const getEventsByFiltersJoined = (filters: EventsFilter) => {
     if (!!filters.title) query = { ...query, title: { $regex: filters.title }};
     if (!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
     if (!!filters.category) query = { ...query, category: filters.category };
-    
-    return eventsOperationBuilder.getAllObjectsWithJoinByQuery(
-        collectionName, 
+    const sortedBy = 'start_time';
+    return eventsOperationBuilder.getAllObjectsSortedWithJoinByQuery(
+        collectionName,
         query, 
+        sortedBy,
         'sources', 
         'source_id', 
         '_id' , 
@@ -60,10 +61,8 @@ export const getEventById = (id: string) =>
 export const getEventsById = (ids: Array<string>) => 
     eventsOperationBuilder.getObjectsById(collectionName, ids);
 
-    
-export const getEventsByIdJoined = (ids: Array<string>) => 
-    eventsOperationBuilder.getObjectsByIdWithJoin(collectionName, ids, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
-
+export const getEventsByIdJoinedAndSorted = (ids: Array<string>, sortedBy: string) => 
+    eventsOperationBuilder.getEventsByIdJoinedAndSorted(collectionName, ids, sortedBy, 'sources', 'source_id', '_id' , 'source_detailes', 'users', 'zoomer_id', '_id', 'zoomer_detailes');
 
 export const getEventByCategory = (category: string) => 
     eventsOperationBuilder.getObjectsBySubsetFiled(collectionName, 'category', [category]);
