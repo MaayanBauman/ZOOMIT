@@ -38,6 +38,7 @@ export const getEventsByFiltersJoined = (filters: EventsFilter) => {
 
     if (!!filters.title) query = { ...query, title: { $regex: filters.title }};
     if (!!filters.zoomer_id) query = { ...query, zoomer_id: filters.zoomer_id };
+    if (!!filters.source_id) query = { ...query, source_id: filters.source_id };
     if (!!filters.category) query = { ...query, category: filters.category };
     const sortedBy = 'start_time';
     return eventsOperationBuilder.getAllObjectsSortedWithJoinByQuery(
