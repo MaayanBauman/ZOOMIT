@@ -78,9 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       filterBtn: {
         background:'#0C63CE',
-        width: '10vw',
-        marginTop: '2.5vh',
-        marginRight: '55%',
+        width: '11vw',
+        marginTop: '2vh',
+        marginRight: '45%',
       },
       checkbox:{
         color:'#0C63CE',
