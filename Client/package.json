@@ -14,7 +14,9 @@
         "start": "run-p start_angular start_react"
     },
     "dependencies": {
-        "npm-run-all": "^4.1.5"
+        "npm-run-all": "^4.1.5",
+        "react-simple-chatbot": "^0.6.1",
+        "styled-components": "^5.3.0"
     },
     "devDependencies": {}
 }
