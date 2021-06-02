@@ -17,5 +17,6 @@ router.put('/:id/event/:eventid/rating', users.updateEventFromUser);
 router.put('/:id', users.updateUser);
 router.delete('/:id', users.deleteUser);
 router.get('/zoomer/requesters', users.getAllZoomerRequesters);
+router.get('/:id/recommended/:count', users.getUserRecommendedEvents);
 
 export default router;

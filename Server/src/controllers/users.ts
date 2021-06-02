@@ -115,3 +115,11 @@ export const deleteUser: Handler = async (req: Request, res: Response, next: Nex
         next(err);
     }
 };
+
+export const getUserRecommendedEvents: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.json(await users.getUserRecommendedEvents(req.params.id, Number(req.params.count)));
+    } catch (err) {
+        next(err);
+    }
+};
