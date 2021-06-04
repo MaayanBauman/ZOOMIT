@@ -14,7 +14,7 @@ import EventsByCategories from 'models/Event/EventsByCategories';
 
 const useProfilePage = () : useEventsPageOutCome  => {
 
-    const categories = useSelector<StoreStateType,Category[]>(state=> state.categories);
+    const categories = useSelector<StoreStateType,Category[]>(state => state.categories);
     const user = useSelector<StoreStateType, User>(state => state.user);
     const [eventsByCategories, setEventsByCategories] = useState<EventsByCategories>({});
     const [events, setEvents] = useState<FullEvent[]>([]);

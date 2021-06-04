@@ -53,8 +53,9 @@ export const getZoomerRequesters = () => {
 }
 
 export const getUserRecommendedEvents = async (id: string, count: Number) => {
+    const sortedBy = 'start_time';
     const userRecommendedEventsIds = await getRecommendedEventsIds(id, count);
-    const userRecommendedEvents = await getEventsById(userRecommendedEventsIds.map(e => e._id));
+    const userRecommendedEvents = await getEventsByIdJoinedAndSorted(userRecommendedEventsIds.map(e => e._id), sortedBy);
     return userRecommendedEvents
         .map(event => {
             // Add user's rating to event
