@@ -10008,10 +10008,8 @@ react-scripts@4.0.1:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-simple-chatbot@^0.6.1:
+"react-simple-chatbot-our@file:./react-simple-chatbot":
   version "0.6.1"
-  resolved "https://registry.yarnpkg.com/react-simple-chatbot/-/react-simple-chatbot-0.6.1.tgz#30d08083e0b0283b78b84312df674e2cd6ac6703"
-  integrity sha512-q9y5GXwBvD+YvLgDVyDuZHYMkrcgIirm1FVV9RkR7XojPmbiX1lCzT6ib8U1M5zh42kTUBRnszXzkAGm9e0K8w==
   dependencies:
     eslint-config-prettier "^4.1.0"
     eslint-plugin-prettier "^3.0.1"

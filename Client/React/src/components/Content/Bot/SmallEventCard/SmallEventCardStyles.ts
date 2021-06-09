@@ -6,6 +6,7 @@ const useStyles = makeStyles({
   root: {
     display: 'block',
     backgroundColor: theme.backgrounds.bg2,
+    width: '100%',
   },
   titleContainer: {
     display: 'flex',

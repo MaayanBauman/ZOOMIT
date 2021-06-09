@@ -1,5 +1,5 @@
 //@ts-nocheck
-import ChatBot from 'react-simple-chatbot';
+import ChatBot from 'react-simple-chatbot-our';
 import { ThemeProvider } from 'styled-components';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import RecommendedEvents from './RecommendedEvents/RecommendedEvents';
@@ -46,22 +46,22 @@ const Bot = () => {
             component: (
                 <PastEvents />
             ),
-            trigger: '1',
+            waitAction: true,
         },
         {
             id: '5',
             component: (
                 <RecommendedEvents />
             ),
-            trigger: '1',
+            waitAction: true,
         },
   ];
 
     return (
         <ThemeProvider theme={theme}>
             <ChatBot 
-              steps={steps}  
-              floating={true} 
+              steps={steps}
+              floating={true}
               userAvatar={user.photograph}
               headerTitle={title}
               floatingIcon={<LiveHelpIcon style={{color: 'white'}} />}

@@ -19,8 +19,10 @@ instance.interceptors.request.use(
 );
 
 export const activateIsLoading = (config: AxiosRequestConfig) => {
-    if (!config.url?.includes('/optionalExposureSources') && pendingRequestsCount === 1) {
-        setIsLoading(true);  
+    if (!config.url?.includes('/optionalExposureSources') &&
+        !config.params?.hideSpinner &&
+        pendingRequestsCount === 1) {
+            setIsLoading(true);
     } 
 }
 
