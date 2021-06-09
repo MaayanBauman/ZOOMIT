@@ -74,15 +74,19 @@ const getRecommendedEventsIds = async (userId: string, count: Number): string[] 
 	// console.table({miniEvent});
 	// console.table({...results});
 
-	const categoryWeight = 0.55
+	const formattedFavoriteCategories = user.favorite_categories.map(cat => formatCategory(allCategories, cat));
+
+	const sameCategoryWeight = 0.20
+	const favoriteCategoryWeight = 0.35
 
 	const resultsWithCategory = results.map(event => (
 		{
 			...event,
 			score: Math.round(event.score * 100) / 100,
 			score_weighted: Math.round((
-				categoryWeight * (event.category == eventTargetFormatted.category ? 1 : 0)
-				+ (1 - categoryWeight) * event.score) * 100) / 100
+				sameCategoryWeight * (event.category == eventTargetFormatted.category ? 1 : 0)
+				+ favoriteCategoryWeight * (formattedFavoriteCategories.includes(event.category) ? 1 : 0)
+				+ (1 - sameCategoryWeight - favoriteCategoryWeight) * event.score) * 100) / 100
 		}
 	)).sort((a, b) => { return b.score_weighted - a.score_weighted })
 
@@ -105,11 +109,15 @@ const getHighestRatedEvent = (events: Event[]) => {
 	return getLatestEvent(events.filter(e => e.rating == highRating));
 }
 
+const formatCategory = (allCategories, category) => {
+	return String.fromCharCode(allCategories.findIndex(c => c._id.toString() == category) + 'a'.charCodeAt(0))
+}
+
 const formatEvent = (event, allCategories, allSources, allZoomers) => {
 	return {
 		_id: event._id.toString(),
 		title: event.title,
-		category: String.fromCharCode(allCategories.findIndex(c => c._id.toString() == event.category) + 'a'.charCodeAt(0)),
+		category: formatCategory(allCategories, event.category),
 		price: formatPrice(event.price),
 		duration: formatDuration(diffMinutes(event.end_time, event.start_time)),
 		start_time: formatStartTime(event.start_time),
