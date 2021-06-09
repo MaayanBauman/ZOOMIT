@@ -19,26 +19,6 @@ const getRecommendedEventsIds = async (userId: string, count: Number): string[] 
 			return { ...event, rating: user.registerd_events[index].rating };
 		});
 
-	let eventTarget;
-
-	// If he rated event 4-5, take the latest
-	const highRatedPastEvents = pastUserEventsRated.filter(e => e.rating >= 4)
-
-	if (highRatedPastEvents.length > 0) {
-		eventTarget = getLatestEvent(highRatedPastEvents)
-	} else {
-		// If there are unrated events, take the latest
-		const unratedEvents = pastUserEventsRated.filter(e => e.rating == 0)
-		if (unratedEvents.length > 0) {
-			eventTarget = getLatestEvent(unratedEvents)
-		} else {
-			// return the latest event
-			eventTarget = getHighestRatedEvent(pastUserEventsRated)
-		}
-	}
-
-	const eventTargetFormatted = formatEvent(eventTarget, allCategories, allSources, allZoomers)
-	console.log(eventTargetFormatted);
 
 	// Get all future events
 	const futureEvents = await events.getEventsByFiltersJoined({
@@ -51,53 +31,91 @@ const getRecommendedEventsIds = async (userId: string, count: Number): string[] 
 		max_price: 1000,
 	})
 
-	// Format all future events that the user is not register to (so zoomer_id "123" wont be close to "127")
-	const futureEventsFormatted = futureEvents
-		.filter(event => !event.registered_users.includes(user._id.toString()))
-		.map(event => (formatEvent(event, allCategories, allSources, allZoomers)))
-
-	// checkFromattings(futureEventsFormatted, "duration");
-
-	const options = {
-		fields: ["price", "duration", "start_time", "zoomer_source"],
-		items: futureEventsFormatted,
-		language: SupportedLanguage.ENGLISH,
-		returnFields: ["_id", "category", "price", "duration", "start_time", "zoomer_source", "score"],
-		limit: futureEventsFormatted.length
-	};
-
-	const results = getSimilarPosts(eventTargetFormatted, options);
-
-	const miniEvent = (({ category, price, duration, start_time, zoomer_source }) => ({ category, price, duration, start_time, zoomer_source }))(eventTargetFormatted)
-
-	// console.log("results before category:");
-	// console.table({miniEvent});
-	// console.table({...results});
-
-	const formattedFavoriteCategories = user.favorite_categories.map(cat => formatCategory(allCategories, cat));
-
-	const sameCategoryWeight = 0.20
-	const favoriteCategoryWeight = 0.35
-
-	const resultsWithCategory = results.map(event => (
-		{
-			...event,
-			score: Math.round(event.score * 100) / 100,
-			score_weighted: Math.round((
-				sameCategoryWeight * (event.category == eventTargetFormatted.category ? 1 : 0)
-				+ favoriteCategoryWeight * (formattedFavoriteCategories.includes(event.category) ? 1 : 0)
-				+ (1 - sameCategoryWeight - favoriteCategoryWeight) * event.score) * 100) / 100
+	if (pastUserEventsRated.length == 0) {
+		if (user.favorite_categories.length == 0) {
+			// Return random events
+			return futureEvents
+				.slice(0, count)
+				.map(e => ({ _id: e._id.toString(), score: 1 }))
+		} else {
+			// First return from same category, then other
+			return futureEvents
+				.map(event => (
+					{
+						...event,
+						score: (user.favorite_categories.includes(event.category) ? 1 : 0)
+					}
+				))
+				.sort((a, b) => { return b.score - a.score })
+				.slice(0, count)
+				.map(e => ({ _id: e._id.toString(), score: e.score }))
 		}
-	)).sort((a, b) => { return b.score_weighted - a.score_weighted })
+	} else {
+		let eventTarget;
 
-	console.log("results after category:");
-	console.table({ miniEvent });
-	console.table({ ...resultsWithCategory });
+		// If he rated event 4-5, take the latest
+		const highRatedPastEvents = pastUserEventsRated.filter(e => e.rating >= 4)
 
-	return resultsWithCategory
-		.slice(0, count)
-		.map(e => ({_id: e._id, score: e.score_weighted}))
-};
+		if (highRatedPastEvents.length > 0) {
+			eventTarget = getLatestEvent(highRatedPastEvents)
+		} else {
+			// If there are unrated events, take the latest
+			const unratedEvents = pastUserEventsRated.filter(e => e.rating == 0)
+			if (unratedEvents.length > 0) {
+				eventTarget = getLatestEvent(unratedEvents)
+			} else {
+				// return the latest event
+				eventTarget = getHighestRatedEvent(pastUserEventsRated)
+			}
+		}
+
+		const eventTargetFormatted = formatEvent(eventTarget, allCategories, allSources, allZoomers)
+		console.log(eventTargetFormatted);
+
+		// Format all future events that the user is not register to (so zoomer_id "123" wont be close to "127")
+		const futureEventsFormatted = futureEvents
+			.filter(event => !event.registered_users.includes(user._id.toString()))
+			.map(event => (formatEvent(event, allCategories, allSources, allZoomers)))
+
+		// checkFromattings(futureEventsFormatted, "duration");
+
+		const options = {
+			fields: ["price", "duration", "start_time", "zoomer_source"],
+			items: futureEventsFormatted,
+			language: SupportedLanguage.ENGLISH,
+			returnFields: ["_id", "category", "price", "duration", "start_time", "zoomer_source", "score"],
+			limit: futureEventsFormatted.length
+		};
+
+		const results = getSimilarPosts(eventTargetFormatted, options);
+
+		const miniEvent = (({ category, price, duration, start_time, zoomer_source }) => ({ category, price, duration, start_time, zoomer_source }))(eventTargetFormatted)
+
+		const formattedFavoriteCategories = user.favorite_categories.map(cat => formatCategory(allCategories, cat));
+
+		const sameCategoryWeight = 0.20
+		const favoriteCategoryWeight = 0.35
+
+		const resultsWithCategory = results.map(event => (
+			{
+				...event,
+				score: Math.round(event.score * 100) / 100,
+				score_weighted: Math.round((
+					sameCategoryWeight * (event.category == eventTargetFormatted.category ? 1 : 0)
+					+ favoriteCategoryWeight * (formattedFavoriteCategories.includes(event.category) ? 1 : 0)
+					+ (1 - sameCategoryWeight - favoriteCategoryWeight) * event.score) * 100) / 100
+			}
+		)).sort((a, b) => { return b.score_weighted - a.score_weighted })
+
+		// console.log("results after category:");
+		// console.table({ miniEvent });
+		// console.table({ ...resultsWithCategory });
+
+		return resultsWithCategory
+			.slice(0, count)
+			.map(e => ({ _id: e._id, score: e.score_weighted }))
+	}
+}
 
 const getLatestEvent = (events: Event[]) => {
 	var latest = new Date(Math.max.apply(null, events.map(({ start_time }) => start_time)));
