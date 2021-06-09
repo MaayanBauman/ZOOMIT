@@ -12,6 +12,8 @@ import EventRegistration from './EventRegistration/EventRegistration';
 import SignOutPopover from '../TopNavbar/SignOutPopover/SignOutPopover';
 import { contentRoute } from 'utils/Routes/Routes';
 import { englishSites } from 'utils/EventsUtil/EventsUtil';
+import Category from 'models/Category/Category';
+import {categoryNameById} from 'utils/CategoryUtil/CategoryUtil';
 
 const EventPage: React.FC = (): JSX.Element => {
 
@@ -24,6 +26,7 @@ const EventPage: React.FC = (): JSX.Element => {
     const [isPopoverOpen, setIsPopoverOpen] = React.useState<boolean>(false);
     const isPastEvent: boolean = event ? event.start_time < new Date() : true;
     const isEnglishText = authorDetails ? englishSites.includes(authorDetails.name) : false;
+    const categories = useSelector<StoreStateType, Category[]>(state => state.categories);
     
     const handleLogoutMouseOver = (event: any) => {
         setIsPopoverOpen(true);
@@ -57,6 +60,10 @@ const EventPage: React.FC = (): JSX.Element => {
                         </Typography>
                         <Typography variant="subtitle1" className={classes.zoomerWith}>עם</Typography>
                         <Typography variant="caption" className={`${classes.zoomer} ${(authorDetails?.zoomer_is_active && authorIsZoomer) ? classes.clickable : ''} ${isEnglishText ? classes.english : ''}`} onClick={() => handleZoomerClick()}>{authorDetails?.name}</Typography>
+                        {event?.category &&
+                        <> 
+                            <Typography variant="subtitle1" className={classes.zoomerWith}>קטגוריה</Typography>
+                        <Typography variant="caption" className={classes.zoomer}>{categoryNameById(categories, event ? event.category : "" )}  </Typography> </>}
                     </div>
                 </div>
                 <div className={classes.detailsLine}>
